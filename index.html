@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Transparencia — Edificio MORAR</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35);
+    }
+    .animate-fade {
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- NAVBAR SUPERIOR -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/20">
+          M
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold text-white tracking-tight">Edificio MORAR</h1>
+            <span class="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5 rounded-full font-medium border border-blue-500/30">Surquillo, Lima</span>
+          </div>
+          <p class="text-xs text-slate-400">Portal de Transparencia, Finanzas y Cronología de Gestión (2024–2026)</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center text-xs text-slate-300 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
+          Gestión Vigente: <strong class="ml-1 text-white">Roger Paredes (Dpto. 1702)</strong>
+        </div>
+        <button onclick="window.print()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg font-medium border border-slate-700 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          Imprimir / PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
+
+    <!-- HERO SECTION & SELECTOR MENSUAL OBLIGATORIO -->
+    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700/50">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            <span>Auditado y Validado</span>
+            <span>•</span>
+            <span id="period-tag">Flujo Mensual Oficial BCP</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Rendición de Cuentas y Estado Financiero</h2>
+          <p class="text-slate-300 text-sm max-w-2xl leading-relaxed">
+            Consulte los ingresos, gastos y saldos mes a mes. Seleccione cualquier mes para visualizar el desglose exacto o el consolidado semestral.
+          </p>
+        </div>
+
+        <!-- SELECTOR DE VISTA MENSUAL -->
+        <div class="bg-slate-800/90 p-1.5 rounded-xl border border-slate-700 backdrop-blur-sm self-start md:self-auto">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5 px-2">Seleccione Mes a Visualizar:</div>
+          <div class="flex flex-wrap gap-1" id="month-tabs">
+            <button onclick="selectMonth('all')" id="tab-all" class="month-tab tab-active px-3 py-1.5 rounded-lg text-xs font-semibold transition">Consolidado Total</button>
+            <button onclick="selectMonth('Abril')" id="tab-Abril" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Abril</button>
+            <button onclick="selectMonth('Mayo')" id="tab-Mayo" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Mayo</button>
+            <button onclick="selectMonth('Junio')" id="tab-Junio" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Junio</button>
+            <button onclick="selectMonth('Julio')" id="tab-Julio" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Julio</button>
+            <button onclick="selectMonth('Agosto')" id="tab-Agosto" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Agosto</button>
+            <button onclick="selectMonth('Setiembre')" id="tab-Setiembre" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Setiembre</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TARJETAS KPI DINÁMICAS POR MES -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="kpi-container">
+      
+      <!-- Total Ingresos -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Ingresos del Mes</span>
+          <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="kpi-ingresos">S/ 324,378.13</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-ingresos-sub">
+          <span>Cuotas ord.: <strong class="text-slate-700">S/ 244.2k</strong></span>
+          <span class="text-emerald-600 font-medium">+ Saldo Inicial</span>
+        </p>
+      </div>
+
+      <!-- Total Egresos -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Egresos / Gastos</span>
+          <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-2xl sm:text-3xl font-extrabold text-rose-600" id="kpi-egresos">-S/ 255,041.03</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-egresos-sub">
+          <span>Gasto Operativo Real</span>
+          <span class="text-rose-600 font-medium">Servicios y Adm.</span>
+        </p>
+      </div>
+
+      <!-- Flujo Neto del Mes -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Flujo Neto del Mes</span>
+          <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-2xl sm:text-3xl font-extrabold text-indigo-600" id="kpi-neto">+S/ 11,295.39</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-neto-sub">
+          <span>Diferencial Ing - Egr</span>
+          <span class="text-indigo-600 font-medium" id="kpi-neto-badge">Superávit</span>
+        </p>
+      </div>
+
+      <!-- Saldo en Caja Acumulado -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Saldo Final en Banco</span>
+          <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-2xl sm:text-3xl font-extrabold text-cyan-700" id="kpi-saldo">S/ 69,337.10</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
+          <span>Disponible en BCP</span>
+          <span class="text-cyan-700 font-medium">Cuenta Edificio</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- GRÁFICOS INTERACTIVOS (COMPARATIVO MENSUAL Y DISTRIBUCIÓN) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Gráfico Comparativo de los 6 Meses -->
+      <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Evolución Mensual: Ingresos vs Egresos (2025)</h3>
+            <p class="text-xs text-slate-500">Comparativa mensual de Abril a Setiembre en Soles (S/)</p>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Ingresos</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span> Egresos</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-blue-600 inline-block"></span> Saldo Final</span>
+          </div>
+        </div>
+        <div class="h-72 w-full relative">
+          <canvas id="monthlyBarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Gráfico de Dona: Distribución del Gasto del Mes Seleccionado -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="text-base font-bold text-slate-900">Estructura del Gasto</h3>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium" id="donut-month-label">Consolidado</span>
+          </div>
+          <p class="text-xs text-slate-500 mb-4">Distribución porcentual por categoría de egreso</p>
+          <div class="h-56 w-full relative flex items-center justify-center">
+            <canvas id="expensesDonutChart"></canvas>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 text-xs space-y-1.5 text-slate-600" id="donut-legend-text">
+          <!-- Dinámico -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA DE DETALLE MENSUAL ÍTEM POR ÍTEM -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span>Desglose Detallado Ítem por Ítem</span>
+            <span class="text-xs bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold" id="table-badge">Vista Mensual Integral</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-1">Valores expresados en Nuevos Soles (S/). Filtre por concepto o explore los montos mensuales.</p>
+        </div>
+        <div class="w-full sm:w-72">
+          <input type="text" id="concept-search" oninput="filterTable()" placeholder="Buscar concepto (ej: luz, ascensor)..." class="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse" id="financial-table">
+          <thead>
+            <tr class="bg-slate-100/80 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <th class="py-3 px-4 font-bold">Concepto / Partida</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Abril">Abril</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Mayo">Mayo</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Junio">Junio</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Julio">Julio</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Agosto">Agosto</th>
+              <th class="py-3 px-3 text-right col-m" data-m="Setiembre">Setiembre</th>
+              <th class="py-3 px-4 text-right font-bold bg-slate-200/60">Total Período</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="table-body">
+            <!-- Rellenado por JS -->
+          </tbody>
+          <tfoot class="bg-slate-900 text-white font-bold text-xs" id="table-footer">
+            <!-- Rellenado por JS -->
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE EVENTOS HISTÓRICOS Y ASAMBLEAS (2024 - 2026) -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 mb-2">
+            <span>Historial Oficial</span>
+            <span>•</span>
+            <span>16 Actas y Comunicados</span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900">Línea de Tiempo: Asambleas, Directivas y Eventos</h3>
+          <p class="text-xs text-slate-500 mt-1">Hitos clave desde la entrega del edificio hasta la asamblea de octubre 2026.</p>
+        </div>
+        
+        <!-- Filtro de Categoría de Evento -->
+        <div class="flex flex-wrap gap-1.5" id="event-filters">
+          <button onclick="filterEvents('all')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white">Todos</button>
+          <button onclick="filterEvents('Gobernanza')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Gobernanza</button>
+          <button onclick="filterEvents('Administración')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Administración</button>
+          <button onclick="filterEvents('Finanzas')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Finanzas</button>
+          <button onclick="filterEvents('Técnico')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Técnico / TER</button>
+        </div>
+      </div>
+
+      <!-- LISTA DE EVENTOS -->
+      <div class="space-y-4" id="timeline-list">
+        <!-- Renderizado dinámicamente -->
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE ADMINISTRACIONES Y GOBERNANZA -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      
+      <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-5 border border-slate-200">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">2024 – Mar 2025</span>
+          <span class="text-[10px] bg-slate-200 text-slate-700 font-bold px-2 py-0.5 rounded">Saliente</span>
+        </div>
+        <h4 class="text-sm font-bold text-slate-900">Rivera & J</h4>
+        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+          Primera empresa administradora designada en la entrega del edificio. Retirada tras discrepancias en rendiciones y cuestionamientos al presupuesto inicial 2025.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-rose-50/60 to-rose-100/40 rounded-2xl p-5 border border-rose-200">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-rose-600">Jun 2025 – Feb 2026</span>
+          <span class="text-[10px] bg-rose-200 text-rose-800 font-bold px-2 py-0.5 rounded">Rescindida</span>
+        </div>
+        <h4 class="text-sm font-bold text-slate-900">SISACCE S.A.C.</h4>
+        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+          Asumió la administración y conserjería. Rescindida formalmente por no pagar sueldos ni beneficios a sus propios conserjes y por colapso operativo en limpieza.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-2xl p-5 border border-emerald-300 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Marzo 2026 – Presente</span>
+          <span class="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded">Actual</span>
+        </div>
+        <h4 class="text-sm font-bold text-slate-900">KOMUNA (Factor 1)</h4>
+        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+          Elegida por asamblea con 32 votos. Encargada de la recuperación operativa, aprobación del Presupuesto 2026 y gestión con la Junta presidida por <strong>Roger Paredes</strong>.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs">M</div>
+        <span>Edificio MORAR — Av. Tomás Marsano 2253, Surquillo</span>
+      </div>
+      <div>
+        Generado con base en la documentación oficial de Google Drive • Datos auditados BCP
+      </div>
+    </div>
+  </footer>
+
+  <!-- DATOS JSON INYECTADOS Y LÓGICA INTERACTIVA -->
+  <script>
+    const financialData = {"ingresos": {"áTáráaánásáfáeáráeánácáiáaá ádáeá áSáaáládáoá áIánáiácáiáaálá": {"Abril": 58041.71, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áCáuáoátáaásá ádáeá áMáaánátáeánáiámáiáeánátáoá": {"Abril": 31648.82, "Mayo": 42898.049999999996, "Junio": 43412.7, "Julio": 40242.81999999999, "Agosto": 40809.64000000001, "Setiembre": 45254.57}, "áCáuáoátáaásá áEáxátáráaáoárádáiánáaáráiáaásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áAáláqáuáiáláeárá ádáeá áÁáráeáaásá áCáoámáuánáeásá á(áPáaáráráiáláláaásá)á": {"Abril": 800, "Mayo": 800, "Junio": 720, "Julio": 640, "Agosto": 320, "Setiembre": 480}, "áIánátáeáráeásáeásá áMáoáráaátáoáráiáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áMáuálátáaásá áoá áPáeánáaáláiádáaádáeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áAápáoárátáeásá ápáoárá áCáoánátáráoáláeásá ádáeá áEásátáaácáiáoánáaámáiáeánátáoá": {"Abril": 0, "Mayo": 5015, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áRáeáiánátáeágáráoásá ápáoárá áCáoámáiásáiáoánáeásá á(áOápáeáráaácáiáoánáeásá ádáeá áVáeánátáaánáiáláláaá)á": {"Abril": 9, "Mayo": 9, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áOátáráoásá áIánágáráeásáoásá áEáxátáráaáoárádáiánáaáráiáoásá": {"Abril": 0, "Mayo": 4707.7, "Junio": 0, "Julio": 2065.1, "Agosto": 934.5, "Setiembre": 0}, "áOátáráoásá áIánágáráeásáoásá áNáoá áOápáeáráaátáiáváoásá": {"Abril": 31, "Mayo": 0, "Junio": 0, "Julio": 2600, "Agosto": 2938.52, "Setiembre": 0}}, "egresos": {"á1á.á áSáeáráváiácáiáoásá áBáaásáiácáoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áLáuázá á(áSáuámáiánáiásátáráoá á2á1á6á8á9á0á1á)á": {"Abril": -6713.8, "Mayo": -6999.8, "Junio": -7057.6, "Julio": -7650.6, "Agosto": -6906, "Setiembre": -6628.3}, "áLáuázá á(áSáuámáiánáiásátáráoá á2á1á6á8á9á0á2á)á": {"Abril": -1073.4, "Mayo": -1035, "Junio": -1032.3, "Julio": -1032.8, "Agosto": -934.5, "Setiembre": -50.7}, "áAágáuáaá": {"Abril": -2470.7, "Mayo": -2804.7, "Junio": -2547.3, "Julio": -2907.1, "Agosto": -3122.5, "Setiembre": -3096}, "á2á.á áLáiámápáiáeázáaá áyá áÁáráeáaásá áCáoámáuánáeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áLáiámápáiáeázáaá áZáoánáaásá áPáaáráráiáláláaásá": {"Abril": -120, "Mayo": -105, "Junio": -45, "Julio": -150, "Agosto": -60, "Setiembre": -90}, "á3á.á áMáaánátáeánáiámáiáeánátáoá áyá áRáeápáaáráaácáiáoánáeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áAásácáeánásáoáráeásá": {"Abril": -5470.08, "Mayo": -5464.16, "Junio": -5328, "Julio": -5328, "Agosto": -5616, "Setiembre": -5616}, "áBáoámábáaásá ádáeá áAágáuáaá": {"Abril": 0, "Mayo": 0, "Junio": -735, "Julio": 0, "Agosto": -735, "Setiembre": -450}, "áSáiásátáeámáaá áCáoánátáráaá áIánácáeánádáiáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áPáoázáoásá áaá áTáiáeáráráaá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -672.5, "Agosto": -672.5, "Setiembre": 0}, "áRáeácáaárágáaá ádáeá áEáxátáiánátáoáráeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": -1745, "Setiembre": 0}, "áEáláeáváaádáoárá ádáeá áDáiásácáaápáaácáiátáaádáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": -225}, "áRáeápáaáráaácáiáoánáeásá áMáeánáoáráeásá": {"Abril": 0, "Mayo": -30, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "á4á.á áSáeáráváiácáiáoásá ádáeá áAádámáiánáiásátáráaácáiáóáná": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áFáaácátáuáráaácáiáóáná ádáeá áEámápáráeásáaá áAádámáiánáiásátáráaádáoáráaá": {"Abril": -23799.05, "Mayo": -23789.45, "Junio": -23794.25, "Julio": -23794.25, "Agosto": -23794.25, "Setiembre": -22413.22}, "á5á.á áGáaásátáoásá áAádámáiánáiásátáráaátáiáváoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áMáoáváiáláiádáaádáeásá": {"Abril": -6, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áPáaápáeáláeáráíáaá,á áCáoápáiáaásá áyá áCáoámáuánáiácáaácáiáoánáeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -51, "Agosto": 0, "Setiembre": 0}, "á6á.á áGáaásátáoásá áLáeágáaáláeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áTárááámáiátáeásá áNáoátáaáráiáaáláeásá áyá áLáeágáaáláiázáaácáiáoánáeásá": {"Abril": -150, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áCáaárátáaásá áNáoátáaáráiáaáláeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -40, "Agosto": 0, "Setiembre": 0}, "á7á.á áGáaásátáoásá áFáiánáaánácáiáeáráoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áIámápáuáeásátáoá áaá áláaásá áTáráaánásáaácácáiáoánáeásá áFáiánáaánácáiáeáráaásá á(áIáTáFá)á": {"Abril": -4.95, "Mayo": -2.65, "Junio": -2.55, "Julio": -2.6999999999999997, "Agosto": -2.5999999999999996, "Setiembre": -2.25}, "áCáoámáiásáiáoánáeásá ápáoárá áOápáeáráaácáiáoánáeásá áeáná áVáeánátáaánáiáláláaá": {"Abril": -18, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "á8á.á áIánáváeárásáiáoánáeásá áeáná áAácátáiáváoásá áMáeánáoáráeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áCáoámápáráaá ádáeá áAácátáiáváoásá áMáeánáoáráeásá áaá á1á/á4á ádáeá áUáIáTá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -100, "Agosto": 0, "Setiembre": 0}, "á9á.á áOátáráoásá áEágáráeásáoásá": {"Abril": 0, "Mayo": -5015, "Junio": 0, "Julio": -2600, "Agosto": -2938.52, "Setiembre": 0}}, "totales": {"Total Ingresos": {"Abril": 90530.53, "Mayo": 53429.75, "Junio": 44132.7, "Julio": 45547.92, "Agosto": 45002.66, "Setiembre": 45734.57}, "Total Egresos": {"Abril": -39825.98, "Mayo": -45245.76, "Junio": -40542, "Julio": -44328.95, "Agosto": -46526.87, "Setiembre": -38571.47}, "Flujo Neto Mensual": {"Abril": 50704.55, "Mayo": 8183.99, "Junio": 3590.7, "Julio": 1218.97, "Agosto": -1524.21, "Setiembre": 7163.1}, "Saldo Acumulado": {"Abril": 50704.55, "Mayo": 58888.54, "Junio": 62479.24, "Julio": 63698.21, "Agosto": 62174, "Setiembre": 69337.1}}};
+    const eventsData = [{"id": 16, "date": "11 Octubre 2026", "title": "Acta 16 — Elección de Nueva Junta Directiva y Multas Uniformes", "category": "Gobernanza", "badge": "Gestión Vigente", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Elección unánime de Roger Paredes (Dpto. 1702) como Presidente y Jesús Villanueva (Dpto. 501) como Vocal 2. La administración Factor 1 presenta balance y reporte de morosidad. Se ratifica la aplicación uniforme y estricta de multas sin excepciones a infractores de convivencia. Se aprueba compra de cantoneras para escaleras.", "votes": "21 departamentos participantes"}, {"id": 15, "date": "20 Julio 2026", "title": "Acta 15 — Aprobación Unánime Presupuesto 2026 (Opción 3)", "category": "Finanzas", "badge": "Aprobado", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Se somete a consideración el reajuste presupuestal presentado por KOMUNA. Se aprueba por unanimidad la 'Opción 3', equilibrando cuota de mantenimiento ordinaria con asignación para mantenimiento preventivo y correctivo crítico.", "votes": "Unanimidad absoluta"}, {"id": 14, "date": "13 Julio 2026", "title": "Acta 14 — Reforma Manual de Convivencia y Bicicletas Abandonadas", "category": "Convivencia", "badge": "Normativa", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Aprobación de reformas al Manual de Convivencia con 57 votos a favor para sancionar faltas de ruido y áreas comunes. Se autoriza notificación y remate/disposición de bicicletas abandonadas en el sótano.", "votes": "57 votos a favor (Presupuesto con 51 votos)"}, {"id": 13, "date": "05 Junio 2026", "title": "Acta 13 — Primera Evaluación de Gestión KOMUNA (Factor 1)", "category": "Administración", "badge": "Evaluación", "badgeColor": "bg-purple-100 text-purple-800 border-purple-300", "summary": "Revisión de los primeros 60 días de la administración Factor 1. Presentación de propuestas para optimizar consumos de agua y luz común y cronograma de mantenimiento preventivo de bombas y ascensores.", "votes": "Asamblea Extraordinaria"}, {"id": 12, "date": "08 Marzo 2026", "title": "Acta 12 — Elección de Nueva Administración: Victoria de KOMUNA", "category": "Administración", "badge": "Cambio de Mando", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Tras la renuncia voluntaria de la directiva y el despido de SISACCE, se realiza licitación vecinal. KOMUNA (Factor 1) gana ampliamente con 32 votos contra 12 de Amarcar. Se inicia la regularización operativa del edificio.", "votes": "32 votos KOMUNA vs 12 AMARCAR"}, {"id": "C16", "date": "01-02 Marzo 2026", "title": "Comunicado 16 — Renuncia Voluntaria de Presidenta y Vicepresidenta", "category": "Gobernanza", "badge": "Renuncia", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Jhajayra Vidales (Presidenta) y Rocío Luis (Vicepresidenta) formalizan su renuncia voluntaria indeclinable por motivos personales. El tesorero Henry Andrade asume la coordinación interina para convocar de urgencia a asamblea.", "votes": "Comunicado Oficial"}, {"id": "C15", "date": "29 Diciembre 2025", "title": "Comunicado 15 — Ruptura Definitiva y Cartas Notariales a SISACCE S.A.C.", "category": "Legal", "badge": "Rescisión Legal", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Denuncia grave: SISACCE cobraba puntualmente al condominio pero no pagaba remuneraciones ni liquidaciones a sus conserjes y limpiadores en Morar. Se constata abandono del servicio y se inicia resolución de contrato por vía notarial.", "votes": "Acción Notarial"}, {"id": 10, "date": "04 Octubre 2025", "title": "Actas 10 y 11 — Rechazo a Exoneración de Cuota a la Junta Directiva", "category": "Gobernanza", "badge": "Asamblea Masiva", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Asamblea multitudinaria con 60 propietarios. Se somete a votación si la Junta Directiva debía contar con el beneficio de exoneración de cuota de mantenimiento: Gana el NO con 31 votos contra 24. Se aprueba intimación notarial a constructora TER por vicios ocultos.", "votes": "31 votos NO vs 24 SI"}, {"id": "C09", "date": "16-19 Setiembre 2025", "title": "Comunicados 9 y 10 — Ajuste de Tarifa SISACCE e Inhabilitación a Morosos", "category": "Finanzas", "badge": "Gestión Cuotas", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Se logra rebaja de tarifa de SISACCE a S/ 22,413.22 por quejas en la asamblea de agosto. Se anuncia la inhabilitación formal y restricción de áreas comunes a propietarios morosos con más de 2 cuotas impagas.", "votes": "Comunicados 9 y 10"}, {"id": 9, "date": "14 Julio 2025", "title": "Acta 9 — Inspección Técnica Conjunta con Constructora TER", "category": "Técnico", "badge": "Peritaje Bombas", "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-300", "summary": "Peritaje conjunto en sala de máquinas y bombas de presión constante entre el administrador de SISACCE y peritos de la constructora TER para resolver fallas en el suministro de agua hacia los pisos superiores.", "votes": "Informe Técnico"}, {"id": 7, "date": "03 Junio 2025", "title": "Acta 7 — Junta Transitoria, Contratación SISACCE y Reclamo por Moho", "category": "Gobernanza", "badge": "Hito Histórico", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Jhajayra Vidales asume la Presidencia Transitoria. Se recibe formalmente en notaría el saldo de S/ 58,041.71 de la Ex-JD. Se rescinde a Rivera & J, se contrata a SISACCE y se aprueban cartas notariales a Inmobiliaria Vienna por presencia de moho en departamentos.", "votes": "49 propietarios"}, {"id": 6, "date": "30 Marzo 2025", "title": "Acta 6 — Quiebre de Gestión Inicial y Convocatoria de Emergencia", "category": "Gobernanza", "badge": "Transición", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Desarticulación de la directiva original de Carlos Carbonel por discrepancias sobre el presupuesto 2025. Jhajayra Vidales asume liderazgo para convocar asamblea transitoria y garantizar la continuidad de servicios del edificio.", "votes": "43 propietarios"}, {"id": 1, "date": "01 Octubre 2024", "title": "Acta 1 — Instalación de Junta Interina y Administradora Rivera & J", "category": "Fundación", "badge": "Inicio", "badgeColor": "bg-slate-100 text-slate-800 border-slate-300", "summary": "Instalación de la primera junta interina presidida por Carlos Carbonel (Dpto. 3104) y Stephanie Mashamud (Dpto. 2601). Presentación formal de la administradora Rivera & J para el edificio recientemente entregado por Vienna.", "votes": "22.52% participación"}];
+
+    const months = ['Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre'];
+    let currentSelectedMonth = 'all';
+    let barChart = null;
+    let donutChart = null;
+
+    // Formateador de moneda en soles
+    function formatSoles(amount, showSign = false) {
+      if (amount === undefined || amount === null || isNaN(amount)) return 'S/ 0.00';
+      const isNeg = amount < 0;
+      const absVal = Math.abs(amount).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (isNeg) return `-S/ ${absVal}`;
+      if (showSign && amount > 0) return `+S/ ${absVal}`;
+      return `S/ ${absVal}`;
+    }
+
+    // Calcular valores por mes o totales
+    function getMonthValues(monthKey) {
+      if (monthKey === 'all') {
+        // Sumar todos los meses
+        let totalIngresos = Object.values(financialData.totales['Total Ingresos']).reduce((a, b) => a + b, 0);
+        let totalEgresos = Object.values(financialData.totales['Total Egresos']).reduce((a, b) => a + b, 0);
+        let flujoNeto = totalIngresos + totalEgresos; // egresos is negative
+        let saldoFinal = financialData.totales['Saldo Acumulado']['Setiembre'];
+        return { totalIngresos, totalEgresos, flujoNeto, saldoFinal };
+      } else {
+        let totalIngresos = financialData.totales['Total Ingresos'][monthKey] || 0;
+        let totalEgresos = financialData.totales['Total Egresos'][monthKey] || 0;
+        let flujoNeto = financialData.totales['Flujo Neto Mensual'][monthKey] || 0;
+        let saldoFinal = financialData.totales['Saldo Acumulado'][monthKey] || 0;
+        return { totalIngresos, totalEgresos, flujoNeto, saldoFinal };
+      }
+    }
+
+    // Actualizar KPIs y gráficos cuando se selecciona un mes
+    function selectMonth(monthKey) {
+      currentSelectedMonth = monthKey;
+
+      // Actualizar estilo de tabs
+      document.querySelectorAll('.month-tab').forEach(tab => {
+        tab.classList.remove('tab-active');
+        tab.classList.add('bg-slate-900/60', 'text-slate-300');
+      });
+      const activeTab = document.getElementById(`tab-${monthKey}`);
+      if (activeTab) {
+        activeTab.classList.add('tab-active');
+        activeTab.classList.remove('bg-slate-900/60', 'text-slate-300');
+      }
+
+      // Actualizar texto del badge
+      const periodTag = document.getElementById('period-tag');
+      periodTag.textContent = monthKey === 'all' ? 'Consolidado Semestral (Abril - Setiembre 2025)' : `Mes: ${monthKey} 2025`;
+
+      const vals = getMonthValues(monthKey);
+
+      // Actualizar tarjetas de KPI
+      const kpiIng = document.getElementById('kpi-ingresos');
+      const kpiEgr = document.getElementById('kpi-egresos');
+      const kpiNet = document.getElementById('kpi-neto');
+      const kpiSal = document.getElementById('kpi-saldo');
+      const kpiNetBadge = document.getElementById('kpi-neto-badge');
+
+      kpiIng.textContent = formatSoles(vals.totalIngresos);
+      kpiEgr.textContent = formatSoles(vals.totalEgresos);
+      kpiNet.textContent = formatSoles(vals.flujoNeto, true);
+      kpiSal.textContent = formatSoles(vals.saldoFinal);
+
+      if (vals.flujoNeto >= 0) {
+        kpiNet.className = "text-2xl sm:text-3xl font-extrabold text-indigo-600";
+        kpiNetBadge.textContent = "Superávit";
+        kpiNetBadge.className = "text-emerald-600 font-semibold";
+      } else {
+        kpiNet.className = "text-2xl sm:text-3xl font-extrabold text-rose-600";
+        kpiNetBadge.textContent = "Déficit Operativo";
+        kpiNetBadge.className = "text-rose-600 font-semibold";
+      }
+
+      // Actualizar Dona
+      updateDonutChart(monthKey);
+
+      // Resaltar columna en tabla
+      highlightTableColumn(monthKey);
+    }
+
+    // Resaltar columna del mes seleccionado en la tabla
+    function highlightTableColumn(monthKey) {
+      document.querySelectorAll('.col-m').forEach(th => {
+        if (monthKey === 'all' || th.getAttribute('data-m') === monthKey) {
+          th.classList.add('text-blue-700', 'font-black');
+        } else {
+          th.classList.remove('text-blue-700', 'font-black');
+        }
+      });
+    }
+
+    // Renderizar gráfico de barras
+    function renderBarChart() {
+      const ctx = document.getElementById('monthlyBarChart').getContext('2d');
+      const ingresosData = months.map(m => financialData.totales['Total Ingresos'][m]);
+      const egresosData = months.map(m => Math.abs(financialData.totales['Total Egresos'][m]));
+      const saldoData = months.map(m => financialData.totales['Saldo Acumulado'][m]);
+
+      barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: 'Ingresos (S/)',
+              data: ingresosData,
+              backgroundColor: '#10b981',
+              borderRadius: 6,
+              barPercentage: 0.8,
+            },
+            {
+              label: 'Egresos (S/)',
+              data: egresosData,
+              backgroundColor: '#f43f5e',
+              borderRadius: 6,
+              barPercentage: 0.8,
+            },
+            {
+              type: 'line',
+              label: 'Saldo en Banco (S/)',
+              data: saldoData,
+              borderColor: '#2563eb',
+              backgroundColor: '#2563eb',
+              borderWidth: 2.5,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: '#1d4ed8'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.dataset.label}: S/ ${context.parsed.y.toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(val) { return 'S/ ' + (val/1000).toFixed(0) + 'k'; },
+                font: { size: 10 }
+              },
+              grid: { color: '#f1f5f9' }
+            },
+            x: {
+              ticks: { font: { size: 11, weight: '600' } },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // Categorizar egresos para la dona
+    function getDonutCategories(monthKey) {
+      const categories = {
+        'Administración (SISACCE)': 0,
+        'Energía Eléctrica (Luz del Sur)': 0,
+        'Ascensores (Andinos)': 0,
+        'Agua y Alcantarillado (Sedapal)': 0,
+        'Mantenimiento Técnico (Bombas, Pozos, Extintores)': 0,
+        'Devoluciones / Otros Egresos': 0
+      };
+
+      const calculateValue = (valDict) => {
+        if (monthKey === 'all') {
+          return Object.values(valDict).reduce((a, b) => a + Math.abs(b || 0), 0);
+        } else {
+          return Math.abs(valDict[monthKey] || 0);
+        }
+      };
+
+      for (const [concept, vals] of Object.entries(financialData.egresos)) {
+        const amount = calculateValue(vals);
+        if (concept.includes('Empresa Administradora')) {
+          categories['Administración (SISACCE)'] += amount;
+        } else if (concept.includes('Luz')) {
+          categories['Energía Eléctrica (Luz del Sur)'] += amount;
+        } else if (concept.includes('Ascensores')) {
+          categories['Ascensores (Andinos)'] += amount;
+        } else if (concept.includes('Agua')) {
+          categories['Agua y Alcantarillado (Sedapal)'] += amount;
+        } else if (concept.includes('Bombas') || concept.includes('Pozos') || concept.includes('Extintores') || concept.includes('Elevador') || concept.includes('Reparaciones')) {
+          categories['Mantenimiento Técnico (Bombas, Pozos, Extintores)'] += amount;
+        } else {
+          categories['Devoluciones / Otros Egresos'] += amount;
+        }
+      }
+
+      return categories;
+    }
+
+    function updateDonutChart(monthKey) {
+      const categories = getDonutCategories(monthKey);
+      const labels = Object.keys(categories);
+      const data = Object.values(categories);
+      const total = data.reduce((a, b) => a + b, 0);
+
+      document.getElementById('donut-month-label').textContent = monthKey === 'all' ? 'Semestre Completo' : monthKey;
+
+      const colors = ['#3b82f6', '#f59e0b', '#ec4899', '#06b6d4', '#10b981', '#64748b'];
+
+      if (!donutChart) {
+        const ctx = document.getElementById('expensesDonutChart').getContext('2d');
+        donutChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: colors,
+              borderWidth: 2,
+              borderColor: '#ffffff',
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const val = context.parsed;
+                    const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+                    return `${context.label}: S/ ${val.toLocaleString('es-PE', { minimumFractionDigits: 2 })} (${pct}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      } else {
+        donutChart.data.datasets[0].data = data;
+        donutChart.update();
+      }
+
+      // Actualizar leyenda textual
+      const legendDiv = document.getElementById('donut-legend-text');
+      legendDiv.innerHTML = labels.map((l, i) => {
+        const val = data[i];
+        const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+        return `
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-1.5 truncate pr-2">
+              <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background-color: ${colors[i]}"></span>
+              <span class="truncate">${l}</span>
+            </span>
+            <span class="font-bold text-slate-800 whitespace-nowrap">${pct}% (S/ ${Math.round(val).toLocaleString('es-PE')})</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Renderizar la tabla financiera completa
+    function renderTable() {
+      const tbody = document.getElementById('table-body');
+      let html = '';
+
+      // Sección Ingresos Header
+      html += `
+        <tr class="bg-emerald-50/70 text-emerald-900 font-bold border-t-2 border-emerald-500">
+          <td colspan="8" class="py-2.5 px-4 uppercase text-[11px] tracking-wider">▲ Ingresos Operativos y Saldo Inicial</td>
+        </tr>
+      `;
+
+      for (const [concept, vals] of Object.entries(financialData.ingresos)) {
+        const total = months.reduce((a, m) => a + (vals[m] || 0), 0);
+        if (total === 0) continue;
+        html += `
+          <tr class="table-row hover:bg-slate-50 transition border-b border-slate-100" data-concept="${concept.toLowerCase()}">
+            <td class="py-2.5 px-4 font-medium text-slate-800">${concept}</td>
+            ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono text-slate-600 col-m" data-m="${m}">${formatSoles(vals[m])}</td>`).join('')}
+            <td class="py-2.5 px-4 text-right font-mono font-bold text-emerald-700 bg-slate-50/80">${formatSoles(total)}</td>
+          </tr>
+        `;
+      }
+
+      // Total Ingresos Fila
+      const totIng = financialData.totales['Total Ingresos'];
+      const sumIng = months.reduce((a, m) => a + totIng[m], 0);
+      html += `
+        <tr class="bg-emerald-100/50 font-bold border-y-2 border-emerald-300 text-emerald-900">
+          <td class="py-2.5 px-4">TOTAL INGRESOS</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totIng[m])}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-emerald-800 font-black">${formatSoles(sumIng)}</td>
+        </tr>
+      `;
+
+      // Sección Egresos Header
+      html += `
+        <tr class="bg-rose-50/70 text-rose-900 font-bold border-t-2 border-rose-400 mt-4">
+          <td colspan="8" class="py-2.5 px-4 uppercase text-[11px] tracking-wider">▼ Egresos Operativos y Mantenimiento</td>
+        </tr>
+      `;
+
+      for (const [concept, vals] of Object.entries(financialData.egresos)) {
+        const total = months.reduce((a, m) => a + (vals[m] || 0), 0);
+        if (total === 0) continue;
+        html += `
+          <tr class="table-row hover:bg-slate-50 transition border-b border-slate-100" data-concept="${concept.toLowerCase()}">
+            <td class="py-2.5 px-4 font-medium text-slate-800">${concept}</td>
+            ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono text-slate-600 col-m" data-m="${m}">${formatSoles(vals[m])}</td>`).join('')}
+            <td class="py-2.5 px-4 text-right font-mono font-bold text-rose-700 bg-slate-50/80">${formatSoles(total)}</td>
+          </tr>
+        `;
+      }
+
+      // Total Egresos Fila
+      const totEgr = financialData.totales['Total Egresos'];
+      const sumEgr = months.reduce((a, m) => a + totEgr[m], 0);
+      html += `
+        <tr class="bg-rose-100/50 font-bold border-y-2 border-rose-300 text-rose-900">
+          <td class="py-2.5 px-4">TOTAL EGRESOS</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totEgr[m])}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-rose-800 font-black">${formatSoles(sumEgr)}</td>
+        </tr>
+      `;
+
+      // Flujo Neto Mensual
+      const totNeto = financialData.totales['Flujo Neto Mensual'];
+      const sumNeto = months.reduce((a, m) => a + totNeto[m], 0);
+      html += `
+        <tr class="bg-indigo-50/70 font-bold border-t border-indigo-200 text-indigo-900">
+          <td class="py-2.5 px-4">FLUJO NETO MENSUAL (Ingresos - Egresos)</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totNeto[m], true)}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-indigo-700 font-black">${formatSoles(sumNeto, true)}</td>
+        </tr>
+      `;
+
+      // Saldo Acumulado
+      const totSal = financialData.totales['Saldo Acumulado'];
+      html += `
+        <tr class="bg-cyan-50/80 font-bold border-t-2 border-cyan-400 text-cyan-950">
+          <td class="py-3 px-4 font-black">SALDO FINAL EN BANCO BCP</td>
+          ${months.map(m => `<td class="py-3 px-3 text-right font-mono text-cyan-900 font-bold col-m" data-m="${m}">${formatSoles(totSal[m])}</td>`).join('')}
+          <td class="py-3 px-4 text-right font-mono text-cyan-800 font-black bg-cyan-100/80">${formatSoles(totSal['Setiembre'])}</td>
+        </tr>
+      `;
+
+      tbody.innerHTML = html;
+    }
+
+    function filterTable() {
+      const query = document.getElementById('concept-search').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.table-row');
+      rows.forEach(r => {
+        const concept = r.getAttribute('data-concept') || '';
+        if (concept.includes(query)) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    }
+
+    // Renderizar línea de tiempo
+    function renderTimeline(filter = 'all') {
+      const container = document.getElementById('timeline-list');
+      const filtered = filter === 'all' ? eventsData : eventsData.filter(e => e.category === filter);
+
+      container.innerHTML = filtered.map(e => `
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 hover:border-blue-400 hover:shadow-sm transition bg-white space-y-2.5 animate-fade">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-blue-700 font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/60">${e.date}</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold border ${e.badgeColor}">${e.badge}</span>
+            </div>
+            <span class="text-xs text-slate-500 font-medium">${e.votes}</span>
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">${e.title}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">${e.summary}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterEvents(category) {
+      document.querySelectorAll('.event-filter-btn').forEach(btn => {
+        if (btn.textContent.trim().toLowerCase() === category.toLowerCase() || (category === 'all' && btn.textContent.trim() === 'Todos')) {
+          btn.className = "event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white";
+        } else {
+          btn.className = "event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700";
+        }
+      });
+      renderTimeline(category);
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+      renderBarChart();
+      updateDonutChart('all');
+      renderTimeline('all');
+      selectMonth('all');
+    });
+  </script>
+</body>
+</html>

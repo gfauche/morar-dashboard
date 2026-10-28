@@ -17,9 +17,14 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .tab-active {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
       color: #ffffff !important;
       box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35);
+    }
+    .col-highlight {
+      background-color: #eff6ff !important;
+      color: #1d4ed8 !important;
+      font-weight: 800 !important;
     }
     .animate-fade {
       animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -70,27 +75,30 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
         <div class="space-y-2">
           <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-            <span>Auditado y Validado</span>
+            <span>Flujo Mensual Auditado</span>
             <span>•</span>
-            <span id="period-tag">Flujo Mensual Oficial BCP</span>
+            <span id="period-tag">Consolidado Semestral (Abril - Setiembre 2025)</span>
           </div>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Rendición de Cuentas y Estado Financiero</h2>
           <p class="text-slate-300 text-sm max-w-2xl leading-relaxed">
-            Consulte los ingresos, gastos y saldos mes a mes. Seleccione cualquier mes para visualizar el desglose exacto o el consolidado semestral.
+            Consulte los ingresos, gastos y saldos mes a mes. Haga clic en cualquier pestaña para ver el desglose exacto de ese mes.
           </p>
         </div>
 
         <!-- SELECTOR DE VISTA MENSUAL -->
-        <div class="bg-slate-800/90 p-1.5 rounded-xl border border-slate-700 backdrop-blur-sm self-start md:self-auto">
-          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5 px-2">Seleccione Mes a Visualizar:</div>
-          <div class="flex flex-wrap gap-1" id="month-tabs">
-            <button onclick="selectMonth('all')" id="tab-all" class="month-tab tab-active px-3 py-1.5 rounded-lg text-xs font-semibold transition">Consolidado Total</button>
-            <button onclick="selectMonth('Abril')" id="tab-Abril" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Abril</button>
-            <button onclick="selectMonth('Mayo')" id="tab-Mayo" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Mayo</button>
-            <button onclick="selectMonth('Junio')" id="tab-Junio" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Junio</button>
-            <button onclick="selectMonth('Julio')" id="tab-Julio" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Julio</button>
-            <button onclick="selectMonth('Agosto')" id="tab-Agosto" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Agosto</button>
-            <button onclick="selectMonth('Setiembre')" id="tab-Setiembre" class="month-tab bg-slate-900/60 hover:bg-slate-700/80 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Setiembre</button>
+        <div class="bg-slate-800/95 p-2 rounded-xl border border-slate-700 backdrop-blur-sm self-start md:self-auto shadow-lg">
+          <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 px-2 flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Seleccione Mes a Visualizar:
+          </div>
+          <div class="flex flex-wrap gap-1.5" id="month-tabs">
+            <button onclick="selectMonth('all')" id="tab-all" class="month-tab tab-active px-3 py-1.5 rounded-lg text-xs font-bold transition">Todos (Semestre)</button>
+            <button onclick="selectMonth('Abril')" id="tab-Abril" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Abril</button>
+            <button onclick="selectMonth('Mayo')" id="tab-Mayo" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Mayo</button>
+            <button onclick="selectMonth('Junio')" id="tab-Junio" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Junio</button>
+            <button onclick="selectMonth('Julio')" id="tab-Julio" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Julio</button>
+            <button onclick="selectMonth('Agosto')" id="tab-Agosto" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Agosto</button>
+            <button onclick="selectMonth('Setiembre')" id="tab-Setiembre" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Setiembre</button>
           </div>
         </div>
       </div>
@@ -102,7 +110,7 @@
       <!-- Total Ingresos -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Ingresos del Mes</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-ingresos-title">Ingresos Totales</span>
           <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           </div>
@@ -111,15 +119,15 @@
           <span class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="kpi-ingresos">S/ 324,378.13</span>
         </div>
         <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-ingresos-sub">
-          <span>Cuotas ord.: <strong class="text-slate-700">S/ 244.2k</strong></span>
-          <span class="text-emerald-600 font-medium">+ Saldo Inicial</span>
+          <span>Cuotas ordinarias y otros</span>
+          <span class="text-emerald-600 font-semibold" id="kpi-ingresos-tag">Operativo</span>
         </p>
       </div>
 
       <!-- Total Egresos -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Egresos / Gastos</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-egresos-title">Egresos / Gastos</span>
           <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
           </div>
@@ -129,14 +137,14 @@
         </div>
         <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-egresos-sub">
           <span>Gasto Operativo Real</span>
-          <span class="text-rose-600 font-medium">Servicios y Adm.</span>
+          <span class="text-rose-600 font-semibold">Servicios y Adm.</span>
         </p>
       </div>
 
       <!-- Flujo Neto del Mes -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Flujo Neto del Mes</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-neto-title">Flujo Neto del Mes</span>
           <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
           </div>
@@ -144,16 +152,16 @@
         <div class="mt-3">
           <span class="text-2xl sm:text-3xl font-extrabold text-indigo-600" id="kpi-neto">+S/ 11,295.39</span>
         </div>
-        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between" id="kpi-neto-sub">
-          <span>Diferencial Ing - Egr</span>
-          <span class="text-indigo-600 font-medium" id="kpi-neto-badge">Superávit</span>
+        <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
+          <span>Ingresos menos Gastos</span>
+          <span class="text-emerald-600 font-bold" id="kpi-neto-badge">Superávit</span>
         </p>
       </div>
 
       <!-- Saldo en Caja Acumulado -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Saldo Final en Banco</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Saldo Final en Banco</span>
           <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
           </div>
@@ -163,45 +171,66 @@
         </div>
         <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
           <span>Disponible en BCP</span>
-          <span class="text-cyan-700 font-medium">Cuenta Edificio</span>
+          <span class="text-cyan-700 font-semibold" id="kpi-saldo-tag">Cierre Setiembre</span>
         </p>
       </div>
     </div>
 
-    <!-- GRÁFICOS INTERACTIVOS (COMPARATIVO MENSUAL Y DISTRIBUCIÓN) -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- CALLOUT AUDITORÍA MULTAS -->
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm flex items-start gap-3">
+      <div class="text-amber-600 mt-0.5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      </div>
+      <div class="text-xs text-amber-900 leading-relaxed">
+        <strong class="font-bold text-amber-950">Auditoría sobre Multas y Penalidades:</strong>
+        En el Flujo de Caja Oficial (Google Sheets BCP), la partida <em>"Multas o Penalidades"</em> registra <strong>S/ 0.00 cobrados</strong> en todos los meses (Abril a Setiembre). 
+        En asamblea del 11 de octubre de 2026 (Acta 16) se ratificó la decisión de notificar individualmente a infractores y hacer cumplir el cobro uniforme sin excepciones.
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE GRÁFICOS: COMPARATIVO MENSUAL Y ESTRUCTURA DEL GASTO -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       
       <!-- Gráfico Comparativo de los 6 Meses -->
-      <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 class="text-base font-bold text-slate-900">Evolución Mensual: Ingresos vs Egresos (2025)</h3>
-            <p class="text-xs text-slate-500">Comparativa mensual de Abril a Setiembre en Soles (S/)</p>
+      <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Evolución Mensual: Ingresos vs Egresos (2025)</h3>
+              <p class="text-xs text-slate-500">Comparativa mensual de Abril a Setiembre en Soles (S/)</p>
+            </div>
+            <div class="flex items-center gap-3 text-xs font-medium">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Ingresos</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span> Egresos</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-blue-600 inline-block"></span> Saldo BCP</span>
+            </div>
           </div>
-          <div class="flex items-center gap-3 text-xs">
-            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Ingresos</span>
-            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span> Egresos</span>
-            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-blue-600 inline-block"></span> Saldo Final</span>
+          <div class="h-72 w-full relative">
+            <canvas id="monthlyBarChart"></canvas>
           </div>
         </div>
-        <div class="h-72 w-full relative">
-          <canvas id="monthlyBarChart"></canvas>
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <span>* En abril se incorporaron S/ 58,041.71 del saldo inicial de la Ex-JD.</span>
+          <span class="font-semibold text-slate-700">Déficit puntual en Agosto: -S/ 1,524</span>
         </div>
       </div>
 
-      <!-- Gráfico de Dona: Distribución del Gasto del Mes Seleccionado -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+      <!-- Gráfico de Dona y Desglose de Gastos del Mes Seleccionado -->
+      <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between mb-1">
             <h3 class="text-base font-bold text-slate-900">Estructura del Gasto</h3>
-            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium" id="donut-month-label">Consolidado</span>
+            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-0.5 rounded-full" id="donut-month-label">Consolidado Total</span>
           </div>
-          <p class="text-xs text-slate-500 mb-4">Distribución porcentual por categoría de egreso</p>
-          <div class="h-56 w-full relative flex items-center justify-center">
+          <p class="text-xs text-slate-500 mb-3">Distribución porcentual por categoría para el mes activo</p>
+          
+          <div class="h-48 w-full relative flex items-center justify-center">
             <canvas id="expensesDonutChart"></canvas>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 text-xs space-y-1.5 text-slate-600" id="donut-legend-text">
+
+        <!-- Desglose textual detallado con barras de progreso -->
+        <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs" id="donut-legend-text">
           <!-- Dinámico -->
         </div>
       </div>
@@ -213,35 +242,32 @@
         <div>
           <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
             <span>Desglose Detallado Ítem por Ítem</span>
-            <span class="text-xs bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold" id="table-badge">Vista Mensual Integral</span>
+            <span class="text-xs bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold" id="table-badge">Matriz Mes a Mes</span>
           </h3>
           <p class="text-xs text-slate-500 mt-1">Valores expresados en Nuevos Soles (S/). Filtre por concepto o explore los montos mensuales.</p>
         </div>
         <div class="w-full sm:w-72">
-          <input type="text" id="concept-search" oninput="filterTable()" placeholder="Buscar concepto (ej: luz, ascensor)..." class="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
+          <input type="text" id="concept-search" oninput="filterTable()" placeholder="Buscar concepto (ej: luz, ascensor, adm)..." class="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
         </div>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs border-collapse" id="financial-table">
           <thead>
-            <tr class="bg-slate-100/80 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+            <tr class="bg-slate-100/90 text-slate-700 uppercase tracking-wider font-semibold border-b border-slate-200">
               <th class="py-3 px-4 font-bold">Concepto / Partida</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Abril">Abril</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Mayo">Mayo</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Junio">Junio</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Julio">Julio</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Agosto">Agosto</th>
-              <th class="py-3 px-3 text-right col-m" data-m="Setiembre">Setiembre</th>
-              <th class="py-3 px-4 text-right font-bold bg-slate-200/60">Total Período</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Abril" data-m="Abril">Abril</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Mayo" data-m="Mayo">Mayo</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Junio" data-m="Junio">Junio</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Julio" data-m="Julio">Julio</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Agosto" data-m="Agosto">Agosto</th>
+              <th class="py-3 px-3 text-right col-m" id="th-Setiembre" data-m="Setiembre">Setiembre</th>
+              <th class="py-3 px-4 text-right font-bold bg-slate-200/80 text-slate-900">Total Semestre</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100" id="table-body">
             <!-- Rellenado por JS -->
           </tbody>
-          <tfoot class="bg-slate-900 text-white font-bold text-xs" id="table-footer">
-            <!-- Rellenado por JS -->
-          </tfoot>
         </table>
       </div>
     </div>
@@ -329,8 +355,8 @@
 
   <!-- DATOS JSON INYECTADOS Y LÓGICA INTERACTIVA -->
   <script>
-    const financialData = {"ingresos": {"áTáráaánásáfáeáráeánácáiáaá ádáeá áSáaáládáoá áIánáiácáiáaálá": {"Abril": 58041.71, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áCáuáoátáaásá ádáeá áMáaánátáeánáiámáiáeánátáoá": {"Abril": 31648.82, "Mayo": 42898.049999999996, "Junio": 43412.7, "Julio": 40242.81999999999, "Agosto": 40809.64000000001, "Setiembre": 45254.57}, "áCáuáoátáaásá áEáxátáráaáoárádáiánáaáráiáaásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áAáláqáuáiáláeárá ádáeá áÁáráeáaásá áCáoámáuánáeásá á(áPáaáráráiáláláaásá)á": {"Abril": 800, "Mayo": 800, "Junio": 720, "Julio": 640, "Agosto": 320, "Setiembre": 480}, "áIánátáeáráeásáeásá áMáoáráaátáoáráiáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áMáuálátáaásá áoá áPáeánáaáláiádáaádáeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áAápáoárátáeásá ápáoárá áCáoánátáráoáláeásá ádáeá áEásátáaácáiáoánáaámáiáeánátáoá": {"Abril": 0, "Mayo": 5015, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áRáeáiánátáeágáráoásá ápáoárá áCáoámáiásáiáoánáeásá á(áOápáeáráaácáiáoánáeásá ádáeá áVáeánátáaánáiáláláaá)á": {"Abril": 9, "Mayo": 9, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áOátáráoásá áIánágáráeásáoásá áEáxátáráaáoárádáiánáaáráiáoásá": {"Abril": 0, "Mayo": 4707.7, "Junio": 0, "Julio": 2065.1, "Agosto": 934.5, "Setiembre": 0}, "áOátáráoásá áIánágáráeásáoásá áNáoá áOápáeáráaátáiáváoásá": {"Abril": 31, "Mayo": 0, "Junio": 0, "Julio": 2600, "Agosto": 2938.52, "Setiembre": 0}}, "egresos": {"á1á.á áSáeáráváiácáiáoásá áBáaásáiácáoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áLáuázá á(áSáuámáiánáiásátáráoá á2á1á6á8á9á0á1á)á": {"Abril": -6713.8, "Mayo": -6999.8, "Junio": -7057.6, "Julio": -7650.6, "Agosto": -6906, "Setiembre": -6628.3}, "áLáuázá á(áSáuámáiánáiásátáráoá á2á1á6á8á9á0á2á)á": {"Abril": -1073.4, "Mayo": -1035, "Junio": -1032.3, "Julio": -1032.8, "Agosto": -934.5, "Setiembre": -50.7}, "áAágáuáaá": {"Abril": -2470.7, "Mayo": -2804.7, "Junio": -2547.3, "Julio": -2907.1, "Agosto": -3122.5, "Setiembre": -3096}, "á2á.á áLáiámápáiáeázáaá áyá áÁáráeáaásá áCáoámáuánáeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áLáiámápáiáeázáaá áZáoánáaásá áPáaáráráiáláláaásá": {"Abril": -120, "Mayo": -105, "Junio": -45, "Julio": -150, "Agosto": -60, "Setiembre": -90}, "á3á.á áMáaánátáeánáiámáiáeánátáoá áyá áRáeápáaáráaácáiáoánáeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áAásácáeánásáoáráeásá": {"Abril": -5470.08, "Mayo": -5464.16, "Junio": -5328, "Julio": -5328, "Agosto": -5616, "Setiembre": -5616}, "áBáoámábáaásá ádáeá áAágáuáaá": {"Abril": 0, "Mayo": 0, "Junio": -735, "Julio": 0, "Agosto": -735, "Setiembre": -450}, "áSáiásátáeámáaá áCáoánátáráaá áIánácáeánádáiáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áPáoázáoásá áaá áTáiáeáráráaá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -672.5, "Agosto": -672.5, "Setiembre": 0}, "áRáeácáaárágáaá ádáeá áEáxátáiánátáoáráeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": -1745, "Setiembre": 0}, "áEáláeáváaádáoárá ádáeá áDáiásácáaápáaácáiátáaádáoásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": -225}, "áRáeápáaáráaácáiáoánáeásá áMáeánáoáráeásá": {"Abril": 0, "Mayo": -30, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "á4á.á áSáeáráváiácáiáoásá ádáeá áAádámáiánáiásátáráaácáiáóáná": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áFáaácátáuáráaácáiáóáná ádáeá áEámápáráeásáaá áAádámáiánáiásátáráaádáoáráaá": {"Abril": -23799.05, "Mayo": -23789.45, "Junio": -23794.25, "Julio": -23794.25, "Agosto": -23794.25, "Setiembre": -22413.22}, "á5á.á áGáaásátáoásá áAádámáiánáiásátáráaátáiáváoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áMáoáváiáláiádáaádáeásá": {"Abril": -6, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áPáaápáeáláeáráíáaá,á áCáoápáiáaásá áyá áCáoámáuánáiácáaácáiáoánáeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -51, "Agosto": 0, "Setiembre": 0}, "á6á.á áGáaásátáoásá áLáeágáaáláeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áTárááámáiátáeásá áNáoátáaáráiáaáláeásá áyá áLáeágáaáláiázáaácáiáoánáeásá": {"Abril": -150, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "áCáaárátáaásá áNáoátáaáráiáaáláeásá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -40, "Agosto": 0, "Setiembre": 0}, "á7á.á áGáaásátáoásá áFáiánáaánácáiáeáráoásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áIámápáuáeásátáoá áaá áláaásá áTáráaánásáaácácáiáoánáeásá áFáiánáaánácáiáeáráaásá á(áIáTáFá)á": {"Abril": -4.95, "Mayo": -2.65, "Junio": -2.55, "Julio": -2.6999999999999997, "Agosto": -2.5999999999999996, "Setiembre": -2.25}, "áCáoámáiásáiáoánáeásá ápáoárá áOápáeáráaácáiáoánáeásá áeáná áVáeánátáaánáiáláláaá": {"Abril": -18, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "á8á.á áIánáváeárásáiáoánáeásá áeáná áAácátáiáváoásá áMáeánáoáráeásá": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "áCáoámápáráaá ádáeá áAácátáiáváoásá áMáeánáoáráeásá áaá á1á/á4á ádáeá áUáIáTá": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -100, "Agosto": 0, "Setiembre": 0}, "á9á.á áOátáráoásá áEágáráeásáoásá": {"Abril": 0, "Mayo": -5015, "Junio": 0, "Julio": -2600, "Agosto": -2938.52, "Setiembre": 0}}, "totales": {"Total Ingresos": {"Abril": 90530.53, "Mayo": 53429.75, "Junio": 44132.7, "Julio": 45547.92, "Agosto": 45002.66, "Setiembre": 45734.57}, "Total Egresos": {"Abril": -39825.98, "Mayo": -45245.76, "Junio": -40542, "Julio": -44328.95, "Agosto": -46526.87, "Setiembre": -38571.47}, "Flujo Neto Mensual": {"Abril": 50704.55, "Mayo": 8183.99, "Junio": 3590.7, "Julio": 1218.97, "Agosto": -1524.21, "Setiembre": 7163.1}, "Saldo Acumulado": {"Abril": 50704.55, "Mayo": 58888.54, "Junio": 62479.24, "Julio": 63698.21, "Agosto": 62174, "Setiembre": 69337.1}}};
-    const eventsData = [{"id": 16, "date": "11 Octubre 2026", "title": "Acta 16 — Elección de Nueva Junta Directiva y Multas Uniformes", "category": "Gobernanza", "badge": "Gestión Vigente", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Elección unánime de Roger Paredes (Dpto. 1702) como Presidente y Jesús Villanueva (Dpto. 501) como Vocal 2. La administración Factor 1 presenta balance y reporte de morosidad. Se ratifica la aplicación uniforme y estricta de multas sin excepciones a infractores de convivencia. Se aprueba compra de cantoneras para escaleras.", "votes": "21 departamentos participantes"}, {"id": 15, "date": "20 Julio 2026", "title": "Acta 15 — Aprobación Unánime Presupuesto 2026 (Opción 3)", "category": "Finanzas", "badge": "Aprobado", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Se somete a consideración el reajuste presupuestal presentado por KOMUNA. Se aprueba por unanimidad la 'Opción 3', equilibrando cuota de mantenimiento ordinaria con asignación para mantenimiento preventivo y correctivo crítico.", "votes": "Unanimidad absoluta"}, {"id": 14, "date": "13 Julio 2026", "title": "Acta 14 — Reforma Manual de Convivencia y Bicicletas Abandonadas", "category": "Convivencia", "badge": "Normativa", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Aprobación de reformas al Manual de Convivencia con 57 votos a favor para sancionar faltas de ruido y áreas comunes. Se autoriza notificación y remate/disposición de bicicletas abandonadas en el sótano.", "votes": "57 votos a favor (Presupuesto con 51 votos)"}, {"id": 13, "date": "05 Junio 2026", "title": "Acta 13 — Primera Evaluación de Gestión KOMUNA (Factor 1)", "category": "Administración", "badge": "Evaluación", "badgeColor": "bg-purple-100 text-purple-800 border-purple-300", "summary": "Revisión de los primeros 60 días de la administración Factor 1. Presentación de propuestas para optimizar consumos de agua y luz común y cronograma de mantenimiento preventivo de bombas y ascensores.", "votes": "Asamblea Extraordinaria"}, {"id": 12, "date": "08 Marzo 2026", "title": "Acta 12 — Elección de Nueva Administración: Victoria de KOMUNA", "category": "Administración", "badge": "Cambio de Mando", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Tras la renuncia voluntaria de la directiva y el despido de SISACCE, se realiza licitación vecinal. KOMUNA (Factor 1) gana ampliamente con 32 votos contra 12 de Amarcar. Se inicia la regularización operativa del edificio.", "votes": "32 votos KOMUNA vs 12 AMARCAR"}, {"id": "C16", "date": "01-02 Marzo 2026", "title": "Comunicado 16 — Renuncia Voluntaria de Presidenta y Vicepresidenta", "category": "Gobernanza", "badge": "Renuncia", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Jhajayra Vidales (Presidenta) y Rocío Luis (Vicepresidenta) formalizan su renuncia voluntaria indeclinable por motivos personales. El tesorero Henry Andrade asume la coordinación interina para convocar de urgencia a asamblea.", "votes": "Comunicado Oficial"}, {"id": "C15", "date": "29 Diciembre 2025", "title": "Comunicado 15 — Ruptura Definitiva y Cartas Notariales a SISACCE S.A.C.", "category": "Legal", "badge": "Rescisión Legal", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Denuncia grave: SISACCE cobraba puntualmente al condominio pero no pagaba remuneraciones ni liquidaciones a sus conserjes y limpiadores en Morar. Se constata abandono del servicio y se inicia resolución de contrato por vía notarial.", "votes": "Acción Notarial"}, {"id": 10, "date": "04 Octubre 2025", "title": "Actas 10 y 11 — Rechazo a Exoneración de Cuota a la Junta Directiva", "category": "Gobernanza", "badge": "Asamblea Masiva", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Asamblea multitudinaria con 60 propietarios. Se somete a votación si la Junta Directiva debía contar con el beneficio de exoneración de cuota de mantenimiento: Gana el NO con 31 votos contra 24. Se aprueba intimación notarial a constructora TER por vicios ocultos.", "votes": "31 votos NO vs 24 SI"}, {"id": "C09", "date": "16-19 Setiembre 2025", "title": "Comunicados 9 y 10 — Ajuste de Tarifa SISACCE e Inhabilitación a Morosos", "category": "Finanzas", "badge": "Gestión Cuotas", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Se logra rebaja de tarifa de SISACCE a S/ 22,413.22 por quejas en la asamblea de agosto. Se anuncia la inhabilitación formal y restricción de áreas comunes a propietarios morosos con más de 2 cuotas impagas.", "votes": "Comunicados 9 y 10"}, {"id": 9, "date": "14 Julio 2025", "title": "Acta 9 — Inspección Técnica Conjunta con Constructora TER", "category": "Técnico", "badge": "Peritaje Bombas", "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-300", "summary": "Peritaje conjunto en sala de máquinas y bombas de presión constante entre el administrador de SISACCE y peritos de la constructora TER para resolver fallas en el suministro de agua hacia los pisos superiores.", "votes": "Informe Técnico"}, {"id": 7, "date": "03 Junio 2025", "title": "Acta 7 — Junta Transitoria, Contratación SISACCE y Reclamo por Moho", "category": "Gobernanza", "badge": "Hito Histórico", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Jhajayra Vidales asume la Presidencia Transitoria. Se recibe formalmente en notaría el saldo de S/ 58,041.71 de la Ex-JD. Se rescinde a Rivera & J, se contrata a SISACCE y se aprueban cartas notariales a Inmobiliaria Vienna por presencia de moho en departamentos.", "votes": "49 propietarios"}, {"id": 6, "date": "30 Marzo 2025", "title": "Acta 6 — Quiebre de Gestión Inicial y Convocatoria de Emergencia", "category": "Gobernanza", "badge": "Transición", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Desarticulación de la directiva original de Carlos Carbonel por discrepancias sobre el presupuesto 2025. Jhajayra Vidales asume liderazgo para convocar asamblea transitoria y garantizar la continuidad de servicios del edificio.", "votes": "43 propietarios"}, {"id": 1, "date": "01 Octubre 2024", "title": "Acta 1 — Instalación de Junta Interina y Administradora Rivera & J", "category": "Fundación", "badge": "Inicio", "badgeColor": "bg-slate-100 text-slate-800 border-slate-300", "summary": "Instalación de la primera junta interina presidida por Carlos Carbonel (Dpto. 3104) y Stephanie Mashamud (Dpto. 2601). Presentación formal de la administradora Rivera & J para el edificio recientemente entregado por Vienna.", "votes": "22.52% participación"}];
+    const financialData = {"ingresos": {"Transferencia de Saldo Inicial": {"Abril": 58041.71, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Cuotas de Mantenimiento": {"Abril": 31648.82, "Mayo": 42898.05, "Junio": 43412.7, "Julio": 40242.82, "Agosto": 40809.64, "Setiembre": 45254.57}, "Cuotas Extraordinarias": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Alquiler de Áreas Comunes (Parrillas)": {"Abril": 800.0, "Mayo": 800.0, "Junio": 720.0, "Julio": 640.0, "Agosto": 320.0, "Setiembre": 480.0}, "Intereses Moratorios": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Multas o Penalidades": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Aportes por Controles de Estacionamiento": {"Abril": 0.0, "Mayo": 5015.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Reintegros por Comisiones (Ventanilla)": {"Abril": 9.0, "Mayo": 9.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Otros Ingresos Extraordinarios": {"Abril": 0.0, "Mayo": 4707.7, "Junio": 0.0, "Julio": 2065.1, "Agosto": 934.5, "Setiembre": 0.0}, "Otros Ingresos No Operativos": {"Abril": 31.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 2600.0, "Agosto": 2938.52, "Setiembre": 0.0}}, "egresos": {"Luz (Suministro Principal 2168901)": {"Abril": -6713.8, "Mayo": -6999.8, "Junio": -7057.6, "Julio": -7650.6, "Agosto": -6906.0, "Setiembre": -6628.3}, "Luz (Suministro Secundario 2168902)": {"Abril": -1073.4, "Mayo": -1035.0, "Junio": -1032.3, "Julio": -1032.8, "Agosto": -934.5, "Setiembre": -50.7}, "Agua y Alcantarillado (Sedapal)": {"Abril": -2470.7, "Mayo": -2804.7, "Junio": -2547.3, "Julio": -2907.1, "Agosto": -3122.5, "Setiembre": -3096.0}, "Limpieza Zonas de Parrillas": {"Abril": -120.0, "Mayo": -105.0, "Junio": -45.0, "Julio": -150.0, "Agosto": -60.0, "Setiembre": -90.0}, "Ascensores (Ascensores Andinos)": {"Abril": -5470.08, "Mayo": -5464.16, "Junio": -5328.0, "Julio": -5328.0, "Agosto": -5616.0, "Setiembre": -5616.0}, "Bombas de Agua Potable": {"Abril": 0.0, "Mayo": 0.0, "Junio": -735.0, "Julio": 0.0, "Agosto": -735.0, "Setiembre": -450.0}, "Sistema Contra Incendios": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Pozos a Tierra (Mantenimiento)": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": -672.5, "Agosto": -672.5, "Setiembre": 0.0}, "Recarga de Extintores": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": -1745.0, "Setiembre": 0.0}, "Elevador de Discapacitados": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": -225.0}, "Reparaciones Menores": {"Abril": 0.0, "Mayo": -30.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Facturación Empresa Administradora (SISACCE)": {"Abril": -23799.05, "Mayo": -23789.45, "Junio": -23794.25, "Julio": -23794.25, "Agosto": -23794.25, "Setiembre": -22413.22}, "Movilidades Administrativas": {"Abril": -6.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Papelería, Copias y Comunicaciones": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": -51.0, "Agosto": 0.0, "Setiembre": 0.0}, "Trámites Notariales y Legalizaciones": {"Abril": -150.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Cartas Notariales": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": -40.0, "Agosto": 0.0, "Setiembre": 0.0}, "Impuesto a Transacciones Financieras (ITF)": {"Abril": -4.95, "Mayo": -2.65, "Junio": -2.55, "Julio": -2.7, "Agosto": -2.6, "Setiembre": -2.25}, "Comisiones por Operaciones en Ventanilla": {"Abril": -18.0, "Mayo": 0.0, "Junio": 0.0, "Julio": 0.0, "Agosto": 0.0, "Setiembre": 0.0}, "Compra de Activos Menores a 1/4 UIT": {"Abril": 0.0, "Mayo": 0.0, "Junio": 0.0, "Julio": -100.0, "Agosto": 0.0, "Setiembre": 0.0}, "Otros Egresos y Devoluciones": {"Abril": 0.0, "Mayo": -5015.0, "Junio": 0.0, "Julio": -2600.0, "Agosto": -2938.52, "Setiembre": 0.0}}, "totales": {"Total Ingresos": {"Abril": 90530.53, "Mayo": 53429.75, "Junio": 44132.7, "Julio": 45547.92, "Agosto": 45002.66, "Setiembre": 45734.57}, "Total Egresos": {"Abril": -39825.98, "Mayo": -45245.76, "Junio": -40542.0, "Julio": -44328.95, "Agosto": -46526.87, "Setiembre": -38571.47}, "Flujo Neto Mensual": {"Abril": 50704.55, "Mayo": 8183.99, "Junio": 3590.7, "Julio": 1218.97, "Agosto": -1524.21, "Setiembre": 7163.1}, "Saldo Acumulado": {"Abril": 50704.55, "Mayo": 58888.54, "Junio": 62479.24, "Julio": 63698.21, "Agosto": 62174.0, "Setiembre": 69337.1}}};
+    const eventsData = [{"id": 16, "date": "11 Octubre 2026", "title": "Acta 16 — Elección de Nueva Junta Directiva y Aplicación Estricta de Multas", "category": "Gobernanza", "badge": "Gestión Vigente", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Elección unánime de Roger Paredes (Dpto. 1702) como Presidente y Jesús Villanueva (Dpto. 501) como Vocal 2. La administración Factor 1 presenta balance y reporte de morosidad. Se acuerda mantener la aplicación uniforme y estricta de multas sin distinción a infractores de convivencia mediante notificación formal por correo. Se aprueba compra de cantoneras para escaleras.", "votes": "21 departamentos participantes"}, {"id": 15, "date": "20 Julio 2026", "title": "Acta 15 — Aprobación Unánime Presupuesto 2026 (Opción 3)", "category": "Finanzas", "badge": "Aprobado", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Se somete a consideración el reajuste presupuestal presentado por KOMUNA. Se aprueba por unanimidad la 'Opción 3', equilibrando cuota de mantenimiento ordinaria con asignación para mantenimiento preventivo y correctivo crítico.", "votes": "Unanimidad absoluta"}, {"id": 14, "date": "13 Julio 2026", "title": "Acta 14 — Reforma Manual de Convivencia y Cobro de Multas", "category": "Convivencia", "badge": "Normativa", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Punto 3: Aprobación de reformas al Manual de Convivencia con 57 votos a favor para que se apliquen efectivamente las multas a infractores de ruidos molestos y áreas comunes. Se autoriza notificación y remate/disposición de bicicletas abandonadas en el sótano.", "votes": "57 votos a favor (Presupuesto con 51 votos)"}, {"id": 13, "date": "05 Junio 2026", "title": "Acta 13 — Primera Evaluación de Gestión KOMUNA y Multa por Bicicletas", "category": "Administración", "badge": "Evaluación", "badgeColor": "bg-purple-100 text-purple-800 border-purple-300", "summary": "Revisión de los primeros 60 días de la administración Factor 1. Se acuerda empadronamiento de vehículos menores y una multa de S/ 50.00 por desorden de bicicletas en áreas comunes. Plan de optimización de consumos de agua y luz.", "votes": "Asamblea Extraordinaria"}, {"id": 12, "date": "08 Marzo 2026", "title": "Acta 12 — Elección de Nueva Administración: Victoria de KOMUNA", "category": "Administración", "badge": "Cambio de Mando", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Tras la renuncia voluntaria de la directiva y el despido de SISACCE, se realiza licitación vecinal. KOMUNA (Factor 1) gana ampliamente con 32 votos contra 12 de Amarcar. Se inicia la regularización operativa del edificio.", "votes": "32 votos KOMUNA vs 12 AMARCAR"}, {"id": "C16", "date": "01-02 Marzo 2026", "title": "Comunicado 16 — Renuncia Voluntaria de Presidenta y Vicepresidenta", "category": "Gobernanza", "badge": "Renuncia", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Jhajayra Vidales (Presidenta) y Rocío Luis (Vicepresidenta) formalizan su renuncia voluntaria indeclinable por motivos personales. El tesorero Henry Andrade asume la coordinación interina para convocar de urgencia a asamblea.", "votes": "Comunicado Oficial"}, {"id": "C15", "date": "29 Diciembre 2025", "title": "Comunicado 15 — Ruptura Definitiva y Cartas Notariales a SISACCE S.A.C.", "category": "Legal", "badge": "Rescisión Legal", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Denuncia grave: SISACCE cobraba puntualmente al condominio pero no pagaba remuneraciones ni liquidaciones a sus conserjes y limpiadores en Morar. Se constata abandono del servicio y se inicia resolución de contrato por vía notarial.", "votes": "Acción Notarial"}, {"id": 10, "date": "04 Octubre 2025", "title": "Actas 10 y 11 — Rechazo a Exoneración de Cuota a la Junta Directiva", "category": "Gobernanza", "badge": "Asamblea Masiva", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Asamblea multitudinaria con 60 propietarios. Se somete a votación si la Junta Directiva debía contar con el beneficio de exoneración de cuota de mantenimiento: Gana el NO con 31 votos contra 24. Se aprueba intimación notarial a constructora TER por vicios ocultos.", "votes": "31 votos NO vs 24 SI"}, {"id": "C09", "date": "16-19 Setiembre 2025", "title": "Comunicados 9 y 10 — Ajuste de Tarifa SISACCE e Inhabilitación a Morosos", "category": "Finanzas", "badge": "Gestión Cuotas", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Se logra rebaja de tarifa de SISACCE a S/ 22,413.22 por quejas en la asamblea de agosto. Se anuncia la inhabilitación formal y restricción de áreas comunes a propietarios morosos con más de 2 cuotas impagas.", "votes": "Comunicados 9 y 10"}, {"id": 9, "date": "14 Julio 2025", "title": "Acta 9 — Inspección Técnica Conjunta con Constructora TER", "category": "Técnico", "badge": "Peritaje Bombas", "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-300", "summary": "Peritaje conjunto en sala de máquinas y bombas de presión constante entre el administrador de SISACCE y peritos de la constructora TER para resolver fallas en el suministro de agua hacia los pisos superiores.", "votes": "Informe Técnico"}, {"id": 7, "date": "03 Junio 2025", "title": "Acta 7 — Junta Transitoria, Contratación SISACCE y Reclamo por Moho", "category": "Gobernanza", "badge": "Hito Histórico", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Jhajayra Vidales asume la Presidencia Transitoria. Se recibe formalmente en notaría el saldo de S/ 58,041.71 de la Ex-JD. Se rescinde a Rivera & J, se contrata a SISACCE y se aprueban cartas notariales a Inmobiliaria Vienna por presencia de moho en departamentos.", "votes": "49 propietarios"}, {"id": 6, "date": "30 Marzo 2025", "title": "Acta 6 — Quiebre de Gestión Inicial y Convocatoria de Emergencia", "category": "Gobernanza", "badge": "Transición", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Desarticulación de la directiva original de Carlos Carbonel por discrepancias sobre el presupuesto 2025. Jhajayra Vidales asume liderazgo para convocar asamblea transitoria y garantizar la continuidad de servicios del edificio.", "votes": "43 propietarios"}, {"id": 1, "date": "01 Octubre 2024", "title": "Acta 1 — Instalación de Junta Interina y Administradora Rivera & J", "category": "Fundación", "badge": "Inicio", "badgeColor": "bg-slate-100 text-slate-800 border-slate-300", "summary": "Instalación de la primera junta interina presidida por Carlos Carbonel (Dpto. 3104) y Stephanie Mashamud (Dpto. 2601). Presentación formal de la administradora Rivera & J para el edificio recientemente entregado por Vienna.", "votes": "22.52% participación"}];
 
     const months = ['Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre'];
     let currentSelectedMonth = 'all';
@@ -350,7 +376,6 @@
     // Calcular valores por mes o totales
     function getMonthValues(monthKey) {
       if (monthKey === 'all') {
-        // Sumar todos los meses
         let totalIngresos = Object.values(financialData.totales['Total Ingresos']).reduce((a, b) => a + b, 0);
         let totalEgresos = Object.values(financialData.totales['Total Egresos']).reduce((a, b) => a + b, 0);
         let flujoNeto = totalIngresos + totalEgresos; // egresos is negative
@@ -372,17 +397,17 @@
       // Actualizar estilo de tabs
       document.querySelectorAll('.month-tab').forEach(tab => {
         tab.classList.remove('tab-active');
-        tab.classList.add('bg-slate-900/60', 'text-slate-300');
+        tab.classList.add('bg-slate-900/80', 'text-slate-300');
       });
       const activeTab = document.getElementById(`tab-${monthKey}`);
       if (activeTab) {
         activeTab.classList.add('tab-active');
-        activeTab.classList.remove('bg-slate-900/60', 'text-slate-300');
+        activeTab.classList.remove('bg-slate-900/80', 'text-slate-300');
       }
 
-      // Actualizar texto del badge
+      // Actualizar texto del badge en hero
       const periodTag = document.getElementById('period-tag');
-      periodTag.textContent = monthKey === 'all' ? 'Consolidado Semestral (Abril - Setiembre 2025)' : `Mes: ${monthKey} 2025`;
+      periodTag.textContent = monthKey === 'all' ? 'Consolidado Semestral (Abril - Setiembre 2025)' : `Mes Seleccionado: ${monthKey} 2025`;
 
       const vals = getMonthValues(monthKey);
 
@@ -392,6 +417,13 @@
       const kpiNet = document.getElementById('kpi-neto');
       const kpiSal = document.getElementById('kpi-saldo');
       const kpiNetBadge = document.getElementById('kpi-neto-badge');
+      const kpiIngTitle = document.getElementById('kpi-ingresos-title');
+      const kpiEgrTitle = document.getElementById('kpi-egresos-title');
+      const kpiSaldoTag = document.getElementById('kpi-saldo-tag');
+
+      kpiIngTitle.textContent = monthKey === 'all' ? 'Ingresos Semestre' : `Ingresos (${monthKey})`;
+      kpiEgrTitle.textContent = monthKey === 'all' ? 'Egresos Semestre' : `Egresos (${monthKey})`;
+      kpiSaldoTag.textContent = monthKey === 'all' ? 'Cierre Setiembre' : `Cierre ${monthKey}`;
 
       kpiIng.textContent = formatSoles(vals.totalIngresos);
       kpiEgr.textContent = formatSoles(vals.totalEgresos);
@@ -401,11 +433,11 @@
       if (vals.flujoNeto >= 0) {
         kpiNet.className = "text-2xl sm:text-3xl font-extrabold text-indigo-600";
         kpiNetBadge.textContent = "Superávit";
-        kpiNetBadge.className = "text-emerald-600 font-semibold";
+        kpiNetBadge.className = "text-emerald-600 font-bold";
       } else {
         kpiNet.className = "text-2xl sm:text-3xl font-extrabold text-rose-600";
         kpiNetBadge.textContent = "Déficit Operativo";
-        kpiNetBadge.className = "text-rose-600 font-semibold";
+        kpiNetBadge.className = "text-rose-600 font-bold";
       }
 
       // Actualizar Dona
@@ -417,13 +449,14 @@
 
     // Resaltar columna del mes seleccionado en la tabla
     function highlightTableColumn(monthKey) {
-      document.querySelectorAll('.col-m').forEach(th => {
-        if (monthKey === 'all' || th.getAttribute('data-m') === monthKey) {
-          th.classList.add('text-blue-700', 'font-black');
-        } else {
-          th.classList.remove('text-blue-700', 'font-black');
-        }
+      document.querySelectorAll('.col-m').forEach(cell => {
+        cell.classList.remove('col-highlight');
       });
+      if (monthKey !== 'all') {
+        document.querySelectorAll(`[data-m="${monthKey}"]`).forEach(cell => {
+          cell.classList.add('col-highlight');
+        });
+      }
     }
 
     // Renderizar gráfico de barras
@@ -454,7 +487,7 @@
             },
             {
               type: 'line',
-              label: 'Saldo en Banco (S/)',
+              label: 'Saldo en Banco BCP (S/)',
               data: saldoData,
               borderColor: '#2563eb',
               backgroundColor: '#2563eb',
@@ -496,15 +529,15 @@
       });
     }
 
-    // Categorizar egresos para la dona
+    // Categorizar egresos para la dona y su desglose
     function getDonutCategories(monthKey) {
       const categories = {
         'Administración (SISACCE)': 0,
         'Energía Eléctrica (Luz del Sur)': 0,
         'Ascensores (Andinos)': 0,
         'Agua y Alcantarillado (Sedapal)': 0,
-        'Mantenimiento Técnico (Bombas, Pozos, Extintores)': 0,
-        'Devoluciones / Otros Egresos': 0
+        'Mantenimiento Técnico': 0,
+        'Otros Egresos': 0
       };
 
       const calculateValue = (valDict) => {
@@ -517,7 +550,7 @@
 
       for (const [concept, vals] of Object.entries(financialData.egresos)) {
         const amount = calculateValue(vals);
-        if (concept.includes('Empresa Administradora')) {
+        if (concept.includes('Empresa Administradora') || concept.includes('SISACCE')) {
           categories['Administración (SISACCE)'] += amount;
         } else if (concept.includes('Luz')) {
           categories['Energía Eléctrica (Luz del Sur)'] += amount;
@@ -525,10 +558,10 @@
           categories['Ascensores (Andinos)'] += amount;
         } else if (concept.includes('Agua')) {
           categories['Agua y Alcantarillado (Sedapal)'] += amount;
-        } else if (concept.includes('Bombas') || concept.includes('Pozos') || concept.includes('Extintores') || concept.includes('Elevador') || concept.includes('Reparaciones')) {
-          categories['Mantenimiento Técnico (Bombas, Pozos, Extintores)'] += amount;
+        } else if (concept.includes('Bombas') || concept.includes('Pozos') || concept.includes('Extintores') || concept.includes('Elevador') || concept.includes('Reparaciones') || concept.includes('Parrillas')) {
+          categories['Mantenimiento Técnico'] += amount;
         } else {
-          categories['Devoluciones / Otros Egresos'] += amount;
+          categories['Otros Egresos'] += amount;
         }
       }
 
@@ -541,9 +574,9 @@
       const data = Object.values(categories);
       const total = data.reduce((a, b) => a + b, 0);
 
-      document.getElementById('donut-month-label').textContent = monthKey === 'all' ? 'Semestre Completo' : monthKey;
+      document.getElementById('donut-month-label').textContent = monthKey === 'all' ? 'Consolidado Total' : `Mes: ${monthKey}`;
 
-      const colors = ['#3b82f6', '#f59e0b', '#ec4899', '#06b6d4', '#10b981', '#64748b'];
+      const colors = ['#2563eb', '#f59e0b', '#ec4899', '#06b6d4', '#10b981', '#64748b'];
 
       if (!donutChart) {
         const ctx = document.getElementById('expensesDonutChart').getContext('2d');
@@ -582,18 +615,25 @@
         donutChart.update();
       }
 
-      // Actualizar leyenda textual
+      // Actualizar desglose textual con barritas de porcentaje
       const legendDiv = document.getElementById('donut-legend-text');
       legendDiv.innerHTML = labels.map((l, i) => {
         const val = data[i];
-        const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+        const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0';
         return `
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1.5 truncate pr-2">
-              <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background-color: ${colors[i]}"></span>
-              <span class="truncate">${l}</span>
-            </span>
-            <span class="font-bold text-slate-800 whitespace-nowrap">${pct}% (S/ ${Math.round(val).toLocaleString('es-PE')})</span>
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="flex items-center gap-1.5 truncate pr-2">
+                <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background-color: ${colors[i]}"></span>
+                <span class="font-semibold text-slate-800 truncate">${l}</span>
+              </span>
+              <span class="font-mono font-bold text-slate-900 whitespace-nowrap">
+                ${pct}% <span class="text-slate-500 font-normal">(${formatSoles(val)})</span>
+              </span>
+            </div>
+            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500" style="width: ${pct}%; background-color: ${colors[i]}"></div>
+            </div>
           </div>
         `;
       }).join('');
@@ -613,7 +653,6 @@
 
       for (const [concept, vals] of Object.entries(financialData.ingresos)) {
         const total = months.reduce((a, m) => a + (vals[m] || 0), 0);
-        if (total === 0) continue;
         html += `
           <tr class="table-row hover:bg-slate-50 transition border-b border-slate-100" data-concept="${concept.toLowerCase()}">
             <td class="py-2.5 px-4 font-medium text-slate-800">${concept}</td>
@@ -627,10 +666,10 @@
       const totIng = financialData.totales['Total Ingresos'];
       const sumIng = months.reduce((a, m) => a + totIng[m], 0);
       html += `
-        <tr class="bg-emerald-100/50 font-bold border-y-2 border-emerald-300 text-emerald-900">
+        <tr class="bg-emerald-100/60 font-bold border-y-2 border-emerald-300 text-emerald-950">
           <td class="py-2.5 px-4">TOTAL INGRESOS</td>
-          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totIng[m])}</td>`).join('')}
-          <td class="py-2.5 px-4 text-right font-mono text-emerald-800 font-black">${formatSoles(sumIng)}</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m font-bold" data-m="${m}">${formatSoles(totIng[m])}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-emerald-900 font-black bg-emerald-200/50">${formatSoles(sumIng)}</td>
         </tr>
       `;
 
@@ -643,7 +682,6 @@
 
       for (const [concept, vals] of Object.entries(financialData.egresos)) {
         const total = months.reduce((a, m) => a + (vals[m] || 0), 0);
-        if (total === 0) continue;
         html += `
           <tr class="table-row hover:bg-slate-50 transition border-b border-slate-100" data-concept="${concept.toLowerCase()}">
             <td class="py-2.5 px-4 font-medium text-slate-800">${concept}</td>
@@ -657,10 +695,10 @@
       const totEgr = financialData.totales['Total Egresos'];
       const sumEgr = months.reduce((a, m) => a + totEgr[m], 0);
       html += `
-        <tr class="bg-rose-100/50 font-bold border-y-2 border-rose-300 text-rose-900">
+        <tr class="bg-rose-100/60 font-bold border-y-2 border-rose-300 text-rose-950">
           <td class="py-2.5 px-4">TOTAL EGRESOS</td>
-          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totEgr[m])}</td>`).join('')}
-          <td class="py-2.5 px-4 text-right font-mono text-rose-800 font-black">${formatSoles(sumEgr)}</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m font-bold" data-m="${m}">${formatSoles(totEgr[m])}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-rose-900 font-black bg-rose-200/50">${formatSoles(sumEgr)}</td>
         </tr>
       `;
 
@@ -668,20 +706,20 @@
       const totNeto = financialData.totales['Flujo Neto Mensual'];
       const sumNeto = months.reduce((a, m) => a + totNeto[m], 0);
       html += `
-        <tr class="bg-indigo-50/70 font-bold border-t border-indigo-200 text-indigo-900">
-          <td class="py-2.5 px-4">FLUJO NETO MENSUAL (Ingresos - Egresos)</td>
-          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m" data-m="${m}">${formatSoles(totNeto[m], true)}</td>`).join('')}
-          <td class="py-2.5 px-4 text-right font-mono text-indigo-700 font-black">${formatSoles(sumNeto, true)}</td>
+        <tr class="bg-indigo-50/80 font-bold border-t border-indigo-200 text-indigo-950">
+          <td class="py-2.5 px-4">FLUJO NETO (Ingresos - Gastos)</td>
+          ${months.map(m => `<td class="py-2.5 px-3 text-right font-mono col-m font-bold" data-m="${m}">${formatSoles(totNeto[m], true)}</td>`).join('')}
+          <td class="py-2.5 px-4 text-right font-mono text-indigo-900 font-black bg-indigo-100/80">${formatSoles(sumNeto, true)}</td>
         </tr>
       `;
 
       // Saldo Acumulado
       const totSal = financialData.totales['Saldo Acumulado'];
       html += `
-        <tr class="bg-cyan-50/80 font-bold border-t-2 border-cyan-400 text-cyan-950">
+        <tr class="bg-cyan-50/90 font-bold border-t-2 border-cyan-400 text-cyan-950">
           <td class="py-3 px-4 font-black">SALDO FINAL EN BANCO BCP</td>
-          ${months.map(m => `<td class="py-3 px-3 text-right font-mono text-cyan-900 font-bold col-m" data-m="${m}">${formatSoles(totSal[m])}</td>`).join('')}
-          <td class="py-3 px-4 text-right font-mono text-cyan-800 font-black bg-cyan-100/80">${formatSoles(totSal['Setiembre'])}</td>
+          ${months.map(m => `<td class="py-3 px-3 text-right font-mono text-cyan-950 font-black col-m" data-m="${m}">${formatSoles(totSal[m])}</td>`).join('')}
+          <td class="py-3 px-4 text-right font-mono text-cyan-900 font-black bg-cyan-200/70">${formatSoles(totSal['Setiembre'])}</td>
         </tr>
       `;
 

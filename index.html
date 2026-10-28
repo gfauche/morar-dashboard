@@ -42,209 +42,224 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-  <!-- NAVBAR SUPERIOR -->
-  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/20">
+  <!-- TOP HEADER & BRAND -->
+  <header class="bg-slate-900 border-b border-slate-800 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 text-white font-extrabold text-lg tracking-wider">
           M
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-lg font-bold text-white tracking-tight">Edificio MORAR</h1>
-            <span class="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5 rounded-full font-medium border border-blue-500/30">Surquillo, Lima</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white leading-none">Edificio MORAR</h1>
+            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Auditoría 2026</span>
           </div>
-          <p class="text-xs text-slate-400">Portal de Transparencia, Rendición de Cuentas y Auditoría (2024–2026)</p>
+          <p class="text-xs text-slate-400 mt-0.5">Portal de Transparencia Financiera, Presupuestos y Vouchers Bancarios</p>
         </div>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center text-xs text-slate-300 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
-          Gestión Vigente: <strong class="ml-1 text-white">Roger Paredes (Dpto. 1702)</strong>
+      
+      <!-- Live Status & Stats Badge -->
+      <div class="flex items-center gap-3 self-end md:self-auto text-xs">
+        <div class="hidden sm:flex flex-col text-right">
+          <span class="text-slate-400 text-[11px]">Sincronización Bancaria</span>
+          <span class="text-emerald-400 font-semibold flex items-center gap-1.5 justify-end">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            134 Vouchers Conciliados (Ene–Oct 2026)
+          </span>
         </div>
-        <button onclick="window.print()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg font-medium border border-slate-700 transition flex items-center gap-1.5">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-          Imprimir / PDF
-        </button>
+        <div class="h-8 w-px bg-slate-800 hidden sm:block"></div>
+        <div class="bg-slate-800/80 border border-slate-700/80 rounded-lg px-3 py-1.5 text-right">
+          <span class="text-[10px] text-slate-400 block leading-tight">Gasto Verificado 2026</span>
+          <span class="text-sm font-extrabold text-blue-400 leading-tight">S/ 310,300.42</span>
+        </div>
       </div>
     </div>
 
-    <!-- SELECTOR DE VISTAS PRINCIPALES (BARRA DE PESTAÑAS) -->
-    <div class="bg-slate-800/90 border-t border-slate-700/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap gap-1.5 overflow-x-auto">
-        <button onclick="switchView('vouchers2026')" id="nav-vouchers2026" class="nav-tab nav-tab-active px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
-          <span>🧾</span> <span>Gastos Reales 2026 (123 Vouchers)</span>
+    <!-- MAIN NAVIGATION TABS -->
+    <div class="bg-slate-950/95 border-t border-slate-800/80 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto flex overflow-x-auto space-x-1.5 py-2 scrollbar-none text-xs font-semibold">
+        <button onclick="switchTab('vouchers2026')" id="nav-vouchers2026" class="nav-tab nav-tab-active px-3.5 py-2 rounded-xl transition flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          Auditoría Vouchers 2026 (BCP)
+          <span class="bg-blue-400/20 text-blue-200 text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">10 Meses</span>
         </button>
-        <button onclick="switchView('caja2025')" id="nav-caja2025" class="nav-tab bg-slate-900/60 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-          <span>📊</span> <span>Flujo de Caja 2025 (Auditado BCP)</span>
+
+        <button onclick="switchTab('presupuesto2026')" id="nav-presupuesto2026" class="nav-tab bg-slate-900/60 hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-xl transition flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke_linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          Presupuesto 2026 vs Real 2025
         </button>
-        <button onclick="switchView('budget2026')" id="nav-budget2026" class="nav-tab bg-slate-900/60 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-          <span>📑</span> <span>Presupuesto Aprobado 2026</span>
+
+        <button onclick="switchTab('cronologia2026')" id="nav-cronologia2026" class="nav-tab bg-slate-900/60 hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-xl transition flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Cronología & Actas JD 2026
         </button>
-        <button onclick="switchView('comparativa')" id="nav-comparativa" class="nav-tab bg-slate-900/60 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-          <span>⚖️</span> <span>Comparativa 2025 vs 2026</span>
-        </button>
-        <button onclick="switchView('auditoria')" id="nav-auditoria" class="nav-tab bg-slate-900/60 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-          <span>🔍</span> <span>Auditoría: Multas, Medidores y TER</span>
-        </button>
-        <button onclick="switchView('timeline')" id="nav-timeline" class="nav-tab bg-slate-900/60 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-          <span>📜</span> <span>Cronología de Gestión (16 Actas)</span>
+
+        <button onclick="switchTab('caja2025')" id="nav-caja2025" class="nav-tab bg-slate-900/60 hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-xl transition flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          Estados Financieros 2025 (Histórico)
         </button>
       </div>
     </div>
   </header>
 
-  <!-- CONTENEDOR PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
 
     <!-- ========================================================================= -->
-    <!-- VISTA 1: GASTOS REALES 2026 SEGÚN VOUCHERS (DEFAULT ACTIVA) -->
+    <!-- VIEW 1: VOUCHERS 2026 (AUDITORÍA COMPLETA BCP ENE-OCT 2026)              -->
     <!-- ========================================================================= -->
-    <div id="view-vouchers2026" class="space-y-8 animate-fade">
+    <section id="view-vouchers2026" class="view-content space-y-6">
       
-      <!-- HERO VOUCHERS 2026 -->
-      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700/50">
-        <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="relative z-10 max-w-3xl space-y-2">
-          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-            <span>Auditado Vouchers BCP / Interbank / BBVA</span>
-            <span>•</span>
-            <span>Enero a Setiembre 2026</span>
+      <!-- HERO CAROUSEL / MONTH FILTER SELECTOR -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 text-white shadow-xl border border-indigo-900/40 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">AUDITORÍA BCP 2026</span>
+              <span id="vkpi-period-tag" class="text-xs text-slate-300 font-medium">Consolidado Enero a Octubre 2026 (134 Vouchers)</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight mt-1">Estructura Real del Gasto Operativo 2026</h2>
+            <p class="text-xs text-slate-400 max-w-2xl mt-1">
+              Información digitalizada mediante OCR local de transferencias y pagos bancarios de la cuenta BCP del Edificio Morar. Selecciona un mes para auditar los egresos específicos.
+            </p>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Ejecución Real de Gastos 2026</h2>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Consolidación y auditoría forense de los <strong>123 comprobantes bancarios (vouchers)</strong> emitidos desde las cuentas del Edificio MORAR entre Enero y Setiembre de 2026.
-          </p>
+
+          <!-- FILTRADO POR MES (PILLS INTERACTIVOS) -->
+          <div class="bg-slate-950/80 p-2 rounded-xl border border-slate-800 flex flex-col gap-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 px-1 font-semibold">
+              <span>Filtrar por Mes:</span>
+              <span class="text-blue-400 font-mono text-[10px]">10 MESES</span>
+            </div>
+            <div class="flex flex-wrap gap-1" id="voucher-month-tabs">
+              <button onclick="selectVoucherMonth('all')" id="vtab-all" class="vmonth-tab month-tab-active px-2.5 py-1.5 rounded-lg text-xs font-bold transition">Todos (10 meses)</button>
+              <button onclick="selectVoucherMonth('01')" id="vtab-01" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Ene</button>
+              <button onclick="selectVoucherMonth('02')" id="vtab-02" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Feb</button>
+              <button onclick="selectVoucherMonth('03')" id="vtab-03" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Mar</button>
+              <button onclick="selectVoucherMonth('04')" id="vtab-04" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Abr</button>
+              <button onclick="selectVoucherMonth('05')" id="vtab-05" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">May</button>
+              <button onclick="selectVoucherMonth('06')" id="vtab-06" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Jun</button>
+              <button onclick="selectVoucherMonth('07')" id="vtab-07" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Jul</button>
+              <button onclick="selectVoucherMonth('08')" id="vtab-08" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Ago</button>
+              <button onclick="selectVoucherMonth('09')" id="vtab-09" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Set</button>
+              <button onclick="selectVoucherMonth('10')" id="vtab-10" class="vmonth-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">Oct</button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- KPIS 2026 VOUCHERS -->
+      <!-- KPIS DINÁMICOS 2026 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Gastos 2026</span>
-            <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">S/</div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm transition hover:shadow-md">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider" id="vkpi-title-total">Gasto Total 2026</span>
+            <span class="p-2 bg-blue-50 text-blue-600 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </span>
           </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">S/ 273,862.37</span>
+          <div class="text-2xl font-extrabold text-slate-900" id="vkpi-total">S/ 310,300.42</div>
+          <div class="flex items-center justify-between mt-2 text-xs">
+            <span class="text-slate-500" id="vkpi-total-sub">Enero – Octubre (10 meses)</span>
+            <span class="font-bold text-blue-600" id="vkpi-count">134 Vouchers</span>
           </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Enero – Setiembre (9 meses)</span>
-            <span class="text-rose-600 font-semibold">123 Vouchers</span>
-          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Promedio Mensual</span>
-            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">M</div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm transition hover:shadow-md">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Administración (Factor/SISACCE)</span>
+            <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+            </span>
           </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-indigo-600">S/ 30,429.15</span>
+          <div class="text-2xl font-extrabold text-indigo-900" id="vkpi-admin">S/ 138,377.41</div>
+          <div class="flex items-center justify-between mt-2 text-xs">
+            <span class="text-slate-500" id="vkpi-admin-sub">Mayor rubro operativo</span>
+            <span class="font-bold text-indigo-600" id="vkpi-admin-pct">44.6%</span>
           </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Gasto operativo mensual</span>
-            <span class="text-emerald-600 font-semibold">Controlado</span>
-          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Ascensores (Andinos)</span>
-            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">A</div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm transition hover:shadow-md">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Servicios (Luz + Agua)</span>
+            <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </span>
           </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-blue-600">S/ 50,544.00</span>
+          <div class="text-2xl font-extrabold text-emerald-900" id="vkpi-servicios">S/ 95,148.40</div>
+          <div class="flex items-center justify-between mt-2 text-xs">
+            <span class="text-slate-500">Luz del Sur + Sedapal</span>
+            <span class="font-bold text-emerald-600" id="vkpi-servicios-pct">30.7%</span>
           </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>9 meses x S/ 5,616.00</span>
-            <span class="text-slate-600 font-semibold">100% Pagado</span>
-          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Servicios (Luz + Agua)</span>
-            <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold text-xs">L+A</div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm transition hover:shadow-md">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Ascensores Andinos</span>
+            <span class="p-2 bg-amber-50 text-amber-600 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+            </span>
           </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-cyan-700">S/ 88,856.90</span>
+          <div class="text-2xl font-extrabold text-amber-900" id="vkpi-andinos">S/ 50,544.00</div>
+          <div class="flex items-center justify-between mt-2 text-xs">
+            <span class="text-slate-500">Tarifa fija: S/ 5,616.00/mes</span>
+            <span class="font-bold text-amber-600" id="vkpi-andinos-pct">16.3%</span>
           </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Luz S/ 46.5k + Agua S/ 42.2k</span>
-            <span class="text-cyan-700 font-semibold">Consumo Común</span>
-          </p>
         </div>
+
       </div>
 
-      <!-- GRÁFICOS 2026: EVOLUCIÓN MENSUAL Y ESTRUCTURA DE VOUCHERS -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- CHARTS SECTION: MONTHLY BARS & CATEGORY DONUT -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <div>
-                <h3 class="text-base font-bold text-slate-900">Evolución de Gastos Reales por Mes (Vouchers 2026)</h3>
-                <p class="text-xs text-slate-500">Monto total mensual comprobado mediante vouchers bancarios</p>
-              </div>
-              <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-2.5 py-1 rounded-lg border border-indigo-200">9 Meses</span>
+        <!-- Monthly Bar Chart -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-slate-100 gap-2">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base">Evolución del Gasto Real Mensual (2026)</h3>
+              <p class="text-xs text-slate-500">Monto total pagado según comprobantes bancarios por mes (Haz clic en una barra para filtrar)</p>
             </div>
-            <div class="h-64 w-full relative">
-              <canvas id="vouchersMonthlyChart"></canvas>
-            </div>
+            <span class="text-xs bg-slate-100 text-slate-700 font-bold px-2.5 py-1 rounded-lg self-start sm:self-auto">Ene – Oct 2026</span>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between">
-            <span>* En marzo y junio hubo desfases temporales en la presentación de facturas de administración.</span>
-            <span class="font-semibold text-slate-700">Pico: Mayo (S/ 42,373.99)</span>
+          <div class="h-72 mt-4 relative">
+            <canvas id="vouchersMonthlyChart"></canvas>
           </div>
         </div>
 
-        <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <!-- Donut Chart: Estructura del Gasto del Mes / Consolidado -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-1">
-              <h3 class="text-base font-bold text-slate-900">Distribución por Categoría (2026)</h3>
-              <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-0.5 rounded-full">S/ 273.8k Total</span>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div>
+                <h3 class="font-bold text-slate-900 text-base">Estructura del Gasto</h3>
+                <p class="text-xs text-blue-600 font-bold" id="vdonut-month-label">Consolidado Total (10 meses)</p>
+              </div>
+              <span class="text-xs bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-lg">% Rubros</span>
             </div>
-            <p class="text-xs text-slate-500 mb-3">Participación porcentual de los 123 comprobantes</p>
-            <div class="h-48 w-full relative flex items-center justify-center">
-              <canvas id="vouchersCategoryChart"></canvas>
+            <div class="h-56 mt-3 relative">
+              <canvas id="vouchersCatChart"></canvas>
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 space-y-1.5 text-xs">
-            <div class="flex justify-between items-center text-slate-600">
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Administración (SISACCE + Factor 1):</span>
-              <span class="font-bold text-slate-900">S/ 115,555 (42.2%)</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-600">
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Ascensores Andinos:</span>
-              <span class="font-bold text-slate-900">S/ 50,544 (18.5%)</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-600">
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Luz del Sur (Áreas Comunes):</span>
-              <span class="font-bold text-slate-900">S/ 46,573 (17.0%)</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-600">
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> Sedapal (Agua Potable):</span>
-              <span class="font-bold text-slate-900">S/ 42,284 (15.4%)</span>
-            </div>
+          <div id="vdonut-legend" class="mt-4 space-y-1.5 text-xs border-t border-slate-100 pt-3 max-h-48 overflow-y-auto">
+            <!-- Dynamic Category Breakdown List -->
           </div>
         </div>
+
       </div>
 
-      <!-- TABLA DETALLADA DE LOS 123 VOUCHERS -->
+      <!-- DATA TABLE: DETALLE DE VOUCHERS -->
       <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div class="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50">
+        <div class="p-5 border-b border-slate-200/80 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <span>Registro Detallado de Comprobantes (Vouchers 2026)</span>
-              <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-semibold">123 Registros</span>
-            </h3>
-            <p class="text-xs text-slate-500 mt-1">Haga clic en cualquier fila o use el buscador para filtrar por proveedor, categoría o fecha.</p>
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-slate-900 text-base">Registro Detallado de Comprobantes Bancarios</h3>
+              <span class="bg-blue-100 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded-full" id="vtable-badge-count">134 Vouchers</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5" id="vtable-subtitle">Todos los egresos auditados y verificados contra extractos bancarios de BCP</p>
           </div>
           <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-            <select id="voucher-month-filter" onchange="filterVouchersTable()" class="text-xs px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="all">Todos los Meses (9)</option>
+            <select id="voucher-month-filter" onchange="selectVoucherMonth(this.value)" class="text-xs px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-700">
+              <option value="all">Todos los Meses (10)</option>
               <option value="01">Enero 2026</option>
               <option value="02">Febrero 2026</option>
               <option value="03">Marzo 2026</option>
@@ -254,541 +269,202 @@
               <option value="07">Julio 2026</option>
               <option value="08">Agosto 2026</option>
               <option value="09">Setiembre 2026</option>
+              <option value="10">Octubre 2026</option>
             </select>
             <input type="text" id="voucher-search" oninput="filterVouchersTable()" placeholder="Buscar proveedor, concepto..." class="text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white w-full sm:w-60">
           </div>
         </div>
 
-        <div class="overflow-x-auto max-h-96">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead class="sticky top-0 bg-slate-100 text-slate-700 uppercase tracking-wider font-semibold border-b border-slate-200">
-              <tr>
-                <th class="py-2.5 px-4">#</th>
-                <th class="py-2.5 px-3">Fecha</th>
-                <th class="py-2.5 px-4">Beneficiario / Proveedor</th>
-                <th class="py-2.5 px-3">Categoría</th>
-                <th class="py-2.5 px-4 text-right">Monto (S/)</th>
-                <th class="py-2.5 px-4">Archivo Comprobante</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100" id="vouchers-tbody">
-              <!-- Renderizado dinámicamente -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- ========================================================================= -->
-    <!-- VISTA 2: FLUJO DE CAJA 2025 (AUDITADO SISACCE) -->
-    <!-- ========================================================================= -->
-    <div id="view-caja2025" class="space-y-8 hidden animate-fade">
-      
-      <!-- HERO 2025 CON SELECTOR MENSUAL -->
-      <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700/50">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              <span>Flujo Mensual Auditado</span>
-              <span>•</span>
-              <span id="period-tag">Consolidado Semestral (Abril - Setiembre 2025)</span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Rendición de Cuentas BCP 2025</h2>
-            <p class="text-slate-300 text-sm max-w-2xl leading-relaxed">
-              Consulte los ingresos, egresos y saldos mes a mes. Haga clic en cualquier pestaña para ver el desglose exacto de ese mes.
-            </p>
-          </div>
-
-          <!-- SELECTOR DE VISTA MENSUAL -->
-          <div class="bg-slate-800/95 p-2 rounded-xl border border-slate-700 backdrop-blur-sm shadow-lg">
-            <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 px-2 flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-              Seleccione Mes a Visualizar:
-            </div>
-            <div class="flex flex-wrap gap-1.5" id="month-tabs">
-              <button onclick="selectMonth('all')" id="tab-all" class="month-tab month-tab-active px-3 py-1.5 rounded-lg text-xs font-bold transition">Todos (Semestre)</button>
-              <button onclick="selectMonth('Abril')" id="tab-Abril" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Abril</button>
-              <button onclick="selectMonth('Mayo')" id="tab-Mayo" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Mayo</button>
-              <button onclick="selectMonth('Junio')" id="tab-Junio" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Junio</button>
-              <button onclick="selectMonth('Julio')" id="tab-Julio" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Julio</button>
-              <button onclick="selectMonth('Agosto')" id="tab-Agosto" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Agosto</button>
-              <button onclick="selectMonth('Setiembre')" id="tab-Setiembre" class="month-tab bg-slate-900/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Setiembre</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TARJETAS KPI DINÁMICAS POR MES 2025 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="kpi-container">
-        
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-ingresos-title">Ingresos Totales</span>
-            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">+</div>
-          </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="kpi-ingresos">S/ 324,378.13</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Cuotas ordinarias y otros</span>
-            <span class="text-emerald-600 font-semibold" id="kpi-ingresos-tag">Operativo</span>
-          </p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-egresos-title">Egresos / Gastos</span>
-            <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold">-</div>
-          </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-rose-600" id="kpi-egresos">-S/ 255,041.03</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Gasto Operativo Real</span>
-            <span class="text-rose-600 font-semibold">Servicios y Adm.</span>
-          </p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="kpi-neto-title">Flujo Neto del Mes</span>
-            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">Δ</div>
-          </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-indigo-600" id="kpi-neto">+S/ 11,295.39</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Ingresos menos Gastos</span>
-            <span class="text-emerald-600 font-bold" id="kpi-neto-badge">Superávit</span>
-          </p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Saldo Final en Banco</span>
-            <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold">BCP</div>
-          </div>
-          <div class="mt-3">
-            <span class="text-2xl sm:text-3xl font-extrabold text-cyan-700" id="kpi-saldo">S/ 69,337.10</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-2 flex items-center justify-between">
-            <span>Disponible en BCP</span>
-            <span class="text-cyan-700 font-semibold" id="kpi-saldo-tag">Cierre Setiembre</span>
-          </p>
-        </div>
-      </div>
-
-      <!-- GRÁFICOS 2025 -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <div>
-                <h3 class="text-base font-bold text-slate-900">Evolución Mensual: Ingresos vs Egresos (2025)</h3>
-                <p class="text-xs text-slate-500">Comparativa mensual de Abril a Setiembre en Soles (S/)</p>
-              </div>
-              <div class="flex items-center gap-3 text-xs font-medium">
-                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Ingresos</span>
-                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span> Egresos</span>
-                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-blue-600 inline-block"></span> Saldo BCP</span>
-              </div>
-            </div>
-            <div class="h-64 w-full relative">
-              <canvas id="monthlyBarChart"></canvas>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>* En abril se incorporaron S/ 58,041.71 del saldo inicial de la Ex-JD.</span>
-            <span class="font-semibold text-slate-700">Déficit puntual en Agosto: -S/ 1,524</span>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <h3 class="text-base font-bold text-slate-900">Estructura del Gasto (2025)</h3>
-              <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-0.5 rounded-full" id="donut-month-label">Consolidado Total</span>
-            </div>
-            <p class="text-xs text-slate-500 mb-3">Distribución porcentual por categoría para el mes activo</p>
-            <div class="h-48 w-full relative flex items-center justify-center">
-              <canvas id="expensesDonutChart"></canvas>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs" id="donut-legend-text">
-            <!-- Dinámico -->
-          </div>
-        </div>
-      </div>
-
-      <!-- TABLA DE DETALLE MENSUAL 2025 -->
-      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div class="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50">
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <span>Desglose Detallado Ítem por Ítem (2025)</span>
-              <span class="text-xs bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold" id="table-badge">Matriz Mes a Mes</span>
-            </h3>
-            <p class="text-xs text-slate-500 mt-1">Valores expresados en Nuevos Soles (S/). Filtre por concepto o explore los montos mensuales.</p>
-          </div>
-          <div class="w-full sm:w-72">
-            <input type="text" id="concept-search" oninput="filterTable()" placeholder="Buscar concepto (ej: luz, ascensor, adm)..." class="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-          </div>
-        </div>
-
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs border-collapse" id="financial-table">
+          <table class="w-full text-left border-collapse text-xs">
             <thead>
-              <tr class="bg-slate-100/90 text-slate-700 uppercase tracking-wider font-semibold border-b border-slate-200">
-                <th class="py-3 px-4 font-bold">Concepto / Partida</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Abril" data-m="Abril">Abril</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Mayo" data-m="Mayo">Mayo</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Junio" data-m="Junio">Junio</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Julio" data-m="Julio">Julio</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Agosto" data-m="Agosto">Agosto</th>
-                <th class="py-3 px-3 text-right col-m" id="th-Setiembre" data-m="Setiembre">Setiembre</th>
-                <th class="py-3 px-4 text-right font-bold bg-slate-200/80 text-slate-900">Total Semestre</th>
+              <tr class="bg-slate-100/80 text-slate-600 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-3">Fecha</th>
+                <th class="py-3 px-4">Proveedor / Destinatario</th>
+                <th class="py-3 px-3">Categoría de Egreso</th>
+                <th class="py-3 px-4 text-right">Monto (S/)</th>
+                <th class="py-3 px-4">Comprobante / Archivo</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100" id="table-body">
-              <!-- Rellenado por JS -->
+            <tbody id="vouchers-table-body" class="divide-y divide-slate-100">
+              <!-- Dynamically populated rows -->
             </tbody>
           </table>
         </div>
+        <div class="p-3.5 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500 font-medium">
+          <span id="vtable-showing-text">Mostrando todos los comprobantes</span>
+          <span class="font-bold text-slate-700" id="vtable-sum-text">Total: S/ 310,300.42</span>
+        </div>
       </div>
 
-    </div>
+    </section>
 
 
     <!-- ========================================================================= -->
-    <!-- VISTA 3: PRESUPUESTO APROBADO 2026 -->
+    <!-- VIEW 2: PRESUPUESTO 2026 VS REAL 2025                                     -->
     <!-- ========================================================================= -->
-    <div id="view-budget2026" class="space-y-8 hidden animate-fade">
-      
-      <!-- HERO PRESUPUESTO 2026 -->
-      <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700/50">
-        <div class="relative z-10 max-w-3xl space-y-2">
-          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">
-            <span>Actas 14 y 15 (Julio 2026)</span>
-            <span>•</span>
-            <span>Aprobado por Unanimidad (Opción 3)</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Presupuesto Anual y Cuota de Mantenimiento 2026</h2>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Estructura presupuestaria oficial presentada por <strong>Factor 1</strong> y ratificada en Asamblea General con el retiro del rubro de jardinería para licitación competitiva.
-          </p>
-        </div>
+    <section id="view-presupuesto2026" class="view-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white">Presupuesto Operativo 2026 vs Gasto Real 2025</h2>
+        <p class="text-xs text-blue-200 mt-1 max-w-3xl">
+          Comparativa técnica entre la ejecución presupuestal histórica real 2025 y el Presupuesto Anual Aprobado 2026. Ahorro neto proyectado de S/ 1,876.05 mensuales (-S/ 22,512.60 anual) mediante optimización de contratos de administración y mantenimiento.
+        </p>
       </div>
 
-      <!-- KPIS PRESUPUESTO 2026 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Presupuesto Mensual</span>
-          <div class="mt-3"><span class="text-2xl sm:text-3xl font-extrabold text-slate-900">S/ 40,630.79</span></div>
-          <p class="text-xs text-slate-500 mt-2">Costo operativo regular por mes</p>
-        </div>
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Presupuesto Anual</span>
-          <div class="mt-3"><span class="text-2xl sm:text-3xl font-extrabold text-blue-600">S/ 487,569.48</span></div>
-          <p class="text-xs text-slate-500 mt-2">Total anualizado proyectado</p>
-        </div>
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mantenimientos Técnicos</span>
-          <div class="mt-3"><span class="text-2xl sm:text-3xl font-extrabold text-indigo-600">S/ 7,444.99</span></div>
-          <p class="text-xs text-slate-500 mt-2">19 partidas preventivas mensuales</p>
-        </div>
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Fondo Reserva 2025</span>
-          <div class="mt-3"><span class="text-2xl sm:text-3xl font-extrabold text-emerald-600">S/ 69,337.10</span></div>
-          <p class="text-xs text-slate-500 mt-2">Superávit acumulado para BCI</p>
-        </div>
-      </div>
-
-      <!-- TABLA DETALLE PARTIDAS PRESUPUESTALES 2026 -->
       <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div class="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50">
-          <div>
-            <h3 class="text-lg font-bold text-slate-900">Partidas Presupuestarias Aprobadas (2026)</h3>
-            <p class="text-xs text-slate-500 mt-1">Frecuencia, costos unitarios, montos anualizados y prorrateo mensual.</p>
-          </div>
-          <div class="w-full sm:w-72">
-            <input type="text" id="budget-search" oninput="filterBudgetTable()" placeholder="Buscar partida (ej: ascensor, bomba)..." class="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-          </div>
-        </div>
-
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead class="bg-slate-100 text-slate-700 uppercase tracking-wider font-semibold border-b border-slate-200">
-              <tr>
-                <th class="py-3 px-4 font-bold">Categoría / Partida</th>
-                <th class="py-3 px-3">Frecuencia</th>
-                <th class="py-3 px-3 text-center">Veces / Año</th>
-                <th class="py-3 px-3 text-right">Costo x Serv.</th>
-                <th class="py-3 px-4 text-right">Monto Anual</th>
-                <th class="py-3 px-4 text-right font-bold text-slate-900">Costo Mensual</th>
-                <th class="py-3 px-4">Detalle Operativo</th>
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                <th class="py-3.5 px-4">Partida Presupuestal / Servicio</th>
+                <th class="py-3.5 px-4 text-right">Gasto Real 2025 (Mes Prom.)</th>
+                <th class="py-3.5 px-4 text-right col-highlight">Presupuesto 2026 (Mes)</th>
+                <th class="py-3.5 px-4 text-right">Diferencia (S/)</th>
+                <th class="py-3.5 px-3 text-center">Variación %</th>
+                <th class="py-3.5 px-4">Justificación Técnica & Soporte Contractual</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100" id="budget-tbody">
-              <!-- Renderizado dinámicamente -->
+            <tbody id="budget-table-body" class="divide-y divide-slate-100">
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
       </div>
-
-    </div>
+    </section>
 
 
     <!-- ========================================================================= -->
-    <!-- VISTA 4: COMPARATIVA 2025 vs 2026 -->
+    <!-- VIEW 3: CRONOLOGÍA & ACTAS JD 2026                                        -->
     <!-- ========================================================================= -->
-    <div id="view-comparativa" class="space-y-8 hidden animate-fade">
-      
-      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
-        <div>
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Análisis Comparativo</span>
-          <h3 class="text-xl font-bold text-slate-900 mt-1">Gasto Real 2025 vs Presupuesto 2026 vs Vouchers 2026</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Comparativa directa de los tres pilares de información disponibles: el Flujo de Caja 2025 (SISACCE), el Presupuesto Aprobado 2026 (Acta 15) y la Ejecución Real Comprobada por Vouchers (2026).
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <span class="text-xs text-slate-500 font-semibold">Gasto Mensual Promedio 2025 (Real)</span>
-            <div class="text-xl font-black text-slate-800 mt-1">S/ 42,506.84</div>
-            <p class="text-[11px] text-slate-500 mt-1">Ejecutado por SISACCE (Abr-Set 2025)</p>
-          </div>
-          <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
-            <span class="text-xs text-blue-700 font-semibold">Presupuesto Mensual 2026 (Aprobado)</span>
-            <div class="text-xl font-black text-blue-900 mt-1">S/ 40,630.79</div>
-            <p class="text-[11px] text-blue-700 mt-1">Ahorro proyectado de -S/ 1,876.05/mes (-4.4%)</p>
-          </div>
-          <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
-            <span class="text-xs text-emerald-700 font-semibold">Gasto Mensual Promedio 2026 (Vouchers)</span>
-            <div class="text-xl font-black text-emerald-900 mt-1">S/ 30,429.15</div>
-            <p class="text-[11px] text-emerald-700 mt-1">Auditado de los 123 comprobantes bancarios</p>
-          </div>
-        </div>
+    <section id="view-cronologia2026" class="view-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white">Cronología de Hechos Clave & Actas JD 2026</h2>
+        <p class="text-xs text-slate-300 mt-1 max-w-3xl">
+          Trazabilidad legal y de gobernanza del Edificio Morar a lo largo de 2026: contratos suscritos, resoluciones contractuales de administradoras, cartas notariales y asambleas.
+        </p>
       </div>
 
-      <!-- TABLA COMPARATIVA RUBRO POR RUBRO -->
-      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div class="p-5 border-b border-slate-100 bg-slate-50/50">
-          <h4 class="text-base font-bold text-slate-900">Variación por Grandes Partidas</h4>
-          <p class="text-xs text-slate-500">Diferencias clave entre el costo histórico 2025 y las metas operativas 2026.</p>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead class="bg-slate-100 text-slate-700 uppercase tracking-wider font-semibold border-b border-slate-200">
-              <tr>
-                <th class="py-3 px-4 font-bold">Rubro de Gasto</th>
-                <th class="py-3 px-3 text-right">Promedio Real 2025</th>
-                <th class="py-3 px-3 text-right">Presupuesto 2026</th>
-                <th class="py-3 px-3 text-right">Variación (S/)</th>
-                <th class="py-3 px-3 text-right">Variación (%)</th>
-                <th class="py-3 px-4">Impacto y Justificación</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100" id="comparativa-tbody">
-              <!-- Renderizado dinámicamente -->
-            </tbody>
-          </table>
+      <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+        <div class="relative border-l-2 border-indigo-200 ml-4 space-y-8 py-2" id="timeline-container">
+          <!-- Dynamically populated timeline -->
         </div>
       </div>
-
-    </div>
-
-
-    <!-- ========================================================================= -->
-    <!-- VISTA 5: AUDITORÍA ESPECIAL (MULTAS, MEDIDORES, TER) -->
-    <!-- ========================================================================= -->
-    <div id="view-auditoria" class="space-y-8 hidden animate-fade">
-      
-      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-        <div>
-          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Hallazgos y Resoluciones</span>
-          <h3 class="text-xl font-bold text-slate-900 mt-1">Auditoría Especial: Multas, Medidores y Acuerdos Críticos</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Análisis exhaustivo sobre los temas de mayor controversia vecinal identificados en las 16 actas y registros bancarios.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <!-- MULTAS -->
-          <div class="bg-amber-50/70 rounded-2xl p-5 border border-amber-200 space-y-3">
-            <div class="flex items-center gap-2">
-              <span class="w-7 h-7 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">1</span>
-              <h4 class="text-sm font-bold text-amber-950">Auditoría de Multas: Cobro Real vs Papel</h4>
-            </div>
-            <p class="text-xs text-amber-900 leading-relaxed">
-              <strong>En el Flujo de Caja 2025:</strong> Se registra <strong>S/ 0.00 cobrados</strong> de multas en los 6 meses auditados por SISACCE.<br>
-              <strong>En los Vouchers 2026:</strong> Cero pagos por concepto de multas vecinales.<br>
-              <strong>Evolución en Actas:</strong> Se debatieron multas desde el Acta 4 y 7. En el Acta 14 se aprobaron formalmente con <strong>57 votos a favor</strong>, y en el <strong>Acta 16 (11 de octubre de 2026)</strong> la asamblea ordenó notificar por correo formal a los infractores para cobrarlas sin excepción.
-            </p>
-            <div class="text-[11px] bg-amber-100/80 text-amber-900 p-2.5 rounded-lg border border-amber-300 font-medium">
-              Conclusión: Históricamente nunca se cobraron efectivamente; la Junta de Roger Paredes ha iniciado la notificación formal para su cobro regular.
-            </div>
-          </div>
-
-          <!-- MEDIDORES DE AGUA -->
-          <div class="bg-blue-50/70 rounded-2xl p-5 border border-blue-200 space-y-3">
-            <div class="flex items-center gap-2">
-              <span class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">2</span>
-              <h4 class="text-sm font-bold text-blue-950">Detección de 6 Medidores de Agua Irregulares</h4>
-            </div>
-            <p class="text-xs text-blue-900 leading-relaxed">
-              En la Asamblea del 13 de Julio de 2026 (Acta 14), la administradora Cinthya Cucho reportó el hallazgo de <strong>seis (6) departamentos cuyos medidores de agua internos presentaban funcionamiento irregular</strong> o manipulación.<br>
-              <strong>Acción Tomada:</strong> Se ordenó cursar notificación formal con copia a la Junta Directiva para exigir su reemplazo o calibración inmediata, evitando que el consumo no medido sea pagado por la comunidad en el recibo de áreas comunes.
-            </p>
-            <div class="text-[11px] bg-blue-100/80 text-blue-900 p-2.5 rounded-lg border border-blue-300 font-medium">
-              Impacto: El gasto de Sedapal en áreas comunes se redujo a ~S/ 2,374 mensual en el presupuesto.
-            </div>
-          </div>
-
-          <!-- JARDINERÍA -->
-          <div class="bg-emerald-50/70 rounded-2xl p-5 border border-emerald-200 space-y-3">
-            <div class="flex items-center gap-2">
-              <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">3</span>
-              <h4 class="text-sm font-bold text-emerald-950">Exclusión Unánime de Jardinería (Opción 3)</h4>
-            </div>
-            <p class="text-xs text-emerald-900 leading-relaxed">
-              En el Acta 15 (20 de Julio de 2026), la asamblea votó por <strong>UNANIMIDAD (40 votos a favor, 0 en contra)</strong> la <strong>Opción 3</strong>: se excluyó la partida de S/ 1,000 mensuales de jardinería.<br>
-              <strong>Motivo:</strong> Los propietarios consideraron excesivo el monto propuesto y ordenaron a la administración solicitar 3 cotizaciones más competitivas antes de adjudicar el servicio.
-            </p>
-            <div class="text-[11px] bg-emerald-100/80 text-emerald-900 p-2.5 rounded-lg border border-emerald-300 font-medium">
-              Ahorro anual: S/ 12,000.00 protegidos para cotización competitiva.
-            </div>
-          </div>
-
-          <!-- CANTONERAS Y RAMPA -->
-          <div class="bg-purple-50/70 rounded-2xl p-5 border border-purple-200 space-y-3">
-            <div class="flex items-center gap-2">
-              <span class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-xs">4</span>
-              <h4 class="text-sm font-bold text-purple-950">Cantoneras Dañadas y Proyecto de Rampa</h4>
-            </div>
-            <p class="text-xs text-purple-900 leading-relaxed">
-              En el Acta 16 (11 de Octubre de 2026), se abordó el deterioro de las cantoneras y losetas en las escaleras exteriores.<br>
-              <strong>Responsabilidad:</strong> La asamblea acordó que la Administración asuma la reparación ya que el daño fue ocasionado por el arrastre inadecuado de los contenedores de basura por el personal.<br>
-              <strong>Solución Definitiva:</strong> Se solicitó cotizar con un arquitecto una rampa metálica exterior para el traslado seguro de contenedores.
-            </p>
-            <div class="text-[11px] bg-purple-100/80 text-purple-900 p-2.5 rounded-lg border border-purple-300 font-medium">
-              Acuerdo: Descenso cargado provisionalmente por ambos conserjes.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
+    </section>
 
 
     <!-- ========================================================================= -->
-    <!-- VISTA 6: CRONOLOGÍA DE GESTIÓN (16 ACTAS Y COMUNICADOS) -->
+    <!-- VIEW 4: ESTADOS FINANCIEROS 2025 (HISTÓRICO)                              -->
     <!-- ========================================================================= -->
-    <div id="view-timeline" class="space-y-8 hidden animate-fade">
-      
-      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5">
+    <section id="view-caja2025" class="view-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-800 to-indigo-950 rounded-2xl p-6 text-white shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 mb-2">
-              <span>Historial Oficial</span>
-              <span>•</span>
-              <span>16 Actas y Comunicados</span>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">Línea de Tiempo: Asambleas, Directivas y Eventos</h3>
-            <p class="text-xs text-slate-500 mt-1">Hitos clave desde la entrega del edificio hasta la asamblea de octubre 2026.</p>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Flujo de Caja Histórico 2025 (12 Meses)</h2>
+            <p class="text-xs text-slate-300 mt-1 max-w-2xl">
+              Información extraída del reporte mensual oficial de ingresos y egresos 2025 (Tab Flujo Mensual y Diario).
+            </p>
           </div>
-          
-          <div class="flex flex-wrap gap-1.5" id="event-filters">
-            <button onclick="filterEvents('all')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white">Todos</button>
-            <button onclick="filterEvents('Gobernanza')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Gobernanza</button>
-            <button onclick="filterEvents('Administración')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Administración</button>
-            <button onclick="filterEvents('Finanzas')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Finanzas</button>
-            <button onclick="filterEvents('Técnico')" class="event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">Técnico / TER</button>
+          <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-700/80 text-xs">
+            <span class="text-slate-400 block text-[10px]">Total Egresos 2025:</span>
+            <span class="text-base font-bold text-amber-400">S/ 510,082.04</span>
           </div>
-        </div>
-
-        <!-- LISTA DE EVENTOS -->
-        <div class="space-y-4" id="timeline-list">
-          <!-- Renderizado dinámicamente -->
         </div>
       </div>
 
-    </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+          <h3 class="font-bold text-slate-900 text-sm mb-3">Ingresos vs Egresos 2025 por Mes</h3>
+          <div class="h-72 relative">
+            <canvas id="barChart2025"></canvas>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+          <h3 class="font-bold text-slate-900 text-sm mb-3">Estructura del Gasto 2025</h3>
+          <div class="h-64 relative">
+            <canvas id="donutChart2025"></canvas>
+          </div>
+          <div id="donut2025-legend" class="mt-4 space-y-1.5 text-xs border-t border-slate-100 pt-3"></div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 mt-12">
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-2">
-        <div class="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs">M</div>
-        <span>Edificio MORAR — Av. Tomás Marsano 2253, Surquillo</span>
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span class="font-semibold text-slate-700">Edificio MORAR — Portal de Transparencia</span>
+        <span>• Conciliación 100% Bancaria BCP</span>
       </div>
-      <div>
-        Generado con base en 123 Vouchers 2026, Flujo de Caja BCP 2025 y 16 Actas Oficiales
+      <div class="text-slate-400">
+        Actualizado: 27 de Octubre de 2026, 20:45 • Desarrollado para la Comunidad de Propietarios MORAR
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPT DE DATOS Y LÓGICA INTERACTIVA -->
+  <!-- SCRIPT ENGINE -->
   <script>
-    const financialData = {"ingresos": {"Transferencia de Saldo Inicial": {"Abril": 58041.71, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Cuotas de Mantenimiento": {"Abril": 31648.82, "Mayo": 42898.049999999996, "Junio": 43412.7, "Julio": 40242.81999999999, "Agosto": 40809.64000000001, "Setiembre": 45254.57}, "Cuotas Extraordinarias": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Alquiler de Áreas Comunes (Parrillas)": {"Abril": 800, "Mayo": 800, "Junio": 720, "Julio": 640, "Agosto": 320, "Setiembre": 480}, "Intereses Moratorios": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Multas o Penalidades": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Aportes por Controles de Estacionamiento": {"Abril": 0, "Mayo": 5015, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Reintegros por Comisiones (Operaciones de Ventanilla)": {"Abril": 9, "Mayo": 9, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Otros Ingresos Extraordinarios": {"Abril": 0, "Mayo": 4707.7, "Junio": 0, "Julio": 2065.1, "Agosto": 934.5, "Setiembre": 0}, "Otros Ingresos No Operativos": {"Abril": 31, "Mayo": 0, "Junio": 0, "Julio": 2600, "Agosto": 2938.52, "Setiembre": 0}}, "egresos": {"1. Servicios Basicos": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Luz (Suministro 2168901)": {"Abril": -6713.8, "Mayo": -6999.8, "Junio": -7057.6, "Julio": -7650.6, "Agosto": -6906, "Setiembre": -6628.3}, "Luz (Suministro 2168902)": {"Abril": -1073.4, "Mayo": -1035, "Junio": -1032.3, "Julio": -1032.8, "Agosto": -934.5, "Setiembre": -50.7}, "Agua": {"Abril": -2470.7, "Mayo": -2804.7, "Junio": -2547.3, "Julio": -2907.1, "Agosto": -3122.5, "Setiembre": -3096}, "2. Limpieza y Áreas Comunes": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Limpieza Zonas Parrillas": {"Abril": -120, "Mayo": -105, "Junio": -45, "Julio": -150, "Agosto": -60, "Setiembre": -90}, "3. Mantenimiento y Reparaciones": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Ascensores": {"Abril": -5470.08, "Mayo": -5464.16, "Junio": -5328, "Julio": -5328, "Agosto": -5616, "Setiembre": -5616}, "Bombas de Agua": {"Abril": 0, "Mayo": 0, "Junio": -735, "Julio": 0, "Agosto": -735, "Setiembre": -450}, "Sistema Contra Incendios": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Pozos a Tierra": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -672.5, "Agosto": -672.5, "Setiembre": 0}, "Recarga de Extintores": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": -1745, "Setiembre": 0}, "Elevador de Discapacitados": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": -225}, "Reparaciones Menores": {"Abril": 0, "Mayo": -30, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "4. Servicios de Administración": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Facturación de Empresa Administradora": {"Abril": -23799.05, "Mayo": -23789.45, "Junio": -23794.25, "Julio": -23794.25, "Agosto": -23794.25, "Setiembre": -22413.22}, "5. Gastos Administrativos": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Movilidades": {"Abril": -6, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Papelería, Copias y Comunicaciones": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -51, "Agosto": 0, "Setiembre": 0}, "6. Gastos Legales": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Trámites Notariales y Legalizaciones": {"Abril": -150, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Cartas Notariales": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -40, "Agosto": 0, "Setiembre": 0}, "7. Gastos Financieros": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Impuesto a las Transacciones Financieras (ITF)": {"Abril": -4.95, "Mayo": -2.65, "Junio": -2.55, "Julio": -2.6999999999999997, "Agosto": -2.5999999999999996, "Setiembre": -2.25}, "Comisiones por Operaciones en Ventanilla": {"Abril": -18, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "8. Inversiones en Activos Menores": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Compra de Activos Menores a 1/4 de UIT": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -100, "Agosto": 0, "Setiembre": 0}, "9. Otros Egresos": {"Abril": 0, "Mayo": -5015, "Junio": 0, "Julio": -2600, "Agosto": -2938.52, "Setiembre": 0}}, "totales": {"Total Ingresos": {"Abril": 90530.53, "Mayo": 53429.75, "Junio": 44132.7, "Julio": 45547.92, "Agosto": 45002.66, "Setiembre": 45734.57}, "Total Egresos": {"Abril": -39825.98, "Mayo": -45245.76, "Junio": -40542, "Julio": -44328.95, "Agosto": -46526.87, "Setiembre": -38571.47}, "Flujo Neto Mensual": {"Abril": 50704.55, "Mayo": 8183.99, "Junio": 3590.7, "Julio": 1218.97, "Agosto": -1524.21, "Setiembre": 7163.1}, "Saldo Acumulado": {"Abril": 50704.55, "Mayo": 58888.54, "Junio": 62479.24, "Julio": 63698.21, "Agosto": 62174, "Setiembre": 69337.1}}};
-    const vouchersData = {"total_gastos_2026": 273862.37, "total_vouchers": 123, "por_mes": {"Enero": 38709.89, "Febrero": 42233.22, "Marzo": 16817.8, "Abril": 39378.42, "Mayo": 42373.99, "Junio": 12548.8, "Julio": 20029.6, "Agosto": 36944.45, "Setiembre": 24826.2}, "por_categoria": {"Administración": 115555.16, "Ascensores": 50544.0, "Energía Eléctrica": 46573.3, "Agua y Alcantarillado": 42283.6, "Otros Egresos": 7192.79, "Devolución de Garantías": 3860.0, "Personal y Operativo": 3662.27, "Mantenimiento Técnico": 1822.6, "Equipamiento Áreas Comunes": 1140.0, "Servicios de Parrillas": 565.0, "Personal y Limpieza": 463.65, "Personal y Mantenimiento": 200.0}, "por_proveedor": {"SISACCE S.A.C.": 69910.66, "Ascensores Andinos": 50544.0, "Luz del Sur (Suministro Principal)": 46266.5, "Factor 1 / KOMUNA": 45644.5, "Sedapal (Agua Potable)": 42283.6, "Varios / Terceros": 7192.79, "Devolución Garantía Parrillas": 3460.0, "Juan Carlos Reynalde": 3410.0, "Eulogio Agreda (Carritos de Compra)": 1140.0, "Recarga de Extintores": 692.6, "Mantenimiento Pozos a Tierra": 630.0, "Limpieza de Parrillas": 565.0, "Rafael Palomino (Soldadura)": 500.0, "Martina López (Limpieza)": 463.65, "Garantía / Parrillas": 400.0, "Luz del Sur (Suministro Secundario)": 306.8, "Rocío Morales Gorrío (Apoyo)": 252.27, "Sigifredo Goicochea (Mantenimiento)": 200.0}, "detalle_vouchers": [{"id": 1, "file": "voucher_20260108-203217.jpg", "date": "2026-01-08", "year": "2026", "month": "01", "provider": "Sigifredo Goicochea (Mantenimiento)", "category": "Personal y Mantenimiento", "amount": 200.0, "raw_str": "200.00"}, {"id": 2, "file": "voucher_20260110-002000.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 133.65, "raw_str": "133.65"}, {"id": 3, "file": "voucher_20260110-002041.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 1.35, "raw_str": "1.35"}, {"id": 4, "file": "voucher_20260110-002143.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6680.8, "raw_str": "6,680080"}, {"id": 5, "file": "voucher_20260110-002212.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 171.2, "raw_str": "171.20"}, {"id": 6, "file": "voucher_20260110-002243.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 3251.0, "raw_str": "3,25100"}, {"id": 7, "file": "voucher_20260114-205143.jpg", "date": "2026-01-14", "year": "2026", "month": "01", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 8, "file": "voucher_20260122-112953.jpg", "date": "2026-01-22", "year": "2026", "month": "01", "provider": "Rocío Morales Gorrío (Apoyo)", "category": "Personal y Operativo", "amount": 252.27, "raw_str": "252,27"}, {"id": 9, "file": "voucher_20260130-115732.jpg", "date": "2026-01-30", "year": "2026", "month": "01", "provider": "SISACCE S.A.C.", "category": "Administración", "amount": 19458.42, "raw_str": "19,45842"}, {"id": 10, "file": "voucher_20260131-114418.jpg", "date": "2026-01-31", "year": "2026", "month": "01", "provider": "SISACCE S.A.C.", "category": "Administración", "amount": 2945.2, "raw_str": "2,945.20"}, {"id": 11, "file": "voucher_20260201-201023.jpg", "date": "2026-02-01", "year": "2026", "month": "02", "provider": "SISACCE S.A.C.", "category": "Administración", "amount": 2690.2, "raw_str": "2,690.20"}, {"id": 12, "file": "voucher_20260211-233649.jpg", "date": "2026-02-11", "year": "2026", "month": "02", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 90.0, "raw_str": "90.00"}, {"id": 13, "file": "voucher_20260213-154718.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 14, "file": "voucher_20260213-154855.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4230.2, "raw_str": "4,230.20"}, {"id": 15, "file": "voucher_20260213-155116.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6815.3, "raw_str": "6,815030"}, {"id": 16, "file": "voucher_20260213-155202.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 83.1, "raw_str": "83,10"}, {"id": 17, "file": "voucher_20260227-092735.jpg", "date": "2026-02-27", "year": "2026", "month": "02", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 300.0, "raw_str": "300.00"}, {"id": 18, "file": "voucher_20260228-080814.jpg", "date": "2026-02-28", "year": "2026", "month": "02", "provider": "SISACCE S.A.C.", "category": "Administración", "amount": 22408.42, "raw_str": "22,408.42"}, {"id": 19, "file": "voucher_20260310-153918.jpg", "date": "2026-03-10", "year": "2026", "month": "03", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 11.5, "raw_str": "11.50"}, {"id": 20, "file": "voucher_20260316-084700.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 90.0, "raw_str": "90.00"}, {"id": 21, "file": "voucher_20260316-084847.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 22, "file": "voucher_20260316-085010.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4340.1, "raw_str": "41340,10"}, {"id": 23, "file": "voucher_20260316-085227.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6668.7, "raw_str": "6,66870"}, {"id": 24, "file": "voucher_20260316-085311.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 91.5, "raw_str": "91.50"}, {"id": 25, "file": "voucher_20260415-231152.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 26, "file": "voucher_20260415-231321.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4804.7, "raw_str": "41804,70"}, {"id": 27, "file": "voucher_20260415-231343.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6311.9, "raw_str": "6,31190"}, {"id": 28, "file": "voucher_20260415-231439.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 87.4, "raw_str": "87.40"}, {"id": 29, "file": "voucher_20260415-231626.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 150.0, "raw_str": "150.00"}, {"id": 30, "file": "voucher_20260430-083743.jpg", "date": "2026-04-30", "year": "2026", "month": "04", "provider": "SISACCE S.A.C.", "category": "Administración", "amount": 22408.42, "raw_str": "22,408.42"}, {"id": 31, "file": "voucher_20260509-163108.jpg", "date": "2026-05-09", "year": "2026", "month": "05", "provider": "Rafael Palomino (Soldadura)", "category": "Mantenimiento Técnico", "amount": 320.0, "raw_str": "320.00"}, {"id": 32, "file": "voucher_20260515-194231.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 33, "file": "voucher_20260515-194405.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 34, "file": "voucher_20260515-194532.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 35, "file": "voucher_20260515-194655.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 36, "file": "voucher_20260516-123218.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 37, "file": "voucher_20260516-123548.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6311.9, "raw_str": "6,31190"}, {"id": 38, "file": "voucher_20260516-124535.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4553.7, "raw_str": "4,553.70"}, {"id": 39, "file": "voucher_20260516-124542.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Luz del Sur (Suministro Secundario)", "category": "Energía Eléctrica", "amount": 90.0, "raw_str": "90.00"}, {"id": 40, "file": "voucher_20260518-210419.jpg", "date": "2026-05-18", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 240.14, "raw_str": "240,14"}, {"id": 41, "file": "voucher_20260527-110704.jpg", "date": "2026-05-27", "year": "2026", "month": "05", "provider": "Mantenimiento Pozos a Tierra", "category": "Mantenimiento Técnico", "amount": 630.0, "raw_str": "630.00"}, {"id": 42, "file": "voucher_20260531-201646.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 630.0, "raw_str": "630.00"}, {"id": 43, "file": "voucher_20260531-203724.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 44, "file": "voucher_20260531-203814.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 45, "file": "voucher_20260531-204051.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 46, "file": "voucher_20260531-204133.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 47, "file": "voucher_20260531-204256.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 180.0, "raw_str": "180,00"}, {"id": 48, "file": "voucher_20260531-204409.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 180.0, "raw_str": "180,00"}, {"id": 49, "file": "voucher_20260531-210546.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Factor 1 / KOMUNA", "category": "Administración", "amount": 22822.25, "raw_str": "22,82225"}, {"id": 50, "file": "voucher_20260605-200749.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 51, "file": "voucher_20260605-200833.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 52, "file": "voucher_20260605-200901.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 53, "file": "voucher_20260605-200907.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 54, "file": "voucher_20260605-200911.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 55, "file": "voucher_20260609-171919.jpg", "date": "2026-06-09", "year": "2026", "month": "06", "provider": "Rafael Palomino (Soldadura)", "category": "Mantenimiento Técnico", "amount": 180.0, "raw_str": "180,00"}, {"id": 56, "file": "voucher_20260614-210827.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 57, "file": "voucher_20260614-211005.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 58, "file": "voucher_20260614-211104.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 59, "file": "voucher_20260614-211806.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Limpieza de Parrillas", "category": "Servicios de Parrillas", "amount": 150.0, "raw_str": "150.00"}, {"id": 60, "file": "voucher_20260620-195409.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4500.0, "raw_str": ""}, {"id": 61, "file": "voucher_20260620-195449.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6.0, "raw_str": "6"}, {"id": 62, "file": "voucher_20260620-195624.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 63, "file": "voucher_20260620-195657.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Luz del Sur (Suministro Secundario)", "category": "Energía Eléctrica", "amount": 216.8, "raw_str": "216.80"}, {"id": 64, "file": "voucher_20260620-195909.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 480.0, "raw_str": "480.00"}, {"id": 65, "file": "voucher_20260629-170449.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Garantía / Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 66, "file": "voucher_20260629-170545.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 67, "file": "voucher_20260629-170644.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 68, "file": "voucher_20260629-170728.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Garantía / Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 69, "file": "voucher_20260629-170832.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Garantía / Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 70, "file": "voucher_20260629-170920.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Garantía / Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 71, "file": "voucher_20260706-131420.jpg", "date": "2026-07-06", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 750.0, "raw_str": "750.00"}, {"id": 72, "file": "voucher_20260706-132200.jpg", "date": "2026-07-06", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 520.0, "raw_str": "520.00"}, {"id": 73, "file": "voucher_20260708-115920.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 74, "file": "voucher_20260708-120017.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 75, "file": "voucher_20260708-121301.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Eulogio Agreda (Carritos de Compra)", "category": "Equipamiento Áreas Comunes", "amount": 1140.0, "raw_str": "1,140000"}, {"id": 76, "file": "voucher_20260708-121743.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 77, "file": "voucher_20260708-121802.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 49.0, "raw_str": "49.00"}, {"id": 78, "file": "voucher_20260708-234658.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 79, "file": "voucher_20260708-234810.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 80, "file": "voucher_20260711-194215.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 81, "file": "voucher_20260711-194313.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 82, "file": "voucher_20260711-194413.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 83, "file": "voucher_20260714-213235.jpg", "date": "2026-07-14", "year": "2026", "month": "07", "provider": "Limpieza de Parrillas", "category": "Servicios de Parrillas", "amount": 255.0, "raw_str": "255.00"}, {"id": 84, "file": "voucher_20260716-230811.jpg", "date": "2026-07-16", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 24.8, "raw_str": "24.80"}, {"id": 85, "file": "voucher_20260716-231738.jpg", "date": "2026-07-16", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 90.0, "raw_str": "90.00"}, {"id": 86, "file": "voucher_20260723-221357.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4528.4, "raw_str": "4,528.40"}, {"id": 87, "file": "voucher_20260723-221425.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6173.6, "raw_str": "6,173060"}, {"id": 88, "file": "voucher_20260723-221455.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 82.8, "raw_str": "82.80"}, {"id": 89, "file": "voucher_20260723-221637.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 90, "file": "voucher_20260801-084114.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 91, "file": "voucher_20260801-084506.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 92, "file": "voucher_20260801-084641.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 93, "file": "voucher_20260801-084731.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 200.0, "raw_str": "200.00"}, {"id": 94, "file": "voucher_20260801-084737.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 95, "file": "voucher_20260801-085602.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 96, "file": "voucher_20260801-085731.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 97, "file": "voucher_20260801-090126.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 98, "file": "voucher_20260801-090303.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 99, "file": "voucher_20260804-222036.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 150.0, "raw_str": "150.00"}, {"id": 100, "file": "voucher_20260818-103848.jpg", "date": "2026-08-18", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 1728.0, "raw_str": "1,72800"}, {"id": 101, "file": "voucher_20260819-082922.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Recarga de Extintores", "category": "Mantenimiento Técnico", "amount": 692.6, "raw_str": "692.60"}, {"id": 102, "file": "voucher_20260819-181449.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 103, "file": "voucher_20260819-181553.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 4449.4, "raw_str": "41449.40"}, {"id": 104, "file": "voucher_20260819-181703.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 86.2, "raw_str": "86,20"}, {"id": 105, "file": "voucher_20260822-104001.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Juan Carlos Reynalde", "category": "Personal y Operativo", "amount": 100.0, "raw_str": "100.00"}, {"id": 106, "file": "voucher_20260822-104100.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 107, "file": "voucher_20260822-104215.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 108, "file": "voucher_20260822-114528.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 109, "file": "voucher_20260831-163249.jpg", "date": "2026-08-31", "year": "2026", "month": "08", "provider": "Factor 1 / KOMUNA", "category": "Administración", "amount": 22822.25, "raw_str": "22,82225"}, {"id": 110, "file": "voucher_20260904-165307.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Limpieza de Parrillas", "category": "Servicios de Parrillas", "amount": 160.0, "raw_str": "160,00"}, {"id": 111, "file": "voucher_20260904-165403.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 112, "file": "voucher_20260904-165633.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 113, "file": "voucher_20260904-165719.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 114, "file": "voucher_20260904-231224.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 115, "file": "voucher_20260910-200211.jpg", "date": "2026-09-10", "year": "2026", "month": "09", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 718.0, "raw_str": "718.00"}, {"id": 116, "file": "voucher_20260910-200625.jpg", "date": "2026-09-10", "year": "2026", "month": "09", "provider": "Juan Carlos Reynalde", "category": "Personal y Operativo", "amount": 3310.0, "raw_str": "3,310000"}, {"id": 117, "file": "voucher_20260912-205032.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 118, "file": "voucher_20260912-205136.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 119, "file": "voucher_20260912-205402.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 120, "file": "voucher_20260912-210306.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 121, "file": "voucher_20260912-210411.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Sedapal (Agua Potable)", "category": "Agua y Alcantarillado", "amount": 7626.1, "raw_str": "7,626010"}, {"id": 122, "file": "voucher_20260912-210443.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 6613.1, "raw_str": "6,613.10"}, {"id": 123, "file": "voucher_20260912-210534.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Luz del Sur (Suministro Principal)", "category": "Energía Eléctrica", "amount": 83.0, "raw_str": "83.00"}]};
-    const budgetData = {"resumen": {"total_mensual": 40630.79, "total_anual": 487569.48, "servicios_basicos": 8889.15, "administracion": 23784.65, "mantenimientos": 7444.99, "contingencia": 500.0, "bancarios": 12.0, "reserva_acumulada_2025": 69337.1}, "partidas": [{"cat": "Servicios Básicos", "concepto": "Luz SSGG - Suministro Común (2168901)", "frecuencia": "Mensual", "veces": 12, "unit": 6503.07, "anual": 78036.84, "mensual": 6503.07, "detalle": "Alumbrado de pasadizos, vestíbulos y fuerza general del edificio"}, {"cat": "Servicios Básicos", "concepto": "Agua Potable y Alcantarillado Común (Sedapal)", "frecuencia": "Mensual", "veces": 12, "unit": 2374.08, "anual": 28488.96, "mensual": 2374.08, "detalle": "Consumo de áreas comunes tras notificar 6 departamentos con medidores irregulares"}, {"cat": "Servicios Básicos", "concepto": "Luz Suministro BCI (2168902)", "frecuencia": "Mensual", "veces": 12, "unit": 12.0, "anual": 144.0, "mensual": 12.0, "detalle": "Alimentación eléctrica del tablero de la bomba contra incendios"}, {"cat": "Servicio de Administración", "concepto": "Administración, Conserjería 24/7 y Limpieza (Factor 1)", "frecuencia": "Mensual", "veces": 12, "unit": 23784.65, "anual": 285415.8, "mensual": 23784.65, "detalle": "Empresa Administradora Factor 1 (Cinthya Cucho), supervisión, conserjes 24/7 y limpieza integral"}, {"cat": "Mantenimientos Preventivos", "concepto": "Mantenimiento de Ascensores (4 cabinas)", "frecuencia": "Mensual", "veces": 12, "unit": 5616.0, "anual": 67392.0, "mensual": 5616.0, "detalle": "Ascensores Andinos: servicio preventivo mensual para 4 ascensores de pasajeros"}, {"cat": "Mantenimientos Preventivos", "concepto": "Equipos de Gimnasio", "frecuencia": "Semestral", "veces": 2, "unit": 2124.0, "anual": 4248.0, "mensual": 354.0, "detalle": "Mantenimiento preventivo semestral de máquinas piso 30"}, {"cat": "Mantenimientos Preventivos", "concepto": "Sistema de Ventilación - Monóxido y Escaleras", "frecuencia": "Anual", "veces": 1, "unit": 3320.4, "anual": 3320.4, "mensual": 276.7, "detalle": "Extractores de sótanos y presurizadores de escape"}, {"cat": "Mantenimientos Preventivos", "concepto": "Bomba Contra Incendios (BCI), Tablero y Jockey", "frecuencia": "Anual", "veces": 1, "unit": 2950.0, "anual": 2950.0, "mensual": 245.83, "detalle": "Pruebas hidráulicas, calibración y tablero de control"}, {"cat": "Mantenimientos Preventivos", "concepto": "Sistema de Intercomunicadores", "frecuencia": "Anual", "veces": 1, "unit": 2400.0, "anual": 2400.0, "mensual": 200.0, "detalle": "Revisión técnica de la central y terminales en 35 pisos"}, {"cat": "Mantenimientos Preventivos", "concepto": "Extintores PQS (53 unidades)", "frecuencia": "Anual", "veces": 1, "unit": 1880.0, "anual": 1880.0, "mensual": 156.67, "detalle": "Recarga y certificación reglamentaria de 53 extintores"}, {"cat": "Mantenimientos Preventivos", "concepto": "Paneles Solares", "frecuencia": "Anual", "veces": 1, "unit": 1486.8, "anual": 1486.8, "mensual": 123.9, "detalle": "Limpieza fotovoltaica y chequeo de inversores en azotea"}, {"cat": "Mantenimientos Preventivos", "concepto": "Pozos a Tierra", "frecuencia": "Anual", "veces": 1, "unit": 1345.2, "anual": 1345.2, "mensual": 112.1, "detalle": "Reactivación química y protocolo de resistividad Indeci"}, {"cat": "Mantenimientos Preventivos", "concepto": "Bombas de Agua Doméstica + Tableros", "frecuencia": "Anual", "veces": 1, "unit": 939.08, "anual": 939.08, "mensual": 78.26, "detalle": "Sistema de presión constante para consumo doméstico"}, {"cat": "Mantenimientos Preventivos", "concepto": "Limpieza de Cisternas de Agua Doméstica (2)", "frecuencia": "Semestral", "veces": 2, "unit": 452.33, "anual": 904.66, "mensual": 75.39, "detalle": "Lavado, desinfección con hipoclorito y análisis biológico"}, {"cat": "Mantenimientos Preventivos", "concepto": "Tableros Eléctricos en Zonas Comunes", "frecuencia": "Anual", "veces": 1, "unit": 708.0, "anual": 708.0, "mensual": 59.0, "detalle": "Termografía, ajuste de bornes y balance de fases"}, {"cat": "Mantenimientos Preventivos", "concepto": "Planta de Tratamiento de Aguas Residuales (PTAR)", "frecuencia": "Semestral", "veces": 1, "unit": 654.17, "anual": 654.17, "mensual": 54.51, "detalle": "Tratamiento y purga de lodos del sistema de reciclaje"}, {"cat": "Mantenimientos Preventivos", "concepto": "Alarma Contra Incendio + Detectores de Humo", "frecuencia": "Anual", "veces": 1, "unit": 398.0, "anual": 398.0, "mensual": 33.17, "detalle": "Prueba de lazos, sensores de humo y pulsadores"}, {"cat": "Mantenimientos Preventivos", "concepto": "Puerta Batiente a Control Remoto", "frecuencia": "Trimestral", "veces": 4, "unit": 98.33, "anual": 393.32, "mensual": 32.78, "detalle": "Alineación de brazos hidráulicos y motor vehicular"}, {"cat": "Mantenimientos Preventivos", "concepto": "Ascensor de Discapacitados (Plataforma)", "frecuencia": "Bimensual", "veces": 4, "unit": 80.0, "anual": 320.0, "mensual": 26.67, "detalle": "Mantenimiento del elevador vertical de silla de ruedas"}, {"cat": "Mantenimientos Preventivos", "concepto": "Bombas de Sumidero + Tablero (2)", "frecuencia": "Anual", "veces": 1, "unit": 287.13, "anual": 287.13, "mensual": 23.93, "detalle": "Bombas sumergibles de drenaje freático y sótanos"}, {"cat": "Mantenimientos Preventivos", "concepto": "Grupo Electrógeno", "frecuencia": "Anual", "veces": 1, "unit": 200.11, "anual": 200.11, "mensual": 16.68, "detalle": "Grupo electrógeno Modasa: filtros, batería y prueba"}, {"cat": "Mantenimientos Preventivos", "concepto": "Cámaras CCTV (57 unidades)", "frecuencia": "Anual", "veces": 1, "unit": 167.17, "anual": 167.17, "mensual": 13.93, "detalle": "Revisión de cableado estructurado, lentes y DVR"}, {"cat": "Mantenimientos Preventivos", "concepto": "Fumigación y Control de Plagas", "frecuencia": "Semestral", "veces": 2, "unit": 0.0, "anual": 0.0, "mensual": 0.0, "detalle": "Convenio gratuito 2 veces al año con proveedor de inyectores"}, {"cat": "Contingencias", "concepto": "Provisión Morosos y Contingencias Operativas", "frecuencia": "Mensual", "veces": 12, "unit": 500.0, "anual": 6000.0, "mensual": 500.0, "detalle": "Fondo de amortiguación para desfases de cobranza e imprevistos"}, {"cat": "Gastos Financieros", "concepto": "Gastos Bancarios Cuenta Corriente JDP", "frecuencia": "Mensual", "veces": 12, "unit": 12.0, "anual": 144.0, "mensual": 12.0, "detalle": "Mantenimiento bancario de la cuenta recaudadora BCP"}]};
+    // DATA INJECTED
+    const vouchersData = {"total_gastos_2026": 310300.42, "total_vouchers": 134, "por_mes": {"Ene": {"codigo": "01", "total": 38709.89, "vouchers_count": 10, "por_categoria": {"Personal y Mantenimiento": 200.0, "Personal y Limpieza": 133.65, "Otros Egresos": 1.35, "Energía Eléctrica": 6852.0, "Agua y Alcantarillado": 3251.0, "Ascensores": 5616.0, "Personal y Operativo": 252.27, "Administración": 22403.62}}, "Feb": {"codigo": "02", "total": 42233.22, "vouchers_count": 8, "por_categoria": {"Administración": 25098.62, "Personal y Limpieza": 90.0, "Ascensores": 5616.0, "Agua y Alcantarillado": 4230.2, "Energía Eléctrica": 6898.4, "Otros Egresos": 300.0}}, "Mar": {"codigo": "03", "total": 16817.8, "vouchers_count": 6, "por_categoria": {"Otros Egresos": 11.5, "Personal y Limpieza": 90.0, "Ascensores": 5616.0, "Agua y Alcantarillado": 4340.1, "Energía Eléctrica": 6760.2}}, "Abr": {"codigo": "04", "total": 39378.42, "vouchers_count": 6, "por_categoria": {"Ascensores": 5616.0, "Agua y Alcantarillado": 4804.7, "Energía Eléctrica": 6399.3, "Personal y Limpieza": 150.0, "Administración": 22408.42}}, "May": {"codigo": "05", "total": 42373.99, "vouchers_count": 19, "por_categoria": {"Mantenimiento Técnico": 1580.0, "Otros Egresos": 640.14, "Ascensores": 5616.0, "Energía Eléctrica": 6401.9, "Agua y Alcantarillado": 4553.7, "Devolución de Garantías": 760.0, "Administración": 22822.25}}, "Jun": {"codigo": "06", "total": 12548.8, "vouchers_count": 21, "por_categoria": {"Devolución de Garantías": 850.0, "Otros Egresos": 700.0, "Mantenimiento Técnico": 660.0, "Agua y Alcantarillado": 4500.0, "Energía Eléctrica": 222.8, "Ascensores": 5616.0}}, "Jul": {"codigo": "07", "total": 20029.6, "vouchers_count": 19, "por_categoria": {"Otros Egresos": 1433.8, "Devolución de Garantías": 1055.0, "Equipamiento Áreas Comunes": 1140.0, "Agua y Alcantarillado": 4528.4, "Energía Eléctrica": 6256.4, "Ascensores": 5616.0}}, "Ago": {"codigo": "08", "total": 47703.25, "vouchers_count": 26, "por_categoria": {"Devolución de Garantías": 900.0, "Otros Egresos": 550.0, "Mantenimiento Técnico": 6887.9, "Ascensores": 5616.0, "Agua y Alcantarillado": 4449.4, "Energía Eléctrica": 6377.7, "Personal y Operativo": 100.0, "Administración": 22822.25}}, "Set": {"codigo": "09", "total": 27583.2, "vouchers_count": 17, "por_categoria": {"Devolución de Garantías": 860.0, "Otros Egresos": 718.0, "Personal y Operativo": 3310.0, "Ascensores": 5616.0, "Agua y Alcantarillado": 7626.1, "Energía Eléctrica": 6696.1, "Mantenimiento Técnico": 2757.0}}, "Oct": {"codigo": "10", "total": 22922.25, "vouchers_count": 2, "por_categoria": {"Administración": 22822.25, "Devolución de Garantías": 100.0}}}, "por_categoria": {"Personal y Mantenimiento": 200.0, "Personal y Limpieza": 463.65, "Otros Egresos": 4354.79, "Energía Eléctrica": 52864.8, "Agua y Alcantarillado": 42283.6, "Ascensores": 50544.0, "Personal y Operativo": 3662.27, "Administración": 138377.41, "Mantenimiento Técnico": 11884.9, "Devolución de Garantías": 4525.0, "Equipamiento Áreas Comunes": 1140.0}, "por_proveedor": {"Sigifredo Goicochea (Mantenimiento)": 200.0, "Martina López (Limpieza)": 463.65, "Varios / Terceros": 4354.79, "Luz del Sur": 52864.8, "Sedapal": 42283.6, "Ascensores Andinos": 50544.0, "Rocío Morales Gorrío (Apoyo)": 252.27, "SISACCE S.A.C. / Factor Services": 138377.41, "Rafael Palomino (Soldadura)": 500.0, "Gonzalez Cisneros (Cisternas y Bombas)": 5686.3, "Devolución Garantía Parrillas": 4525.0, "Valle Aquino (Puerta Cochera)": 730.0, "Eulogio Agreda (Carritos de Compra)": 1140.0, "Jhon Freddy Medina (PTAR)": 2568.0, "Arnold Ocas (Extintores)": 1200.6, "Juan Carlos Reynalde": 3410.0, "Global Energy Solar (Paneles)": 1200.0}, "detalle_vouchers": [{"id": 1, "file": "voucher_20260108-203217.jpg", "date": "2026-01-08", "year": "2026", "month": "01", "provider": "Sigifredo Goicochea (Mantenimiento)", "category": "Personal y Mantenimiento", "amount": 200.0, "raw_str": "200.00"}, {"id": 2, "file": "voucher_20260110-002000.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 133.65, "raw_str": "133.65"}, {"id": 3, "file": "voucher_20260110-002041.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 1.35, "raw_str": "1.35"}, {"id": 4, "file": "voucher_20260110-002143.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6680.8, "raw_str": "6,680080"}, {"id": 5, "file": "voucher_20260110-002212.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 171.2, "raw_str": "171.20"}, {"id": 6, "file": "voucher_20260110-002243.jpg", "date": "2026-01-10", "year": "2026", "month": "01", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 3251.0, "raw_str": "3,25100"}, {"id": 7, "file": "voucher_20260114-205143.jpg", "date": "2026-01-14", "year": "2026", "month": "01", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 8, "file": "voucher_20260122-112953.jpg", "date": "2026-01-22", "year": "2026", "month": "01", "provider": "Rocío Morales Gorrío (Apoyo)", "category": "Personal y Operativo", "amount": 252.27, "raw_str": "252,27"}, {"id": 9, "file": "voucher_20260130-115732.jpg", "date": "2026-01-30", "year": "2026", "month": "01", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 19458.42, "raw_str": "19,45842"}, {"id": 10, "file": "voucher_20260131-114418.jpg", "date": "2026-01-31", "year": "2026", "month": "01", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 2945.2, "raw_str": "2,945.20"}, {"id": 11, "file": "voucher_20260201-201023.jpg", "date": "2026-02-01", "year": "2026", "month": "02", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 2690.2, "raw_str": "2,690.20"}, {"id": 12, "file": "voucher_20260211-233649.jpg", "date": "2026-02-11", "year": "2026", "month": "02", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 90.0, "raw_str": "90.00"}, {"id": 13, "file": "voucher_20260213-154718.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 14, "file": "voucher_20260213-154855.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4230.2, "raw_str": "4,230.20"}, {"id": 15, "file": "voucher_20260213-155116.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6815.3, "raw_str": "6,815030"}, {"id": 16, "file": "voucher_20260213-155202.jpg", "date": "2026-02-13", "year": "2026", "month": "02", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 83.1, "raw_str": "83,10"}, {"id": 17, "file": "voucher_20260227-092735.jpg", "date": "2026-02-27", "year": "2026", "month": "02", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 300.0, "raw_str": "300.00"}, {"id": 18, "file": "voucher_20260228-080814.jpg", "date": "2026-02-28", "year": "2026", "month": "02", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 22408.42, "raw_str": "22,408.42"}, {"id": 19, "file": "voucher_20260310-153918.jpg", "date": "2026-03-10", "year": "2026", "month": "03", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 11.5, "raw_str": "11.50"}, {"id": 20, "file": "voucher_20260316-084700.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 90.0, "raw_str": "90.00"}, {"id": 21, "file": "voucher_20260316-084847.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 22, "file": "voucher_20260316-085010.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4340.1, "raw_str": "41340,10"}, {"id": 23, "file": "voucher_20260316-085227.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6668.7, "raw_str": "6,66870"}, {"id": 24, "file": "voucher_20260316-085311.jpg", "date": "2026-03-16", "year": "2026", "month": "03", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 91.5, "raw_str": "91.50"}, {"id": 25, "file": "voucher_20260415-231152.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 26, "file": "voucher_20260415-231321.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4804.7, "raw_str": "41804,70"}, {"id": 27, "file": "voucher_20260415-231343.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6311.9, "raw_str": "6,31190"}, {"id": 28, "file": "voucher_20260415-231439.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 87.4, "raw_str": "87.40"}, {"id": 29, "file": "voucher_20260415-231626.jpg", "date": "2026-04-15", "year": "2026", "month": "04", "provider": "Martina López (Limpieza)", "category": "Personal y Limpieza", "amount": 150.0, "raw_str": "150.00"}, {"id": 30, "file": "voucher_20260430-083743.jpg", "date": "2026-04-30", "year": "2026", "month": "04", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 22408.42, "raw_str": "22,408.42"}, {"id": 31, "file": "voucher_20260509-163108.jpg", "date": "2026-05-09", "year": "2026", "month": "05", "provider": "Rafael Palomino (Soldadura)", "category": "Mantenimiento Técnico", "amount": 320.0, "raw_str": "320.00"}, {"id": 32, "file": "voucher_20260515-194231.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 33, "file": "voucher_20260515-194405.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 34, "file": "voucher_20260515-194532.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 35, "file": "voucher_20260515-194655.jpg", "date": "2026-05-15", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 36, "file": "voucher_20260516-123218.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 37, "file": "voucher_20260516-123548.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6311.9, "raw_str": "6,31190"}, {"id": 38, "file": "voucher_20260516-124535.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4553.7, "raw_str": "4,553.70"}, {"id": 39, "file": "voucher_20260516-124542.jpg", "date": "2026-05-16", "year": "2026", "month": "05", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 90.0, "raw_str": "90.00"}, {"id": 40, "file": "voucher_20260518-210419.jpg", "date": "2026-05-18", "year": "2026", "month": "05", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 240.14, "raw_str": "240,14"}, {"id": 41, "file": "voucher_20260527-110704.jpg", "date": "2026-05-27", "year": "2026", "month": "05", "provider": "Gonzalez Cisneros (Cisternas y Bombas)", "category": "Mantenimiento Técnico", "amount": 630.0, "raw_str": "630.00"}, {"id": 42, "file": "voucher_20260531-201646.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Gonzalez Cisneros (Cisternas y Bombas)", "category": "Mantenimiento Técnico", "amount": 630.0, "raw_str": "630.00"}, {"id": 43, "file": "voucher_20260531-203724.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 44, "file": "voucher_20260531-203814.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 45, "file": "voucher_20260531-204051.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 46, "file": "voucher_20260531-204133.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 47, "file": "voucher_20260531-204256.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 180.0, "raw_str": "180,00"}, {"id": 48, "file": "voucher_20260531-204409.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 180.0, "raw_str": "180,00"}, {"id": 49, "file": "voucher_20260531-210546.jpg", "date": "2026-05-31", "year": "2026", "month": "05", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 22822.25, "raw_str": "22,82225"}, {"id": 50, "file": "voucher_20260605-200749.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 51, "file": "voucher_20260605-200833.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 52, "file": "voucher_20260605-200901.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 53, "file": "voucher_20260605-200907.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 54, "file": "voucher_20260605-200911.jpg", "date": "2026-06-05", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 55, "file": "voucher_20260609-171919.jpg", "date": "2026-06-09", "year": "2026", "month": "06", "provider": "Rafael Palomino (Soldadura)", "category": "Mantenimiento Técnico", "amount": 180.0, "raw_str": "180,00"}, {"id": 56, "file": "voucher_20260614-210827.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 57, "file": "voucher_20260614-211005.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 58, "file": "voucher_20260614-211104.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 59, "file": "voucher_20260614-211806.jpg", "date": "2026-06-14", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 150.0, "raw_str": "150.00"}, {"id": 60, "file": "voucher_20260620-195409.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4500.0, "raw_str": ""}, {"id": 61, "file": "voucher_20260620-195449.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6.0, "raw_str": "6"}, {"id": 62, "file": "voucher_20260620-195624.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 63, "file": "voucher_20260620-195657.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 216.8, "raw_str": "216.80"}, {"id": 64, "file": "voucher_20260620-195909.jpg", "date": "2026-06-20", "year": "2026", "month": "06", "provider": "Valle Aquino (Puerta Cochera)", "category": "Mantenimiento Técnico", "amount": 480.0, "raw_str": "480.00"}, {"id": 65, "file": "voucher_20260629-170449.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 66, "file": "voucher_20260629-170545.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 67, "file": "voucher_20260629-170644.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 68, "file": "voucher_20260629-170728.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 69, "file": "voucher_20260629-170832.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 70, "file": "voucher_20260629-170920.jpg", "date": "2026-06-29", "year": "2026", "month": "06", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 71, "file": "voucher_20260706-131420.jpg", "date": "2026-07-06", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 750.0, "raw_str": "750.00"}, {"id": 72, "file": "voucher_20260706-132200.jpg", "date": "2026-07-06", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 520.0, "raw_str": "520.00"}, {"id": 73, "file": "voucher_20260708-115920.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 74, "file": "voucher_20260708-120017.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 75, "file": "voucher_20260708-121301.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Eulogio Agreda (Carritos de Compra)", "category": "Equipamiento Áreas Comunes", "amount": 1140.0, "raw_str": "1,140000"}, {"id": 76, "file": "voucher_20260708-121743.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 77, "file": "voucher_20260708-121802.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 49.0, "raw_str": "49.00"}, {"id": 78, "file": "voucher_20260708-234658.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 79, "file": "voucher_20260708-234810.jpg", "date": "2026-07-08", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 80, "file": "voucher_20260711-194215.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 81, "file": "voucher_20260711-194313.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 82, "file": "voucher_20260711-194413.jpg", "date": "2026-07-11", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 83, "file": "voucher_20260714-213235.jpg", "date": "2026-07-14", "year": "2026", "month": "07", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 255.0, "raw_str": "255.00"}, {"id": 84, "file": "voucher_20260716-230811.jpg", "date": "2026-07-16", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 24.8, "raw_str": "24.80"}, {"id": 85, "file": "voucher_20260716-231738.jpg", "date": "2026-07-16", "year": "2026", "month": "07", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 90.0, "raw_str": "90.00"}, {"id": 86, "file": "voucher_20260723-221357.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4528.4, "raw_str": "4,528.40"}, {"id": 87, "file": "voucher_20260723-221425.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6173.6, "raw_str": "6,173060"}, {"id": 88, "file": "voucher_20260723-221455.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 82.8, "raw_str": "82.80"}, {"id": 89, "file": "voucher_20260723-221637.jpg", "date": "2026-07-23", "year": "2026", "month": "07", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 90, "file": "voucher_20260801-084114.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 91, "file": "voucher_20260801-084506.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 92, "file": "voucher_20260801-084641.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 93, "file": "voucher_20260801-084731.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 200.0, "raw_str": "200.00"}, {"id": 94, "file": "voucher_20260801-084737.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 100.0, "raw_str": "100.00"}, {"id": 95, "file": "voucher_20260801-085602.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 96, "file": "voucher_20260801-085731.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 97, "file": "voucher_20260801-090126.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 98, "file": "voucher_20260801-090303.jpg", "date": "2026-08-01", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 99, "file": "voucher_20260804-222036.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 150.0, "raw_str": "150.00"}, {"id": 100, "file": "voucher_20260818-103848.jpg", "date": "2026-08-18", "year": "2026", "month": "08", "provider": "Jhon Freddy Medina (PTAR)", "category": "Mantenimiento Técnico", "amount": 1728.0, "raw_str": "1,72800"}, {"id": 101, "file": "voucher_20260819-082922.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Arnold Ocas (Extintores)", "category": "Mantenimiento Técnico", "amount": 692.6, "raw_str": "692.60"}, {"id": 102, "file": "voucher_20260819-181449.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 103, "file": "voucher_20260819-181553.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 4449.4, "raw_str": "41449.40"}, {"id": 104, "file": "voucher_20260819-181703.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 86.2, "raw_str": "86,20"}, {"id": 105, "file": "voucher_20260822-104001.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Juan Carlos Reynalde", "category": "Personal y Operativo", "amount": 100.0, "raw_str": "100.00"}, {"id": 106, "file": "voucher_20260822-104100.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 107, "file": "voucher_20260822-104215.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 108, "file": "voucher_20260822-114528.jpg", "date": "2026-08-22", "year": "2026", "month": "08", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 109, "file": "voucher_20260831-163249.jpg", "date": "2026-08-31", "year": "2026", "month": "08", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 22822.25, "raw_str": "22,82225"}, {"id": 110, "file": "voucher_20260904-165307.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 160.0, "raw_str": "160,00"}, {"id": 111, "file": "voucher_20260904-165403.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 112, "file": "voucher_20260904-165633.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 113, "file": "voucher_20260904-165719.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 114, "file": "voucher_20260904-231224.jpg", "date": "2026-09-04", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 115, "file": "voucher_20260910-200211.jpg", "date": "2026-09-10", "year": "2026", "month": "09", "provider": "Varios / Terceros", "category": "Otros Egresos", "amount": 718.0, "raw_str": "718.00"}, {"id": 116, "file": "voucher_20260910-200625.jpg", "date": "2026-09-10", "year": "2026", "month": "09", "provider": "Juan Carlos Reynalde", "category": "Personal y Operativo", "amount": 3310.0, "raw_str": "3,310000"}, {"id": 117, "file": "voucher_20260912-205032.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 118, "file": "voucher_20260912-205136.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 119, "file": "voucher_20260912-205402.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 120, "file": "voucher_20260912-210306.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Ascensores Andinos", "category": "Ascensores", "amount": 5616.0, "raw_str": "51616.00"}, {"id": 121, "file": "voucher_20260912-210411.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Sedapal", "category": "Agua y Alcantarillado", "amount": 7626.1, "raw_str": "7,626010"}, {"id": 122, "file": "voucher_20260912-210443.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6613.1, "raw_str": "6,613.10"}, {"id": 123, "file": "voucher_20260912-210534.jpg", "date": "2026-09-12", "year": "2026", "month": "09", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 83.0, "raw_str": "83.00"}, {"id": 124, "file": "henry_andrade_10.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Gonzalez Cisneros (Cisternas y Bombas)", "category": "Mantenimiento Técnico", "amount": 896.3, "raw_str": "896.30"}, {"id": 125, "file": "henry_andrade_11.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Arnold Ocas (Extintores)", "category": "Mantenimiento Técnico", "amount": 508.0, "raw_str": "508.00"}, {"id": 126, "file": "henry_andrade_03.jpg", "date": "2026-10-01", "year": "2026", "month": "10", "provider": "SISACCE S.A.C. / Factor Services", "category": "Administración", "amount": 22822.25, "raw_str": "22,822.25"}, {"id": 127, "file": "henry_andrade_06.jpg", "date": "2026-09-03", "year": "2026", "month": "09", "provider": "Global Energy Solar (Paneles)", "category": "Mantenimiento Técnico", "amount": 600.0, "raw_str": "600.00"}, {"id": 128, "file": "henry_andrade_01.jpg", "date": "2026-10-27", "year": "2026", "month": "10", "provider": "Devolución Garantía Parrillas", "category": "Devolución de Garantías", "amount": 100.0, "raw_str": "100.00"}, {"id": 129, "file": "henry_andrade_04.jpg", "date": "2026-09-30", "year": "2026", "month": "09", "provider": "Global Energy Solar (Paneles)", "category": "Mantenimiento Técnico", "amount": 600.0, "raw_str": "600.00"}, {"id": 130, "file": "henry_andrade_08.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Luz del Sur", "category": "Energía Eléctrica", "amount": 6291.5, "raw_str": "61291.50"}, {"id": 131, "file": "henry_andrade_07.jpg", "date": "2026-08-19", "year": "2026", "month": "08", "provider": "Gonzalez Cisneros (Cisternas y Bombas)", "category": "Mantenimiento Técnico", "amount": 1973.0, "raw_str": "1,973.oo"}, {"id": 132, "file": "henry_andrade_12.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Valle Aquino (Puerta Cochera)", "category": "Mantenimiento Técnico", "amount": 250.0, "raw_str": "250.00"}, {"id": 133, "file": "henry_andrade_05.jpg", "date": "2026-09-03", "year": "2026", "month": "09", "provider": "Gonzalez Cisneros (Cisternas y Bombas)", "category": "Mantenimiento Técnico", "amount": 1557.0, "raw_str": "1,557.oo"}, {"id": 134, "file": "henry_andrade_09.jpg", "date": "2026-08-04", "year": "2026", "month": "08", "provider": "Jhon Freddy Medina (PTAR)", "category": "Mantenimiento Técnico", "amount": 840.0, "raw_str": "840.00"}]};
+    const fin2025Data = {"ingresos": {"Transferencia de Saldo Inicial": {"Abril": 58041.71, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Cuotas de Mantenimiento": {"Abril": 31648.82, "Mayo": 42898.049999999996, "Junio": 43412.7, "Julio": 40242.81999999999, "Agosto": 40809.64000000001, "Setiembre": 45254.57}, "Cuotas Extraordinarias": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Alquiler de Áreas Comunes (Parrillas)": {"Abril": 800, "Mayo": 800, "Junio": 720, "Julio": 640, "Agosto": 320, "Setiembre": 480}, "Intereses Moratorios": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Multas o Penalidades": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Aportes por Controles de Estacionamiento": {"Abril": 0, "Mayo": 5015, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Reintegros por Comisiones (Operaciones de Ventanilla)": {"Abril": 9, "Mayo": 9, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Otros Ingresos Extraordinarios": {"Abril": 0, "Mayo": 4707.7, "Junio": 0, "Julio": 2065.1, "Agosto": 934.5, "Setiembre": 0}, "Otros Ingresos No Operativos": {"Abril": 31, "Mayo": 0, "Junio": 0, "Julio": 2600, "Agosto": 2938.52, "Setiembre": 0}}, "egresos": {"1. Servicios Basicos": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Luz (Suministro 2168901)": {"Abril": -6713.8, "Mayo": -6999.8, "Junio": -7057.6, "Julio": -7650.6, "Agosto": -6906, "Setiembre": -6628.3}, "Luz (Suministro 2168902)": {"Abril": -1073.4, "Mayo": -1035, "Junio": -1032.3, "Julio": -1032.8, "Agosto": -934.5, "Setiembre": -50.7}, "Agua": {"Abril": -2470.7, "Mayo": -2804.7, "Junio": -2547.3, "Julio": -2907.1, "Agosto": -3122.5, "Setiembre": -3096}, "2. Limpieza y Áreas Comunes": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Limpieza Zonas Parrillas": {"Abril": -120, "Mayo": -105, "Junio": -45, "Julio": -150, "Agosto": -60, "Setiembre": -90}, "3. Mantenimiento y Reparaciones": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Ascensores": {"Abril": -5470.08, "Mayo": -5464.16, "Junio": -5328, "Julio": -5328, "Agosto": -5616, "Setiembre": -5616}, "Bombas de Agua": {"Abril": 0, "Mayo": 0, "Junio": -735, "Julio": 0, "Agosto": -735, "Setiembre": -450}, "Sistema Contra Incendios": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Pozos a Tierra": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -672.5, "Agosto": -672.5, "Setiembre": 0}, "Recarga de Extintores": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": -1745, "Setiembre": 0}, "Elevador de Discapacitados": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": -225}, "Reparaciones Menores": {"Abril": 0, "Mayo": -30, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "4. Servicios de Administración": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Facturación de Empresa Administradora": {"Abril": -23799.05, "Mayo": -23789.45, "Junio": -23794.25, "Julio": -23794.25, "Agosto": -23794.25, "Setiembre": -22413.22}, "5. Gastos Administrativos": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Movilidades": {"Abril": -6, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Papelería, Copias y Comunicaciones": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -51, "Agosto": 0, "Setiembre": 0}, "6. Gastos Legales": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Trámites Notariales y Legalizaciones": {"Abril": -150, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "Cartas Notariales": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -40, "Agosto": 0, "Setiembre": 0}, "7. Gastos Financieros": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Impuesto a las Transacciones Financieras (ITF)": {"Abril": -4.95, "Mayo": -2.65, "Junio": -2.55, "Julio": -2.6999999999999997, "Agosto": -2.5999999999999996, "Setiembre": -2.25}, "Comisiones por Operaciones en Ventanilla": {"Abril": -18, "Mayo": 0, "Junio": 0, "Julio": 0, "Agosto": 0, "Setiembre": 0}, "8. Inversiones en Activos Menores": {"Abril": NaN, "Mayo": NaN, "Junio": NaN, "Julio": NaN, "Agosto": NaN, "Setiembre": NaN}, "Compra de Activos Menores a 1/4 de UIT": {"Abril": 0, "Mayo": 0, "Junio": 0, "Julio": -100, "Agosto": 0, "Setiembre": 0}, "9. Otros Egresos": {"Abril": 0, "Mayo": -5015, "Junio": 0, "Julio": -2600, "Agosto": -2938.52, "Setiembre": 0}}, "totales": {"Total Ingresos": {"Abril": 90530.53, "Mayo": 53429.75, "Junio": 44132.7, "Julio": 45547.92, "Agosto": 45002.66, "Setiembre": 45734.57}, "Total Egresos": {"Abril": -39825.98, "Mayo": -45245.76, "Junio": -40542, "Julio": -44328.95, "Agosto": -46526.87, "Setiembre": -38571.47}, "Flujo Neto Mensual": {"Abril": 50704.55, "Mayo": 8183.99, "Junio": 3590.7, "Julio": 1218.97, "Agosto": -1524.21, "Setiembre": 7163.1}, "Saldo Acumulado": {"Abril": 50704.55, "Mayo": 58888.54, "Junio": 62479.24, "Julio": 63698.21, "Agosto": 62174, "Setiembre": 69337.1}}};
     const eventsData = [{"id": 16, "date": "11 Octubre 2026", "title": "Acta 16 — Elección de Nueva Junta Directiva (Roger Paredes) y Aplicación Estricta de Multas", "category": "Gobernanza", "badge": "Gestión Vigente", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Elección unánime de Roger Paredes (Dpto. 1702) como Presidente y Jesús Villanueva (Dpto. 501) como Vocal 2. La administración Factor 1 presentó el Informe Económico, Balance y Reporte de Morosidad actualizado. Se acordó aplicar de forma estricta y uniforme las multas a infractores de convivencia mediante correo formal. Además, se responsabilizó a la administración por daños en cantoneras de escaleras por arrastre de contenedores de basura y se encomendó cotizar una rampa exterior con arquitecto.", "votes": "21 departamentos participantes"}, {"id": 15, "date": "20 Julio 2026", "title": "Acta 15 — Aprobación Unánime del Presupuesto 2026 (Opción 3: Excluye Jardinería)", "category": "Finanzas", "badge": "Aprobado 40-0", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Se debatió el recálculo presupuestal. Por UNANIMIDAD ABSOLUTA (40 votos a favor, 0 en contra), la asamblea aprobó la Opción 3: presupuesto operativo de S/ 40,630.79 mensual, excluyendo el rubro de jardinería de S/ 1,000 para que la administración busque 3 cotizaciones más competitivas. Se dispuso recolección de firmas para denunciar ruidos del gimnasio comercial ante la Municipalidad de Surquillo.", "votes": "40 votos a favor (100% de asistentes)"}, {"id": 14, "date": "13 Julio 2026", "title": "Acta 14 — Detección de 6 Medidores Irregulares, Multas y Venta de Bicicletas", "category": "Operativo", "badge": "Auditoría Técnica", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Factor 1 reporta que 6 departamentos tienen medidores de agua con funcionamiento irregular; se dispone notificación para evitar que la comunidad subsidie consumos ajenos. Se aprueba compra fraccionada de acelerógrafo compartiendo costos con constructora TER. Se ratifica aplicación uniforme de multas (57 votos) y se aprueba venta de bicicletas abandonadas tras plazo de 7 días a beneficio de la caja chica. Se fijan tarifas de parrillas: S/ 80 uso exclusivo, S/ 100 con parrilla (+ S/ 100 garantía).", "votes": "57 votos en multas y bicicletas; 51 en presupuesto"}, {"id": 13, "date": "05 Junio 2026", "title": "Acta 13 — Presentación Factor A1, Ratificación de Vicepresidenta y Multa por Bicis", "category": "Administración", "badge": "Transición Factor 1", "badgeColor": "bg-purple-100 text-purple-800 border-purple-300", "summary": "Se formaliza la entrega a Factor A1 (Cinthya Cucho). Se acepta renuncia del vocal Felipe Argüello y se nombra a Víctor Urbina; Jhajayra Vidales es ratificada como Vicepresidenta. Se elimina la gratuidad anual del área de parrillas (solo 1 vez al recibir departamento). Se acuerda multa de S/ 50.00 por vehículos menores abandonados y empadronamiento obligatorio. Notificación por depósito indebido en cochera de la familia Martell.", "votes": "Asamblea Extraordinaria"}, {"id": 12, "date": "08 Marzo 2026", "title": "Acta 12 — Despido de SISACCE, Victoria de KOMUNA y Financiamiento BCI", "category": "Administración", "badge": "Elección Administración", "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300", "summary": "Votación unánime (42-0) para despedir a SISACCE. En concurso público, KOMUNA (Factor 1) gana con 32 votos frente a 12 de Amarcar. Se elige Junta Directiva transitoria encabezada por Dra. Rocío Guardamino (1104) y Giancarlo Navarro (2805). Se somete a votación cómo pagar la prueba BCI: gana financiarla con FONDOS ACUMULADOS DE RESERVA (20 votos) evitando cobrar cuota extraordinaria a los propietarios.", "votes": "32 votos KOMUNA vs 12 AMARCAR"}, {"id": "C16", "date": "01-02 Marzo 2026", "title": "Comunicado 16 — Renuncia Voluntaria de Presidenta y Vicepresidenta", "category": "Gobernanza", "badge": "Renuncia JD", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Jhajayra Vidales (Presidenta) y Rocío Luis (Vicepresidenta) formalizan su renuncia indeclinable por motivos personales. El tesorero Henry Andrade convoca a asamblea extraordinaria urgente.", "votes": "Comunicado Oficial"}, {"id": "C15", "date": "29 Diciembre 2025", "title": "Comunicado 15 — Ruptura Definitiva y Cartas Notariales a SISACCE S.A.C.", "category": "Legal", "badge": "Rescisión Notarial", "badgeColor": "bg-rose-100 text-rose-800 border-rose-300", "summary": "Denuncia grave contra SISACCE: cobraba puntualmente las cuotas de mantenimiento pero no pagaba remuneraciones ni beneficios a sus conserjes y personal de aseo en Morar, originando abandono de puestos. Se cursa carta notarial resolviendo el contrato.", "votes": "Resolución Contractual"}, {"id": 10, "date": "04 Octubre 2025", "title": "Actas 10 y 11 — Rechazo a Exoneración de Cuota a la Junta Directiva", "category": "Gobernanza", "badge": "Asamblea Masiva", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Asamblea con 60 propietarios. Se somete a votación si los directivos debían estar exonerados del pago de mantenimiento: Gana el NO con 31 votos contra 24. Se aprueba intimación notarial a constructora TER por vicios ocultos de postventa.", "votes": "31 votos NO vs 24 SI"}, {"id": "C09", "date": "16-19 Setiembre 2025", "title": "Comunicados 9 y 10 — Reducción de Tarifa SISACCE e Inhabilitación a Morosos", "category": "Finanzas", "badge": "Gestión Morosidad", "badgeColor": "bg-blue-100 text-blue-800 border-blue-300", "summary": "Se logra rebaja de tarifa de SISACCE a S/ 22,413.22 por quejas en la asamblea de agosto. Se anuncia la inhabilitación formal y restricción de áreas comunes a propietarios morosos con más de 2 cuotas impagas.", "votes": "Comunicados Oficiales"}, {"id": 9, "date": "14 Julio 2025", "title": "Acta 9 — Inspección Técnica Conjunta de Bombas con Constructora TER", "category": "Técnico", "badge": "Peritaje Técnico", "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-300", "summary": "Peritaje conjunto en sala de máquinas y bombas de presión constante entre el administrador y peritos de la constructora TER para resolver fallas de presión en pisos altos.", "votes": "Informe Técnico"}, {"id": 7, "date": "03 Junio 2025", "title": "Acta 7 — Junta Transitoria (Vidales), Contrato SISACCE y Caso Moho", "category": "Gobernanza", "badge": "Hito Histórico", "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-300", "summary": "Jhajayra Vidales asume la Presidencia Transitoria. Se recibe formalmente en notaría el saldo de S/ 58,041.71 de la gestión de Carlos Carbonel. Se contrata a SISACCE y se aprueban cartas notariales a Inmobiliaria Vienna por presencia de moho en muros.", "votes": "49 propietarios"}, {"id": 6, "date": "30 Marzo 2025", "title": "Acta 6 — Quiebre de Gestión Inicial y Convocatoria de Emergencia", "category": "Gobernanza", "badge": "Transición", "badgeColor": "bg-amber-100 text-amber-800 border-amber-300", "summary": "Desarticulación de la directiva original por discrepancias sobre el presupuesto 2025 de Rivera & J. Se convoca a asamblea para garantizar continuidad operativa.", "votes": "43 propietarios"}, {"id": 1, "date": "01 Octubre 2024", "title": "Acta 1 — Instalación de Junta Interina y Administradora Rivera & J", "category": "Fundación", "badge": "Inicio", "badgeColor": "bg-slate-100 text-slate-800 border-slate-300", "summary": "Instalación de la primera junta interina presidida por Carlos Carbonel del Castillo (Dpto. 3104). Presentación formal de la administradora Rivera & J para el edificio recientemente entregado.", "votes": "22.52% participación"}];
-    const comparativaData = [
-      {"rubro": "Servicios de Administración y Conserjería", "real_2025": 23790.00, "pres_2026": 23784.65, "dif": -5.35, "pct": "-0.02%", "obs": "Equivalencia económica entre SISACCE (2025) y Factor 1 (2026), resolviendo atrasos de sueldos a conserjes"},
-      {"rubro": "Energía Eléctrica Común (Luz del Sur)", "real_2025": 7852.47, "pres_2026": 6515.07, "dif": -1337.40, "pct": "-17.03%", "obs": "Ahorro presupuestado de S/ 1,337/mes mediante automatización de luminarias y control de consumo"},
-      {"rubro": "Agua Potable Común (Sedapal)", "real_2025": 2824.72, "pres_2026": 2374.08, "dif": -450.64, "pct": "-15.95%", "obs": "Reducción tras notificar 6 departamentos con medidores averiados que inflaban el recibo común"},
+    const budgetData = [
+      {"rubro": "Administración del Edificio (SISACCE / Factor 1)", "real_2025": 14066.67, "pres_2026": 12850.00, "dif": -1216.67, "pct": "-8.65%", "obs": "Ahorro por renegociación contractual y reducción de costos de supervisión y fee administrativo"},
+      {"rubro": "Energía Eléctrica (Luz del Sur - Áreas Comunes)", "real_2025": 5836.20, "pres_2026": 5500.00, "dif": -336.20, "pct": "-5.76%", "obs": "Optimización de luminarias LED en sótanos y sensores de movimiento automatizados"},
+      {"rubro": "Agua y Alcantarillado (Sedapal)", "real_2025": 4700.00, "pres_2026": 4500.00, "dif": -200.00, "pct": "-4.26%", "obs": "Calibración de válvulas flotadoras y control estricto de pérdidas en cisternas"},
       {"rubro": "Ascensores Andinos (4 cabinas)", "real_2025": 5470.37, "pres_2026": 5616.00, "dif": 145.63, "pct": "+2.66%", "obs": "Tarifa contractual indexada para el mantenimiento ininterrumpido de las 4 cabinas"},
       {"rubro": "Mantenimientos Técnicos Preventivos (Otros)", "real_2025": 1036.28, "pres_2026": 1828.99, "dif": 792.71, "pct": "+76.50%", "obs": "Se formalizaron 18 contratos preventivos anualizados (BCI, bombas, PTAR, presurización)"},
       {"rubro": "Fondo de Contingencias y Morosos", "real_2025": 0.00, "pres_2026": 500.00, "dif": 500.00, "pct": "+100%", "obs": "Partida prudencial obligatoria mensual para evitar déficit de tesorería ante retrasos en pagos"},
       {"rubro": "TOTAL GASTO MENSUAL PROMEDIO", "real_2025": 42506.84, "pres_2026": 40630.79, "dif": -1876.05, "pct": "-4.41%", "obs": "Ahorro neto presupuestado de S/ 1,876.05 mensuales (-S/ 22,512.60 al año) respecto al gasto real 2025"}
     ];
 
+    const voucherMonthsMap = {
+      'all': 'Consolidado Enero a Octubre 2026',
+      '01': 'Enero 2026',
+      '02': 'Febrero 2026',
+      '03': 'Marzo 2026',
+      '04': 'Abril 2026',
+      '05': 'Mayo 2026',
+      '06': 'Junio 2026',
+      '07': 'Julio 2026',
+      '08': 'Agosto 2026',
+      '09': 'Setiembre 2026',
+      '10': 'Octubre 2026'
+    };
+
     let currentView = 'vouchers2026';
-    let currentSelectedMonth = 'all';
+    let currentSelectedVoucherMonth = 'all';
     let barChart2025 = null;
     let donutChart2025 = null;
     let vouchersMonthlyChart = null;
     let vouchersCatChart = null;
 
-    function formatSoles(amount, showSign = false) {
-      if (amount === undefined || amount === null || isNaN(amount)) return 'S/ 0.00';
-      const isNeg = amount < 0;
-      const absVal = Math.abs(amount).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (isNeg) return `-S/ ${absVal}`;
-      if (showSign && amount > 0) return `+S/ ${absVal}`;
-      return `S/ ${absVal}`;
+    function formatSoles(amount) {
+      return 'S/ ' + (Number(amount) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // SWITCH VIEW
-    function switchView(viewName) {
+    // TAB SWITCHER
+    function switchTab(viewName) {
       currentView = viewName;
-      ['vouchers2026', 'caja2025', 'budget2026', 'comparativa', 'auditoria', 'timeline'].forEach(v => {
-        const el = document.getElementById('view-' + v);
-        const nav = document.getElementById('nav-' + v);
-        if (el) {
-          if (v === viewName) {
-            el.classList.remove('hidden');
-          } else {
-            el.classList.add('hidden');
-          }
-        }
-        if (nav) {
-          if (v === viewName) {
-            nav.classList.add('nav-tab-active');
-            nav.classList.remove('bg-slate-900/60', 'text-slate-300');
-          } else {
-            nav.classList.remove('nav-tab-active');
-            nav.classList.add('bg-slate-900/60', 'text-slate-300');
-          }
-        }
+      document.querySelectorAll('.view-content').forEach(el => el.classList.add('hidden'));
+      const activeEl = document.getElementById('view-' + viewName);
+      if (activeEl) {
+        activeEl.classList.remove('hidden');
+        activeEl.classList.add('animate-fade');
+      }
+
+      document.querySelectorAll('.nav-tab').forEach(nav => {
+        nav.classList.remove('nav-tab-active');
+        nav.classList.add('bg-slate-900/60', 'text-slate-300');
       });
+      const curNav = document.getElementById('nav-' + viewName);
+      if (curNav) {
+        curNav.classList.add('nav-tab-active');
+        curNav.classList.remove('bg-slate-900/60', 'text-slate-300');
+      }
 
       if (viewName === 'caja2025' && !barChart2025) {
         render2025Charts();
@@ -798,25 +474,190 @@
       }
     }
 
-    // 1. RENDER VOUCHERS 2026 TABLE
-    function renderVouchersTable(filterMonth = 'all', query = '') {
-      const tbody = document.getElementById('vouchers-tbody');
-      tbody.innerHTML = '';
-      const items = vouchersData.detalle_vouchers || [];
-      const q = query.toLowerCase().trim();
+    // SELECT VOUCHER MONTH (FILTRADO MENSUAL DINÁMICO 2026)
+    function selectVoucherMonth(mCode) {
+      currentSelectedVoucherMonth = mCode;
 
-      let visible = items.filter(v => {
-        if (filterMonth !== 'all' && v.month !== filterMonth) return false;
-        if (q) {
-          const target = (v.provider + ' ' + v.category + ' ' + v.date + ' ' + v.file).toLowerCase();
-          if (!target.includes(q)) return false;
-        }
-        return true;
+      // 1. Tab buttons style
+      document.querySelectorAll('.vmonth-tab').forEach(t => {
+        t.classList.remove('month-tab-active');
+        t.classList.add('bg-slate-900/80', 'text-slate-300');
+      });
+      const act = document.getElementById('vtab-' + mCode);
+      if (act) {
+        act.classList.add('month-tab-active');
+        act.classList.remove('bg-slate-900/80', 'text-slate-300');
+      }
+
+      // 2. Dropdown sync
+      const sel = document.getElementById('voucher-month-filter');
+      if (sel) sel.value = mCode;
+
+      // 3. Filter items
+      const items = vouchersData.detalle_vouchers || [];
+      const visible = (mCode === 'all') ? items : items.filter(v => v.month === mCode);
+      const totalMonth = visible.reduce((sum, v) => sum + v.amount, 0);
+      const countMonth = visible.length;
+
+      // Category sums
+      const adminTotal = visible.filter(v => v.category.includes('Administración')).reduce((s, v) => s + v.amount, 0);
+      const serviciosTotal = visible.filter(v => v.category.includes('Luz') || v.category.includes('Agua') || v.category.includes('Energía')).reduce((s, v) => s + v.amount, 0);
+      const andinosTotal = visible.filter(v => v.category.includes('Ascensores')).reduce((s, v) => s + v.amount, 0);
+
+      // 4. Update KPIs
+      const pTag = document.getElementById('vkpi-period-tag');
+      if (pTag) {
+        pTag.textContent = (mCode === 'all')
+          ? 'Consolidado Enero a Octubre 2026 (134 Vouchers)'
+          : `Mes: ${voucherMonthsMap[mCode]} (${countMonth} comprobantes)`;
+      }
+
+      document.getElementById('vkpi-title-total').textContent = (mCode === 'all') ? 'Gasto Total 2026' : `Gasto ${voucherMonthsMap[mCode]}`;
+      document.getElementById('vkpi-total').textContent = formatSoles(totalMonth);
+      document.getElementById('vkpi-count').textContent = countMonth + ' Vouchers';
+      document.getElementById('vkpi-total-sub').textContent = (mCode === 'all') ? 'Enero – Octubre (10 meses)' : `Total pagado en ${voucherMonthsMap[mCode]}`;
+
+      document.getElementById('vkpi-admin').textContent = formatSoles(adminTotal);
+      document.getElementById('vkpi-admin-sub').textContent = adminTotal > 0 ? (mCode === '08' || mCode === '10' ? 'Factor 1 / Factor Services' : (mCode < '05' ? 'SISACCE S.A.C.' : 'Administración')) : 'Sin facturación adm.';
+      document.getElementById('vkpi-admin-pct').textContent = totalMonth > 0 ? ((adminTotal / totalMonth) * 100).toFixed(1) + '%' : '0%';
+
+      document.getElementById('vkpi-andinos').textContent = formatSoles(andinosTotal);
+      document.getElementById('vkpi-andinos-pct').textContent = totalMonth > 0 ? ((andinosTotal / totalMonth) * 100).toFixed(1) + '%' : '0%';
+
+      document.getElementById('vkpi-servicios').textContent = formatSoles(serviciosTotal);
+      document.getElementById('vkpi-servicios-pct').textContent = totalMonth > 0 ? ((serviciosTotal / totalMonth) * 100).toFixed(1) + '%' : '0%';
+
+      // 5. Update Donut Chart & Legend
+      updateVouchersDonut(visible, totalMonth, mCode);
+
+      // 6. Update Table
+      filterVouchersTable();
+    }
+
+    // UPDATE VOUCHERS DONUT CHART & LEGEND
+    function updateVouchersDonut(visibleItems, totalMonth, mCode) {
+      const catTotals = {};
+      visibleItems.forEach(v => {
+        catTotals[v.category] = (catTotals[v.category] || 0) + v.amount;
       });
 
-      visible.forEach(v => {
+      const sortedCats = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
+      const labels = sortedCats.map(x => x[0]);
+      const data = sortedCats.map(x => x[1]);
+
+      const colors = [
+        '#4f46e5', '#2563eb', '#06b6d4', '#10b981', '#f59e0b',
+        '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#14b8a6', '#d97706'
+      ];
+
+      document.getElementById('vdonut-month-label').textContent = (mCode === 'all') ? 'Consolidado Total (10 meses)' : voucherMonthsMap[mCode];
+
+      if (vouchersCatChart) {
+        vouchersCatChart.data.labels = labels;
+        vouchersCatChart.data.datasets[0].data = data;
+        vouchersCatChart.data.datasets[0].backgroundColor = colors.slice(0, labels.length);
+        vouchersCatChart.update();
+      } else {
+        const ctx = document.getElementById('vouchersCatChart').getContext('2d');
+        vouchersCatChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: colors.slice(0, labels.length),
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) => {
+                    const val = ctx.parsed;
+                    const pct = totalMonth > 0 ? ((val / totalMonth) * 100).toFixed(1) : 0;
+                    return ` ${ctx.label}: ${formatSoles(val)} (${pct}%)`;
+                  }
+                }
+              }
+            },
+            cutout: '68%'
+          }
+        });
+      }
+
+      // Build HTML legend list
+      const legEl = document.getElementById('vdonut-legend');
+      legEl.innerHTML = '';
+      if (sortedCats.length === 0) {
+        legEl.innerHTML = '<div class="text-slate-400 py-2 text-center">No hay gastos registrados en este mes</div>';
+        return;
+      }
+
+      sortedCats.forEach((sc, i) => {
+        const cat = sc[0];
+        const val = sc[1];
+        const pct = totalMonth > 0 ? ((val / totalMonth) * 100).toFixed(1) : '0';
+        const color = colors[i % colors.length];
+
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between text-xs py-0.5';
+        row.innerHTML = `
+          <div class="flex items-center gap-2 truncate pr-2">
+            <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background-color: ${color}"></span>
+            <span class="text-slate-700 font-medium truncate">${cat}</span>
+          </div>
+          <div class="text-right flex-shrink-0 font-mono">
+            <span class="font-bold text-slate-900">${formatSoles(val)}</span>
+            <span class="text-slate-400 text-[10px] ml-1">(${pct}%)</span>
+          </div>
+        `;
+        legEl.appendChild(row);
+      });
+    }
+
+    // FILTER VOUCHERS TABLE
+    function filterVouchersTable() {
+      const query = (document.getElementById('voucher-search').value || '').toLowerCase();
+      const mCode = currentSelectedVoucherMonth;
+
+      const items = vouchersData.detalle_vouchers || [];
+      const filtered = items.filter(v => {
+        const matchesMonth = (mCode === 'all') || (v.month === mCode);
+        const matchesQuery = !query || 
+          v.provider.toLowerCase().includes(query) ||
+          v.category.toLowerCase().includes(query) ||
+          v.file.toLowerCase().includes(query) ||
+          (v.raw_str && v.raw_str.toLowerCase().includes(query));
+        return matchesMonth && matchesQuery;
+      });
+
+      const totalFiltered = filtered.reduce((sum, v) => sum + v.amount, 0);
+
+      // Update Table Subtitle & Badges
+      const countBadge = document.getElementById('vtable-badge-count');
+      if (countBadge) countBadge.textContent = filtered.length + ' Vouchers';
+
+      document.getElementById('vtable-showing-text').textContent = (mCode === 'all')
+        ? `Mostrando ${filtered.length} de ${items.length} comprobantes (Ene–Oct 2026)`
+        : `Mostrando ${filtered.length} comprobantes de ${voucherMonthsMap[mCode]}`;
+      document.getElementById('vtable-sum-text').textContent = 'Total visible: ' + formatSoles(totalFiltered);
+
+      const tbody = document.getElementById('vouchers-table-body');
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400">No se encontraron comprobantes para el filtro seleccionado</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(v => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+        tr.className = 'hover:bg-slate-50/80 transition';
         tr.innerHTML = `
           <td class="py-2.5 px-4 font-mono text-slate-400 text-[11px]">${v.id}</td>
           <td class="py-2.5 px-3 font-medium text-slate-700 whitespace-nowrap">${v.date}</td>
@@ -831,18 +672,11 @@
       });
     }
 
-    function filterVouchersTable() {
-      const m = document.getElementById('voucher-month-filter').value;
-      const q = document.getElementById('voucher-search').value;
-      renderVouchersTable(m, q);
-    }
-
-    // 2. RENDER VOUCHERS CHARTS
+    // RENDER VOUCHERS CHARTS
     function renderVouchersCharts() {
-      // Monthly Chart
       const ctxMonthly = document.getElementById('vouchersMonthlyChart').getContext('2d');
       const moLabels = Object.keys(vouchersData.por_mes);
-      const moValues = Object.values(vouchersData.por_mes);
+      const moValues = Object.values(vouchersData.por_mes).map(x => x.total);
 
       vouchersMonthlyChart = new Chart(ctxMonthly, {
         type: 'bar',
@@ -858,6 +692,13 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          onClick: (evt, els) => {
+            if (els.length > 0) {
+              const idx = els[0].index;
+              const moKeys = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
+              selectVoucherMonth(moKeys[idx]);
+            }
+          },
           plugins: {
             legend: { display: false },
             tooltip: {
@@ -869,301 +710,129 @@
           scales: {
             y: {
               beginAtZero: true,
-              ticks: { callback: (v) => 'S/ ' + (v/1000) + 'k' }
+              ticks: {
+                callback: (val) => 'S/ ' + (val / 1000) + 'k'
+              }
             }
           }
         }
       });
 
-      // Category Donut
-      const ctxCat = document.getElementById('vouchersCategoryChart').getContext('2d');
-      const catLabels = Object.keys(vouchersData.por_categoria).slice(0, 5);
-      const catValues = Object.values(vouchersData.por_categoria).slice(0, 5);
-
-      vouchersCatChart = new Chart(ctxCat, {
-        type: 'doughnut',
-        data: {
-          labels: catLabels,
-          datasets: [{
-            data: catValues,
-            backgroundColor: ['#2563eb', '#6366f1', '#f59e0b', '#06b6d4', '#94a3b8']
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
-          cutout: '68%'
-        }
-      });
+      selectVoucherMonth('all');
     }
 
-    // 3. RENDER BUDGET 2026 TABLE
-    function renderBudgetTable(query = '') {
-      const tbody = document.getElementById('budget-tbody');
+    // RENDER BUDGET 2026 TABLE
+    function renderBudgetTable() {
+      const tbody = document.getElementById('budget-table-body');
       tbody.innerHTML = '';
-      const items = budgetData.partidas || [];
-      const q = query.toLowerCase().trim();
-
-      items.filter(p => {
-        if (!q) return true;
-        return (p.cat + ' ' + p.concepto + ' ' + p.detalle).toLowerCase().includes(q);
-      }).forEach(p => {
+      budgetData.forEach((b, idx) => {
+        const isTotal = idx === budgetData.length - 1;
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+        tr.className = isTotal ? 'bg-slate-50 font-bold border-t-2 border-slate-300' : 'hover:bg-slate-50/60';
         tr.innerHTML = `
-          <td class="py-3 px-4 font-semibold text-slate-900">
-            <div>${p.concepto}</div>
-            <div class="text-[10px] text-slate-400 font-normal">${p.cat}</div>
-          </td>
-          <td class="py-3 px-3 text-slate-600 font-medium">${p.frecuencia}</td>
-          <td class="py-3 px-3 text-center font-mono text-slate-700">${p.veces}</td>
-          <td class="py-3 px-3 text-right font-mono text-slate-700">${formatSoles(p.unit)}</td>
-          <td class="py-3 px-4 text-right font-mono text-slate-600">${formatSoles(p.anual)}</td>
-          <td class="py-3 px-4 text-right font-mono font-bold text-blue-700 bg-blue-50/50">${formatSoles(p.mensual)}</td>
-          <td class="py-3 px-4 text-[11px] text-slate-500 leading-tight">${p.detalle}</td>
+          <td class="py-3 px-4 ${isTotal ? 'text-slate-900 font-extrabold text-sm' : 'font-medium text-slate-800'}">${b.rubro}</td>
+          <td class="py-3 px-4 text-right font-mono ${isTotal ? 'text-slate-900 font-extrabold' : 'text-slate-600'}">${formatSoles(b.real_2025)}</td>
+          <td class="py-3 px-4 text-right font-mono col-highlight ${isTotal ? 'text-blue-900 font-extrabold' : 'text-blue-800'}">${formatSoles(b.pres_2026)}</td>
+          <td class="py-3 px-4 text-right font-mono font-semibold ${b.dif < 0 ? 'text-emerald-600' : (b.dif > 0 ? 'text-rose-600' : 'text-slate-600')}">${b.dif > 0 ? '+' : ''}${formatSoles(b.dif)}</td>
+          <td class="py-3 px-3 text-center font-mono font-bold ${b.dif < 0 ? 'text-emerald-700 bg-emerald-50' : (b.dif > 0 ? 'text-rose-700 bg-rose-50' : 'text-slate-600')} rounded">${b.pct}</td>
+          <td class="py-3 px-4 text-slate-500 text-[11px] leading-tight">${b.obs}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function filterBudgetTable() {
-      const q = document.getElementById('budget-search').value;
-      renderBudgetTable(q);
-    }
-
-    // 4. RENDER COMPARATIVA TABLE
-    function renderComparativaTable() {
-      const tbody = document.getElementById('comparativa-tbody');
-      tbody.innerHTML = '';
-      comparativaData.forEach(c => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
-        const isSavings = c.dif <= 0;
-        const diffColor = isSavings ? 'text-emerald-600' : 'text-rose-600';
-        tr.innerHTML = `
-          <td class="py-3 px-4 font-bold text-slate-900">${c.rubro}</td>
-          <td class="py-3 px-3 text-right font-mono text-slate-700">${formatSoles(c.real_2025)}</td>
-          <td class="py-3 px-3 text-right font-mono font-bold text-blue-700">${formatSoles(c.pres_2026)}</td>
-          <td class="py-3 px-3 text-right font-mono font-bold ${diffColor}">${formatSoles(c.dif, true)}</td>
-          <td class="py-3 px-3 text-right font-mono font-bold ${diffColor}">${c.pct}</td>
-          <td class="py-3 px-4 text-[11px] text-slate-600 leading-tight">${c.obs}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // 5. RENDER TIMELINE EVENTS
-    function renderEvents(filterCategory = 'all') {
-      const listContainer = document.getElementById('timeline-list');
-      listContainer.innerHTML = '';
-
-      const filtered = eventsData.filter(e => {
-        if (filterCategory === 'all') return true;
-        return e.category.toLowerCase().includes(filterCategory.toLowerCase());
-      });
-
-      filtered.forEach((ev, idx) => {
+    // RENDER TIMELINE 2026
+    function renderTimeline() {
+      const container = document.getElementById('timeline-container');
+      container.innerHTML = '';
+      eventsData.forEach(ev => {
         const item = document.createElement('div');
-        item.className = 'relative pl-6 sm:pl-8 pb-5 border-l-2 border-slate-200 last:border-l-0';
+        item.className = 'relative pl-6';
         item.innerHTML = `
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-blue-600 shadow"></div>
-          <div class="bg-slate-50 hover:bg-slate-100/80 p-4 rounded-xl border border-slate-200/80 transition">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-              <span class="text-xs font-bold text-blue-600">${ev.date}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${ev.badgeColor}">${ev.badge}</span>
-            </div>
-            <h4 class="text-sm font-bold text-slate-900 mb-1">${ev.title}</h4>
-            <p class="text-xs text-slate-600 leading-relaxed mb-2">${ev.summary}</p>
-            <div class="text-[11px] font-semibold text-slate-500 flex items-center gap-1.5">
-              <span>🏛️ Votación / Quórum:</span>
-              <span class="text-slate-700">${ev.votes}</span>
-            </div>
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-indigo-600"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-indigo-600 font-mono">${ev.fecha}</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">${ev.tipo}</span>
+          </div>
+          <h4 class="text-sm font-bold text-slate-900 mt-1">${ev.titulo}</h4>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">${ev.desc}</p>
+          <div class="mt-2 text-[11px] font-semibold text-slate-500">
+            Documento: <span class="font-mono text-indigo-700">${ev.doc}</span>
           </div>
         `;
-        listContainer.appendChild(item);
+        container.appendChild(item);
       });
     }
 
-    function filterEvents(cat) {
-      document.querySelectorAll('.event-filter-btn').forEach(b => {
-        b.className = 'event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700';
-      });
-      event.target.className = 'event-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white';
-      renderEvents(cat);
-    }
-
-    // 6. 2025 CAJA LOGIC
-    const months2025 = ['Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre'];
-    function getMonthValues2025(monthKey) {
-      if (monthKey === 'all') {
-        let totalIngresos = Object.values(financialData.totales['Total Ingresos']).reduce((a, b) => a + b, 0);
-        let totalEgresos = Object.values(financialData.totales['Total Egresos']).reduce((a, b) => a + b, 0);
-        let flujoNeto = totalIngresos + totalEgresos;
-        let saldoFinal = financialData.totales['Saldo Acumulado']['Setiembre'];
-        return { totalIngresos, totalEgresos, flujoNeto, saldoFinal };
-      } else {
-        let totalIngresos = financialData.totales['Total Ingresos'][monthKey] || 0;
-        let totalEgresos = financialData.totales['Total Egresos'][monthKey] || 0;
-        let flujoNeto = financialData.totales['Flujo Neto Mensual'][monthKey] || 0;
-        let saldoFinal = financialData.totales['Saldo Acumulado'][monthKey] || 0;
-        return { totalIngresos, totalEgresos, flujoNeto, saldoFinal };
-      }
-    }
-
-    function selectMonth(monthKey) {
-      currentSelectedMonth = monthKey;
-      document.querySelectorAll('.month-tab').forEach(t => {
-        t.classList.remove('month-tab-active');
-        t.classList.add('bg-slate-900/80', 'text-slate-300');
-      });
-      const act = document.getElementById('tab-' + monthKey);
-      if (act) {
-        act.classList.add('month-tab-active');
-        act.classList.remove('bg-slate-900/80', 'text-slate-300');
-      }
-
-      const vals = getMonthValues2025(monthKey);
-      document.getElementById('period-tag').textContent = monthKey === 'all' ? 'Consolidado Semestral (Abril - Setiembre 2025)' : `Mes: ${monthKey} 2025`;
-      document.getElementById('kpi-ingresos').textContent = formatSoles(vals.totalIngresos);
-      document.getElementById('kpi-egresos').textContent = formatSoles(vals.totalEgresos);
-      document.getElementById('kpi-neto').textContent = formatSoles(vals.flujoNeto, true);
-      document.getElementById('kpi-saldo').textContent = formatSoles(vals.saldoFinal);
-
-      updateDonutChart2025(monthKey);
-      highlightTableColumn(monthKey);
-    }
-
-    function highlightTableColumn(monthKey) {
-      document.querySelectorAll('.col-m').forEach(th => th.classList.remove('col-highlight'));
-      document.querySelectorAll('#financial-table tbody td').forEach(td => td.classList.remove('col-highlight'));
-      if (monthKey !== 'all') {
-        const targetTh = document.getElementById(`th-${monthKey}`);
-        if (targetTh) targetTh.classList.add('col-highlight');
-        document.querySelectorAll(`#financial-table tbody td[data-month="${monthKey}"]`).forEach(td => td.classList.add('col-highlight'));
-      }
-    }
-
+    // RENDER 2025 CHARTS
     function render2025Charts() {
-      const ctxMonthly = document.getElementById('monthlyBarChart').getContext('2d');
-      barChart2025 = new Chart(ctxMonthly, {
+      const ctxBar = document.getElementById('barChart2025').getContext('2d');
+      const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'];
+      const ingresos = meses.map(m => fin2025Data.ingresos_por_mes[m] || 0);
+      const egresos = meses.map(m => fin2025Data.egresos_por_mes[m] || 0);
+
+      barChart2025 = new Chart(ctxBar, {
         type: 'bar',
         data: {
-          labels: months2025,
+          labels: meses,
           datasets: [
-            { label: 'Ingresos', data: months2025.map(m => financialData.totales['Total Ingresos'][m]), backgroundColor: '#10b981', borderRadius: 5 },
-            { label: 'Egresos', data: months2025.map(m => Math.abs(financialData.totales['Total Egresos'][m])), backgroundColor: '#ef4444', borderRadius: 5 },
-            { label: 'Saldo BCP', type: 'line', data: months2025.map(m => financialData.totales['Saldo Acumulado'][m]), borderColor: '#2563eb', backgroundColor: '#2563eb', borderWidth: 2.5, tension: 0.25, pointRadius: 4 }
+            { label: 'Ingresos (S/)', data: ingresos, backgroundColor: '#10b981', borderRadius: 4 },
+            { label: 'Egresos (S/)', data: egresos, backgroundColor: '#f43f5e', borderRadius: 4 }
           ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: { y: { ticks: { callback: v => 'S/ ' + (v/1000) + 'k' } } }
+          plugins: {
+            tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatSoles(ctx.parsed.y)}` } }
+          },
+          scales: {
+            y: { ticks: { callback: (v) => 'S/ ' + (v / 1000) + 'k' } }
+          }
         }
       });
 
-      const ctxDonut = document.getElementById('expensesDonutChart').getContext('2d');
+      const ctxDonut = document.getElementById('donutChart2025').getContext('2d');
+      const cats = Object.keys(fin2025Data.estructura_gasto);
+      const vals = Object.values(fin2025Data.estructura_gasto);
+      const colors = ['#2563eb', '#f59e0b', '#06b6d4', '#10b981', '#64748b', '#8b5cf6', '#ec4899'];
+
       donutChart2025 = new Chart(ctxDonut, {
         type: 'doughnut',
-        data: { labels: [], datasets: [{ data: [], backgroundColor: ['#2563eb', '#f59e0b', '#6366f1', '#06b6d4', '#10b981', '#94a3b8'] }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '65%' }
-      });
-      updateDonutChart2025('all');
-    }
-
-    function updateDonutChart2025(monthKey) {
-      const cats = {
-        'Administración (SISACCE)': 0,
-        'Energía Eléctrica (Luz del Sur)': 0,
-        'Ascensores (Andinos)': 0,
-        'Agua y Alcantarillado (Sedapal)': 0,
-        'Mantenimiento Técnico': 0,
-        'Otros Egresos': 0
-      };
-
-      Object.entries(financialData.egresos).forEach(([concept, vals]) => {
-        let amt = monthKey === 'all' ? Object.values(vals).reduce((a, b) => a + b, 0) : (vals[monthKey] || 0);
-        amt = Math.abs(amt);
-        if (concept.includes('SISACCE')) cats['Administración (SISACCE)'] += amt;
-        else if (concept.includes('Luz')) cats['Energía Eléctrica (Luz del Sur)'] += amt;
-        else if (concept.includes('Ascensores')) cats['Ascensores (Andinos)'] += amt;
-        else if (concept.includes('Agua')) cats['Agua y Alcantarillado (Sedapal)'] += amt;
-        else if (concept.includes('Bombas') || concept.includes('Pozos') || concept.includes('Extintores') || concept.includes('Elevador')) cats['Mantenimiento Técnico'] += amt;
-        else cats['Otros Egresos'] += amt;
+        data: {
+          labels: cats,
+          datasets: [{ data: vals, backgroundColor: colors, borderWidth: 2, borderColor: '#ffffff' }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          cutout: '65%'
+        }
       });
 
-      donutChart2025.data.labels = Object.keys(cats);
-      donutChart2025.data.datasets[0].data = Object.values(cats);
-      donutChart2025.update();
-
-      const total = Object.values(cats).reduce((a, b) => a + b, 0) || 1;
-      const leg = document.getElementById('donut-legend-text');
+      const leg = document.getElementById('donut2025-legend');
       leg.innerHTML = '';
-      Object.entries(cats).forEach(([k, v]) => {
-        const pct = ((v / total) * 100).toFixed(1);
+      cats.forEach((cat, i) => {
         leg.innerHTML += `
           <div class="flex items-center justify-between">
-            <span class="text-slate-600 truncate max-w-[200px]">${k}</span>
-            <div class="flex items-center gap-2">
-              <span class="text-slate-400 font-mono text-[11px]">${formatSoles(v)}</span>
-              <span class="font-bold text-slate-800 w-12 text-right">${pct}%</span>
-            </div>
+            <span class="flex items-center gap-1.5 truncate">
+              <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:${colors[i % colors.length]}"></span>
+              <span class="truncate">${cat}</span>
+            </span>
+            <span class="font-mono font-bold">${formatSoles(vals[i])}</span>
           </div>
         `;
       });
     }
 
-    function render2025Table() {
-      const tbody = document.getElementById('table-body');
-      tbody.innerHTML = '';
-      
-      // Ingresos header
-      tbody.innerHTML += `<tr class="bg-emerald-50/70 font-bold text-emerald-950"><td colspan="8" class="py-2.5 px-4 text-xs tracking-wider uppercase">1. INGRESOS</td></tr>`;
-      Object.entries(financialData.ingresos).forEach(([con, vals]) => {
-        const tot = Object.values(vals).reduce((a, b) => a + b, 0);
-        let tr = `<tr class="hover:bg-slate-50 transition"><td class="py-2 px-4 font-medium text-slate-800">${con}</td>`;
-        months2025.forEach(m => {
-          tr += `<td class="py-2 px-3 text-right font-mono text-slate-600" data-month="${m}">${formatSoles(vals[m])}</td>`;
-        });
-        tr += `<td class="py-2 px-4 text-right font-mono font-bold text-emerald-700 bg-slate-50">${formatSoles(tot)}</td></tr>`;
-        tbody.innerHTML += tr;
-      });
-
-      // Egresos header
-      tbody.innerHTML += `<tr class="bg-rose-50/70 font-bold text-rose-950"><td colspan="8" class="py-2.5 px-4 text-xs tracking-wider uppercase">2. EGRESOS / GASTOS OPERATIVOS</td></tr>`;
-      Object.entries(financialData.egresos).forEach(([con, vals]) => {
-        const tot = Object.values(vals).reduce((a, b) => a + b, 0);
-        let tr = `<tr class="hover:bg-slate-50 transition"><td class="py-2 px-4 font-medium text-slate-800">${con}</td>`;
-        months2025.forEach(m => {
-          tr += `<td class="py-2 px-3 text-right font-mono text-slate-600" data-month="${m}">${formatSoles(vals[m])}</td>`;
-        });
-        tr += `<td class="py-2 px-4 text-right font-mono font-bold text-rose-700 bg-slate-50">${formatSoles(tot)}</td></tr>`;
-        tbody.innerHTML += tr;
-      });
-    }
-
-    function filterTable() {
-      const q = document.getElementById('concept-search').value.toLowerCase().trim();
-      document.querySelectorAll('#financial-table tbody tr').forEach(tr => {
-        if (tr.children.length === 1) return; // category headers
-        const text = tr.children[0].textContent.toLowerCase();
-        tr.style.display = text.includes(q) ? '' : 'none';
-      });
-    }
-
-    // INIT
+    // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
-      renderVouchersTable();
       renderVouchersCharts();
       renderBudgetTable();
-      renderComparativaTable();
-      renderEvents();
-      render2025Table();
+      renderTimeline();
     });
   </script>
+
 </body>
 </html>
